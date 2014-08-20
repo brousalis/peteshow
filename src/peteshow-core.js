@@ -202,7 +202,7 @@
     // save if found rules to reuse
     if(!$.isEmptyObject(reused)) {
       $.extend(saved, reused)
-      Peteshow.setSavedFields(JSON.stringify(saved))
+      Peteshow.setSavedFields(saved)
     }
 
     // apply saved rule values if they exist and on the right page
@@ -218,6 +218,8 @@
   }
 
   Peteshow.setSavedFields = function(data) {
+    data = JSON.stringify(data)
+
     if(_options.cookies)  $.cookie('peteshow', data, {domain: getDomain()})
     else                  localStorage.setItem('peteshow', data)
   }
