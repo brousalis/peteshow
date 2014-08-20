@@ -15,7 +15,7 @@ See the [Wiki on GitHub](https://github.com/brousalis/peteshow/wiki) for documen
 - [Change log](https://github.com/brousalis/peteshow/wiki/Change-log)
 
 Also specific pages for frameworks:
-- [Ruby on Rails](https://github.com/brousalis/peteshow/wiki/Ruby-on-Rails-gem)
+- [Ruby on Rails](https://github.com/brousalis/peteshow/wiki/Ruby-on-Rails)
 
 ## API
 
