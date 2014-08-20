@@ -22,7 +22,6 @@ test('fields are saved into cookies', function() {
   // field was saved
   ok($.cookie('peteshow') != null, 'cookie isnt null')
 
-  console.log($.cookie('peteshow'))
   var saved = Peteshow.storage.get();
 
   // saved values equal the initial values

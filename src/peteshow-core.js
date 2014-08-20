@@ -103,11 +103,9 @@
   Peteshow.fillOutForms = function() {
     var rules  = $.extend(true, getDefaultRules(), _options.rules || {})
 
-    $('input[type=checkbox]')
-      .filterFields()
-      .prop('checked', true)
+    $('input:checkbox').filterFields().prop('checked', true)
 
-    randomRadioValue()
+    $('input:radio').each(randomRadioValue)
 
     $('select').each(randomSelectValue)
 
@@ -174,7 +172,7 @@
     }
   }
 
-  randomSelectValue = function(i,select) {
+  randomSelectValue = function(i, select) {
     var options   = $(select).find('option'),
         filters   = _options.filter.toString().replace(new RegExp(',', 'g'), '|'),
         regex     = new RegExp('other|select'+(filters == '' ? '' : '|' + filters),'gi'),
@@ -195,8 +193,8 @@
       .change()
   }
 
-  randomRadioValue = function() {
-    var names = $('input:radio').map(function() {
+  randomRadioValue = function(i, radios) {
+    var names = $(radios).map(function() {
       return $(this).attr('name')
     })
 

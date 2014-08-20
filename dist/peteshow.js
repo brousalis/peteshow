@@ -1333,11 +1333,9 @@ Peteshow.storage = {};
   Peteshow.fillOutForms = function() {
     var rules  = $.extend(true, getDefaultRules(), _options.rules || {})
 
-    $('input[type=checkbox]')
-      .filterFields()
-      .prop('checked', true)
+    $('input:checkbox').filterFields().prop('checked', true)
 
-    randomRadioValue()
+    $('input:radio').each(randomRadioValue)
 
     $('select').each(randomSelectValue)
 
@@ -1404,7 +1402,7 @@ Peteshow.storage = {};
     }
   }
 
-  randomSelectValue = function(i,select) {
+  randomSelectValue = function(i, select) {
     var options   = $(select).find('option'),
         filters   = _options.filter.toString().replace(new RegExp(',', 'g'), '|'),
         regex     = new RegExp('other|select'+(filters == '' ? '' : '|' + filters),'gi'),
@@ -1425,8 +1423,8 @@ Peteshow.storage = {};
       .change()
   }
 
-  randomRadioValue = function() {
-    var names = $('input:radio').map(function() {
+  randomRadioValue = function(i, radios) {
+    var names = $(radios).map(function() {
       return $(this).attr('name')
     })
 
@@ -1446,10 +1444,6 @@ Peteshow.storage = {};
     return this.filter(function() {
       return _options.ignore.indexOf(this.name) === -1
     })
-  }
-
-  Peteshow.getOptions = function() {
-    return _options
   }
 
   Peteshow.submitForm = function() {

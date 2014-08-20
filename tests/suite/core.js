@@ -63,8 +63,6 @@ test('should have valid values from defaults after filling out forms', function(
 
 test('should ignore fields', function() {
   Peteshow.fillOutForms();
-
-  console.log($('input[name=phone]').val())
   equal(true, $('input[name=phone]').val() == '');
 });
 
