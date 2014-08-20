@@ -19,15 +19,15 @@ Also specific pages for frameworks:
 
 ## API
 
-#### Peteshow.init()
+#### `Peteshow.init()`
 
 Adds the seen above menu to the top left of your page. Press backtick <code>`</code> to toggle the menu.
 
-#### Peteshow.fillOutForms()
+#### `Peteshow.fillOutForms()`
 
 Using the [default ruleset](https://github.com/brousalis/peteshow/blob/master/src/peteshow-core.js#L2), fills out inputs, checkboxes, selects, and radio buttons. While the menu is open, press `f` to call this method.
 
-#### Peteshow.fillOutFormsAndSubmit()
+#### `Peteshow.fillOutFormsAndSubmit()`
 
 Does the same as above, but also submits the form. Press `q` to call this method.
 
