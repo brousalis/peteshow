@@ -1,6 +1,6 @@
 # Peteshow
 
-> a customizable framework for filling out forms with fake data
+> a customizable javascript framework for filling out forms with fake data
 
 
 ![Imgur](http://i.imgur.com/JcT5eMS.png)
@@ -31,6 +31,8 @@ Using the [default ruleset](https://github.com/brousalis/peteshow/blob/master/sr
 
 Does the same as above, but also submits the form. Press `q` to call this method.
 
+---
+
 It also has several other methods exposed:
 
 Methods             | Description
@@ -47,7 +49,7 @@ Methods             | Description
 `randomNumber(length)`        | Returns a random number, you can pass an optional prefix
 `randomNumberRange(min,max)`  | Returns a number between `min` and `max`
 
-To access the stored values used in the `reuse` option, use `Peteshow.storage`:
+To access the stored values used in the [reuse](https://github.com/brousalis/peteshow/wiki/Custom-plugins#reuse) option, use `Peteshow.storage`:
 
 Methods             | Description
 --------------------|------------------------------------------------
@@ -79,6 +81,16 @@ $(function() {
   Peteshow.init(options)
 })
 ```
+
+Name                  |  Description
+----------------------|---------------------------------------------------------------
+[rules](https://github.com/brousalis/peteshow/wiki/Custom-plugins#rules)       | A hash of selectors to values that you want to be used when filling out forms. It ignores hidden inputs
+[special](https://github.com/brousalis/peteshow/wiki/Custom-plugins#special)   | Called after the rules are applied and can include custom javascript
+[ignore](https://github.com/brousalis/peteshow/wiki/Custom-plugins#ignore)     | An array of input IDs you wish to have fill out forms ignore
+[force](https://github.com/brousalis/peteshow/wiki/Custom-plugins#force)       | Similar to rules, but can be used for hidden inputs
+[filters](https://github.com/brousalis/peteshow/wiki/Custom-plugins#filter)    | Filters out options from select boxes
+[reuse](https://github.com/brousalis/peteshow/wiki/Custom-plugins#reuse)       | Define input selectors to be saved and reused on certain URLs
+[events](https://github.com/brousalis/peteshow/wiki/Custom-plugins#events)     | Used in the off chance you need to add extra javascript on Peteshow's init
 
 ### Further notes
 [![enova](https://www.enova.com/wp-content/uploads/2014/01/Enova-logo.jpg)](http://www.enova.com)
