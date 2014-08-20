@@ -35,9 +35,6 @@ It also has several other methods exposed:
 
 Methods             | Description
 --------------------|------------------------------------------------
-`clearSaved()`                | Clears saved fields from cookies and localstorage
-`getSavedFields()`            | Prints out the saved fields used in the `reuse` option
-`setSavedFields(hash)`        | Sets either cookie or localstorage, takes a hash
 `submitForm()`                | Submits the form on the page, can be customized using init options
 `destroy()`                   | Removes the Peteshow menu from the dom
 `hide()`                      | Hides the Peteshow menu
@@ -49,6 +46,9 @@ Methods             | Description
 `randomLetters(length)`       | Returns random letters
 `randomNumber(length, prefix)`| Returns a random number, prefix optional
 `randomNumberRange(min,max)`  | Returns a number between `min` and `max`
+`storage.clear()`             | Clears saved fields from cookies and localstorage
+`storage.get()`               | Prints out the saved fields used in the `reuse` option
+`storage.set(hash)`           | Sets either cookie or localstorage, takes a hash
 
 ## Default options
 
