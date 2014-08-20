@@ -1093,6 +1093,8 @@ Peteshow.defaults = {
   events      : function(){},
 }
 
+Peteshow.storage = {};
+
 window.Peteshow = Peteshow;
 
 +function($) {
@@ -1155,8 +1157,6 @@ window.Peteshow = Peteshow;
   }
 
 }(jQuery)
-
-Peteshow.storage = {};
 
 +function($) {
   var cookies = false

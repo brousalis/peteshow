@@ -17,4 +17,6 @@ Peteshow.defaults = {
   events      : function(){},
 }
 
+Peteshow.storage = {};
+
 window.Peteshow = Peteshow;

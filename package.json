@@ -1,6 +1,6 @@
 {
   "name": "peteshow",
-  "version": "0.8.4",
+  "version": "0.8.5",
   "description": "Plugin for filling out forms with fake data for testing purposes",
   "keywords": [
     "filler",
