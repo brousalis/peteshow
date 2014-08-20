@@ -35,7 +35,7 @@ It also has several other methods exposed:
 
 Methods             | Description
 --------------------|------------------------------------------------
-`submitForm()`                | Submits the form on the page, can be customized using init options
+`submitForm()`                | Submits the form on the page, can be customized
 `destroy()`                   | Removes the Peteshow menu from the dom
 `hide()`                      | Hides the Peteshow menu
 `show()`                      | Shows the Peteshow menu
@@ -44,8 +44,13 @@ Methods             | Description
 `randomDate(format)`          | Returns a random date string
 `randomEmail()`               | Returns a random email, customized using init options
 `randomLetters(length)`       | Returns random letters
-`randomNumber(length, prefix)`| Returns a random number, prefix optional
+`randomNumber(length)`        | Returns a random number, you can pass an optional prefix
 `randomNumberRange(min,max)`  | Returns a number between `min` and `max`
+
+To access the stored values used in the `reuse` option, use `Peteshow.storage`:
+
+Methods             | Description
+--------------------|------------------------------------------------
 `storage.clear()`             | Clears saved fields from cookies and localstorage
 `storage.get()`               | Prints out the saved fields used in the `reuse` option
 `storage.set(hash)`           | Sets either cookie or localstorage, takes a hash
@@ -74,8 +79,6 @@ $(function() {
   Peteshow.init(options)
 })
 ```
-
-
 
 ### Further notes
 [![enova](https://www.enova.com/wp-content/uploads/2014/01/Enova-logo.jpg)](http://www.enova.com)
