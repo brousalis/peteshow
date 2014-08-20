@@ -84,6 +84,11 @@ $(function() {
 
 Name                  |  Description
 ----------------------|---------------------------------------------------------------
+`emailPrefix`  | Prefix for your generated email addresses. Random numbers are added to the end
+`emailDomain`  | The domain for your generated email addresses
+`form`         | The selector of the form/forms you want to be filled out, defaults to last form on page
+`blur`         | Triggers blur() event after filling out an input
+`cookies`      | Store saved fields (from [reuse](https://github.com/brousalis/peteshow/wiki/Custom-plugins#reuse)) in cookies rather than localStorage
 [rules](https://github.com/brousalis/peteshow/wiki/Custom-plugins#rules)       | A hash of selectors to values that you want to be used when filling out forms. It ignores hidden inputs
 [special](https://github.com/brousalis/peteshow/wiki/Custom-plugins#special)   | Called after the rules are applied and can include custom javascript
 [ignore](https://github.com/brousalis/peteshow/wiki/Custom-plugins#ignore)     | An array of input IDs you wish to have fill out forms ignore
