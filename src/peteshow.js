@@ -7,14 +7,14 @@ Peteshow.defaults = {
   blur        : false,
   cookies     : false,
 
-  rules     : {},
-  ignore    : [],
-  filter    : [],
-  force     : {},
-  reuse     : {},
-  commands  : '',
-  special   : function(){},
-  events    : function(){},
+  rules       : {},
+  ignore      : [],
+  filter      : [],
+  force       : {},
+  reuse       : {},
+  commands    : '',
+  special     : function(){},
+  events      : function(){},
 }
 
 window.Peteshow = Peteshow;

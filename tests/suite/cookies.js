@@ -9,7 +9,7 @@ module('reusing values from cookies', {
   },
   teardown: function() {
     Peteshow.destroy();
-    Peteshow.clearCookies();
+    Peteshow.storage.clear();
   }
 });
 
@@ -23,7 +23,7 @@ test('fields are saved into cookies', function() {
   ok($.cookie('peteshow') != null, 'cookie isnt null')
 
   console.log($.cookie('peteshow'))
-  var saved = Peteshow.getSavedFields();
+  var saved = Peteshow.storage.get();
 
   // saved values equal the initial values
   equal(saved[field], input, 'saved value equals initial input');

@@ -20,6 +20,10 @@ module('core plugin', {
   }
 });
 
+test('should be defined on window', function() {
+  equal(true, $.isPlainObject(Peteshow), 'window.Peteshow exists');
+});
+
 test('should have been added to the dom', function() {
   equal(1, $('#peteshow').length, 'peteshow exists')
 });

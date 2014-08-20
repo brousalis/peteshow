@@ -24,6 +24,7 @@ module.exports = function(grunt) {
       srcFiles : [
         'src/peteshow.js',
         'src/peteshow-helpers.js',
+        'src/peteshow-storage.js',
         'src/peteshow-core.js'
       ]
     },

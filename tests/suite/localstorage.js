@@ -8,7 +8,7 @@ module('reusing values from localstorage', {
   },
   teardown: function() {
     Peteshow.destroy();
-    Peteshow.clearLocalStorage();
+    Peteshow.storage.clear();
   }
 });
 
@@ -21,7 +21,7 @@ test('fields are saved into localstorage', function() {
   // field was saved
   ok(localStorage.getItem('peteshow') != null, 'localstorge isnt null')
 
-  var saved = Peteshow.getSavedFields();
+  var saved = Peteshow.storage.get();
 
   // saved values equal the initial values
   equal(saved[field], input, 'saved value equals initial input');

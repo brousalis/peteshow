@@ -47,30 +47,9 @@
 
     $('body').append($div)
 
-    initCommands()
-  }
+    Peteshow.initCommands()
 
-  Peteshow.destroy = function() {
-    Peteshow.hide()
-    $div.remove();
-  }
-
-  Peteshow.hide = function() {
-    $div.hide()
-    $div.removeClass('active')
-  }
-
-  Peteshow.toggle = function() {
-    $tools.toggle()
-    $div.toggleClass('active')
-  }
-
-  Peteshow.show = function() {
-    $div.show()
-    $tools.show()
-
-    if(!$div.hasClass('active'))
-      $div.addClass('active')
+    Peteshow.storage.init(_options)
   }
 
   handleKeypress = function(e) {
@@ -94,10 +73,10 @@
       action.click()
   }
 
-  initCommands = function() {
+  Peteshow.initCommands = function() {
     var base =  "<li><a data-command='F' href='#' id='fill-out-forms'>Fill Out Forms</a></li>"
         base += "<li><a data-command='Q' href='#' id='fill-out-forms-and-submit'>Fill Out and Submit</a></li>"
-        base += outputSavedFields()
+        base += Peteshow.storage.output()
         base += "<li><a data-command='H' href='#' id='hide-peteshow'>Hide</a></li>"
 
     $commands.html(_options.commands + base)
@@ -107,7 +86,7 @@
       [ $toggle,                          Peteshow.toggle ],
       [ $('#fill-out-forms'),             Peteshow.fillOutForms ],
       [ $('#fill-out-forms-and-submit'),  Peteshow.fillOutFormsAndSubmit ],
-      [ $('#clear'),                      Peteshow.clearSaved ],
+      [ $('#clear'),                      Peteshow.storage.clear ],
       [ $('#hide-peteshow'),              Peteshow.hide ]
     ]
 
@@ -115,35 +94,14 @@
       var command = $(this)
       $(command[0]).on('click', function() {
         command[1](); return false
-      });
-    });
+      })
+    })
 
     _options.events()
   }
 
-  handleKeypress = function(e) {
-    var key  = (typeof e.which == 'number') ? e.which : e.keyCode,
-        code = String.fromCharCode(e.keyCode)
-
-    if(e.ctrlKey) code = 'ctrl_'+code
-    if(e.altKey || (e.originalEvent && e.originalEvent.metaKey)) code = 'alt_'+code
-    if(e.shiftKey) code = 'shift_'+code
-    if($.inArray(e.keyCode, [9,16,17,18,91,93,224]) != -1) return
-    if(e.metaKey) return
-
-    if(e.keyCode == 192) // backtick
-      Peteshow.toggle()
-
-    var action  = $("[data-command='"+code+"']"),
-        visible = $tools.is(':visible')
-
-    if(action.length > 0 && visible) action.click()
-  }
-
   Peteshow.fillOutForms = function() {
-    var rules   = $.extend(true, getDefaultRules(), _options.rules || {})
-        reused  = {},
-        saved   = Peteshow.getSavedFields()
+    var rules  = $.extend(true, getDefaultRules(), _options.rules || {})
 
     $('input[type=checkbox]')
       .filterFields()
@@ -159,8 +117,7 @@
         .filterFields()
         .val($.isFunction(v) ? v() : v)
 
-      if(_options.blur)
-        $(element).blur()
+      if(_options.blur) $(element).blur()
     })
 
     // fill out fields with rules
@@ -182,7 +139,7 @@
 
   reuseLocalStorage = function() {
     var reused  = {},
-        saved   = Peteshow.getSavedFields()
+        saved   = Peteshow.storage.get()
 
     $.each(_options.reuse, function(element,v) {
       var url = _options.reuse[element]
@@ -202,80 +159,19 @@
     // save if found rules to reuse
     if(!$.isEmptyObject(reused)) {
       $.extend(saved, reused)
-      Peteshow.setSavedFields(saved)
+      Peteshow.storage.set(saved)
     }
 
     // apply saved rule values if they exist and on the right page
     if(savedFieldsExist()) {
-      $.each(Peteshow.getSavedFields(), function(element,v) {
+      $.each(Peteshow.storage.get(), function(element,v) {
         var url = _options.reuse[element]
         if(window.location.href.indexOf(url) > -1) $(element).val(v)
       })
 
       // redraw menu
-      initCommands()
+      Peteshow.initCommands()
     }
-  }
-
-  Peteshow.setSavedFields = function(data) {
-    data = JSON.stringify(data)
-
-    if(_options.cookies)  $.cookie('peteshow', data, {domain: getDomain()})
-    else                  localStorage.setItem('peteshow', data)
-  }
-
-  Peteshow.getSavedFields = function() {
-    var saved = _options.cookies ? $.cookie('peteshow') : localStorage.getItem('peteshow')
-    return (saved != undefined || saved != null) ? JSON.parse(saved) : {}
-  }
-
-  outputSavedFields = function() {
-    var base = ''
-
-    if(savedFieldsExist()) {
-      base += "<li class='list'>"
-        base += "<div class='inner'>"
-          $.each(Peteshow.getSavedFields(), function(k,v) {
-            base += '<div>' + k + '<span>' + v + '</span></div>'
-          })
-        base += "</div>"
-      base += "</li>"
-      base += "<li><a data-command='R' href='#' id='clear'>Clear stored</a></li>"
-    }
-
-    return base
-  }
-
-  savedFieldsExist = function() {
-    var saved = _options.cookies ? $.cookie('peteshow') : localStorage.getItem('peteshow')
-    return saved != undefined || saved != null
-  }
-
-  getDomain = function() {
-    // http://rossscrivener.co.uk/blog/javascript-get-domain-exclude-subdomain
-    var i=0, domain=document.domain, p=domain.split('.'), s='_gd'+(new Date()).getTime();
-    while(i<(p.length-1) && document.cookie.indexOf(s+'='+s)==-1){
-      domain = p.slice(-1-(++i)).join('.');
-      document.cookie = s+"="+s+";domain="+domain+";";
-    }
-    document.cookie = s+"=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain="+domain+";";
-    return domain == 'localhost' ? '' : domain;
-  }
-
-  Peteshow.clearSaved = function() {
-    Peteshow.clearLocalStorage()
-    Peteshow.clearCookies()
-    initCommands()
-  }
-
-  Peteshow.clearLocalStorage = function() {
-    localStorage.removeItem('peteshow')
-    initCommands()
-  }
-
-  Peteshow.clearCookies = function() {
-    $.removeCookie('peteshow', {domain: getDomain()})
-    initCommands()
   }
 
   randomSelectValue = function(i,select) {
@@ -289,7 +185,7 @@
 
       if(value.match(regex) == null && value != '')
         filtered.push(value)
-    });
+    })
 
     var random = Math.floor(Math.random() * filtered.length)
 
@@ -322,11 +218,15 @@
     })
   }
 
+  Peteshow.getOptions = function() {
+    return _options
+  }
+
   Peteshow.submitForm = function() {
     $(_options.form).submit()
     $('form[name*=registration], .simple_form').submit()
     $('form').last().submit()
-  };
+  }
 
   Peteshow.fillOutFormsAndSubmit = function() {
     Peteshow.fillOutForms()
@@ -335,7 +235,7 @@
 
   Peteshow.destroy = function() {
     Peteshow.hide()
-    $div.remove();
+    $div.remove()
   }
 
   Peteshow.hide = function() {
@@ -351,9 +251,11 @@
   Peteshow.show = function() {
     $div.show()
     $tools.show()
-    if(!$div.hasClass('active')) $div.addClass('active')
+
+    if(!$div.hasClass('active'))
+      $div.addClass('active')
   }
 
-  $(document).keydown(handleKeypress);
+  $(document).keydown(handleKeypress)
 }(jQuery)
 
