@@ -25,7 +25,7 @@ Adds the seen above menu to the top left of your page. Press backtick <code>`</c
 
 #### `Peteshow.fillOutForms()`
 
-Using the [default ruleset](https://github.com/brousalis/peteshow/blob/master/src/peteshow-core.js#L2), fills out inputs, checkboxes, selects, and radio buttons. While the menu is open, press `f` to call this method.
+Using the [default rules](https://github.com/brousalis/peteshow/blob/master/src/peteshow-core.js#L2), fills out inputs, checkboxes, selects, and radio buttons. While the menu is open, press `f` to call this method.
 
 #### `Peteshow.fillOutFormsAndSubmit()`
 
