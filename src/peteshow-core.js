@@ -218,10 +218,6 @@
     })
   }
 
-  Peteshow.getOptions = function() {
-    return _options
-  }
-
   Peteshow.submitForm = function() {
     $(_options.form).submit()
     $('form[name*=registration], .simple_form').submit()
