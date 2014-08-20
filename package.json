@@ -1,0 +1,43 @@
+{
+  "name": "peteshow",
+  "version": "0.8.4",
+  "description": "Plugin for filling out forms with fake data for testing purposes",
+  "keywords": [
+    "filler",
+    "forms",
+    "inputs"
+  ],
+  "homepage": "http://github.com/brousalis/peteshow/",
+  "author": {
+    "name": "Pete Brousalis",
+    "email": "brousapg@gmail.com",
+    "url": "http://brousalis.com/"
+  },
+  "main": "dist/peteshow.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brousalis/peteshow"
+  },
+  "bugs": {
+    "url": "https://github.com/brousalis/peteshow/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/brousalis/peteshow/blob/master/license.txt"
+    }
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "^0.4.0",
+    "grunt-contrib-watch": "^0.6.0",
+    "grunt-contrib-connect": "^0.7.0",
+    "grunt-contrib-concat": "^0.4.0",
+    "grunt-closure-tools": "^0.9.0",
+    "grunt-contrib-uglify": "^0.4.0",
+    "grunt-contrib-cssmin": "~0.6.1",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-clean": "~0.4.1",
+    "grunt-contrib-qunit": "0.4.x"
+  }
+}
