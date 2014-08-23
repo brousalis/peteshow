@@ -1,5 +1,3 @@
-Peteshow.storage = {};
-
 +function($) {
   var cookies = false
 
