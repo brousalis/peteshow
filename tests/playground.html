@@ -195,7 +195,8 @@
     <script>
       Peteshow.init({
         cookies: true,
-        reuse: { 'input[name*=first_name]': '/tests' }
+        reuse: { 'input[name*=first_name]': '/tests' },
+        ignore : ['input[name*=name]', '#qunit-modulefilter']
       })
     </script>
   </body>

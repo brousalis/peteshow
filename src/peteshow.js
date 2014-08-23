@@ -8,7 +8,6 @@ Peteshow.defaults = {
   cookies     : false,
 
   rules       : {},
-  ignore      : [],
   filter      : [],
   force       : {},
   reuse       : {},

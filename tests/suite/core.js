@@ -12,7 +12,7 @@ module('core plugin', {
         'input[name*=middle_name]'  : Faker.Name.firstName(),
         'input[name*=custom_name]'  : function() { return 'Custom' },
       },
-      ignore  : ['phone', 'input[name=phone]', '#qunit-modulefilter'],
+      ignore : ['input[name=phone]', '#qunit-modulefilter'],
     });
   },
   teardown: function() {

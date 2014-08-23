@@ -212,7 +212,13 @@
 
   $.fn.filterFields = function() {
     return this.filter(function() {
-      return _options.ignore.indexOf(this.name) === -1
+      var element = this, ignored = false
+
+      $.each(_options.ignore, function(i,v) {
+        if($(element).is(v)) ignored = true
+      });
+
+      return !ignored
     })
   }
 
