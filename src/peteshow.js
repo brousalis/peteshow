@@ -18,4 +18,5 @@ Peteshow.defaults = {
 
 Peteshow.storage = {};
 
-window.Peteshow = Peteshow;
+module.exports = window.Peteshow = Peteshow;
+
