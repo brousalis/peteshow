@@ -44,7 +44,7 @@ module.exports = function(grunt) {
 
     cssmin: {
       min_peteshow_css: {
-        src: 'src/css/peteshow.css', dest: 'dist/peteshow.css',
+        src: 'src/css/peteshow.scss', dest: 'dist/peteshow.css',
       }
     },
 
