@@ -24,8 +24,7 @@ var BASE_SRC_PATH    = path.join(__dirname, 'src'),
     BASE_DIST_PATH   = path.join(__dirname, 'dist'),
     BASE_LIB_PATH    = path.join(__dirname, 'lib'),
     BASE_JS_PATH     = path.join(BASE_SRC_PATH, 'js'),
-    BASE_CSS_PATH    = path.join(BASE_SRC_PATH, 'css'),
-    BASE_VENDOR_PATH = path.join(__dirname, 'css');
+    BASE_CSS_PATH    = path.join(BASE_SRC_PATH, 'css');
 
 // Task paths
 var paths = {
