@@ -1,11 +1,9 @@
 // Gulpfile.js
 // Require the needed packages
 var browserify   = require('browserify'),
-    colors       = require('colors'),
     del          = require('del'),
     gulp         = require('gulp'),
     gutil        = require('gulp-util'),
-    marked       = require('marked'),
     minifycss    = require('gulp-minify-css'),
     path         = require('path'),
     plumber      = require('gulp-plumber'),
@@ -20,16 +18,16 @@ var browserify   = require('browserify'),
     watch        = require('gulp-watch');
 
 // Base paths
-var BASE_SRC_PATH    = path.join(__dirname, 'src'),
-    BASE_DIST_PATH   = path.join(__dirname, 'dist'),
-    BASE_LIB_PATH    = path.join(__dirname, 'lib'),
-    BASE_JS_PATH     = path.join(BASE_SRC_PATH, 'js'),
-    BASE_CSS_PATH    = path.join(BASE_SRC_PATH, 'css');
+var BASE_SRC_PATH        = path.join(__dirname, 'src'),
+    BASE_DIST_PATH       = path.join(__dirname, 'dist'),
+    BASE_LIB_ASSETS_PATH = path.join(__dirname, 'lib', 'assets'),
+    BASE_JS_PATH         = path.join(BASE_SRC_PATH),
+    BASE_CSS_PATH        = path.join(BASE_SRC_PATH, 'css');
 
 // Task paths
 var paths = {
   input: {
-    css: path.join(BASE_SRC_PATH, 'css', 'peteshow.scss'),
+    css: path.join(BASE_CSS_PATH, 'peteshow.scss'),
 
     js: {
       vendor: [
@@ -40,22 +38,22 @@ var paths = {
       ],
 
       src: [
-        path.join(BASE_SRC_PATH, 'peteshow.js'),
-        path.join(BASE_SRC_PATH, 'peteshow-helpers.js'),
-        path.join(BASE_SRC_PATH, 'peteshow-storage.js'),
-        path.join(BASE_SRC_PATH, 'peteshow-core.js')
+        path.join(BASE_JS_PATH, 'peteshow.js'),
+        path.join(BASE_JS_PATH, 'peteshow-helpers.js'),
+        path.join(BASE_JS_PATH, 'peteshow-storage.js'),
+        path.join(BASE_JS_PATH, 'peteshow-core.js')
       ]
     },
 
     dist: [
-      path.join(BASE_LIB_PATH, 'assets', '**', '*.js'),
-      path.join(BASE_LIB_PATH, 'assets', '**', '*.css')
+      path.join(BASE_LIB_ASSETS_PATH, '**', '*.js'),
+      path.join(BASE_LIB_ASSETS_PATH, '**', '*.css')
     ],
   },
 
   output: {
-    css : path.join(BASE_LIB_PATH, 'assets', 'stylesheets'),
-    js  : path.join(BASE_LIB_PATH, 'assets', 'javascripts'),
+    css : path.join(BASE_LIB_ASSETS_PATH, 'stylesheets'),
+    js  : path.join(BASE_LIB_ASSETS_PATH, 'javascripts'),
     dist: BASE_DIST_PATH
   },
 
@@ -66,7 +64,7 @@ var paths = {
 
   clean: [
     path.join(BASE_DIST_PATH, '**', '*'),
-    path.join(BASE_LIB_PATH, 'assets', '**', '*')
+    path.join(BASE_LIB_ASSETS_PATH, '**', '*')
   ],
 
   test: [ 'tests/index.html' ]
