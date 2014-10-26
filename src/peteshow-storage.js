@@ -1,4 +1,4 @@
-+function($) {
+module.exports = +function($) {
   var cookies = false
 
   Peteshow.storage.init = function(options) {

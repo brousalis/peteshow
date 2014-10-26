@@ -1,4 +1,4 @@
-+function($) {
+module.exports = +function($) {
   getDefaultRules = function() {
     return {
       'input[type=password]'      : 'password',

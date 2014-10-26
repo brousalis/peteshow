@@ -1,4 +1,4 @@
-+function($) {
+module.exports = +function($) {
   Peteshow.randomChars = function (length, chars) {
     var string = ''
 
