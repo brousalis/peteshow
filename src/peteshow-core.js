@@ -122,6 +122,7 @@ module.exports = +function($) {
     $.each(rules, function(element,v) {
       $(element)
         .filter(':visible')
+        .filter('input:not(:checked)')
         .filterFields()
         .val($.isFunction(v) ? v() : v)
 
