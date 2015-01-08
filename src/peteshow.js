@@ -16,7 +16,8 @@ Peteshow.defaults = {
   events      : function(){},
 }
 
-Peteshow.storage = {};
+exports = module.exports = window.Peteshow = Peteshow;
 
-module.exports = window.Peteshow = Peteshow;
-
+module.exports.core    = require('./peteshow-core.js');
+module.exports.helpers = require('./peteshow-helpers.js');
+module.exports.storage = require('./peteshow-storage.js');
