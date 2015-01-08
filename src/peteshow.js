@@ -9,6 +9,7 @@ Peteshow.defaults = {
 
   rules       : {},
   filter      : [],
+  ignore      : [],
   force       : {},
   reuse       : {},
   commands    : '',
