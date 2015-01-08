@@ -129,13 +129,17 @@ gulp.task('clean', function() {
 
 //
 // Watch
-gulp.task('watch', ['default'], function() {
+gulp.task('watch', ['pre-watch'], function() {
   watch(paths.watch.css, function(files, cb) {
     gulp.start('css', cb);
   });
   watch(paths.watch.js, function(files, cb) {
     gulp.start('js', cb);
   });
+});
+
+gulp.task('pre-watch', ['css', 'js', 'dist'], function(callback){
+  runSequence('clean', ['css', 'js'], 'dist', callback);
 });
 
 //
