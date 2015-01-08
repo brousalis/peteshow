@@ -31,17 +31,13 @@ var paths = {
 
     js: {
       vendor: [
-        'jquery',
-        'jquery.cookie',
+        'faker',
         'jquery-formatdatetime',
-        'faker'
+        'jquery.cookie'
       ],
 
       src: [
-        path.join(BASE_JS_PATH, 'peteshow.js'),
-        path.join(BASE_JS_PATH, 'peteshow-helpers.js'),
-        path.join(BASE_JS_PATH, 'peteshow-storage.js'),
-        path.join(BASE_JS_PATH, 'peteshow-core.js')
+        path.join(BASE_JS_PATH, 'peteshow.js')
       ]
     },
 
