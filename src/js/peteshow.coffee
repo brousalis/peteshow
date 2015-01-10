@@ -3,6 +3,7 @@ rules = require('./peteshow-model')
 view  = require('./peteshow-view')
 
 Peteshow = {
+  store: require('./peteshow-storage')
   defaults:
     emailPrefix : 'test-'
     emailDomain : 'example.com'
