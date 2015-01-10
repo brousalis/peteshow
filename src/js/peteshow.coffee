@@ -2,7 +2,7 @@ _     = require('underscore')
 rules = require('./peteshow-rules')
 view  = require('./peteshow-view')
 
-Peteshow = {
+Peteshow =
   store: require('./peteshow-storage')
   defaults:
     emailPrefix : 'test-'
@@ -27,6 +27,5 @@ Peteshow = {
 
   setOptions: (options = {}) ->
     @defaults = _.defaults(options, @defaults)
-}
 
 exports = module.exports = window.Peteshow = Peteshow
