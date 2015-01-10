@@ -1,5 +1,5 @@
 _     = require('underscore')
-rules = require('./peteshow-model')
+rules = require('./peteshow-rules')
 view  = require('./peteshow-view')
 
 Peteshow = {
