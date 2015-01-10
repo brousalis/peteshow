@@ -1,6 +1,8 @@
 // Gulpfile.js
 // Require the needed packages
 var browserify   = require('browserify'),
+    coffeeify    = require('coffeeify'),
+    hbsfy        = require('hbsfy').configure({extensions: ['.hbs']}),
     del          = require('del'),
     gulp         = require('gulp'),
     gutil        = require('gulp-util'),
@@ -21,7 +23,7 @@ var browserify   = require('browserify'),
 var BASE_SRC_PATH        = path.join(__dirname, 'src'),
     BASE_DIST_PATH       = path.join(__dirname, 'dist'),
     BASE_LIB_ASSETS_PATH = path.join(__dirname, 'lib', 'assets'),
-    BASE_JS_PATH         = path.join(BASE_SRC_PATH),
+    BASE_JS_PATH         = path.join(BASE_SRC_PATH, 'js'),
     BASE_CSS_PATH        = path.join(BASE_SRC_PATH, 'css');
 
 // Task paths
@@ -30,21 +32,12 @@ var paths = {
     css: path.join(BASE_CSS_PATH, 'peteshow.scss'),
 
     js: {
-      vendor: [
-        'faker',
-        'jquery-formatdatetime',
-        'jquery.cookie'
-      ],
+      vendor: [ ],
 
       src: [
-        path.join(BASE_JS_PATH, 'peteshow.js')
+        path.join(BASE_JS_PATH, 'peteshow.coffee')
       ]
-    },
-
-    dist: [
-      path.join(BASE_LIB_ASSETS_PATH, '**', '*.js'),
-      path.join(BASE_LIB_ASSETS_PATH, '**', '*.css')
-    ],
+    } 
   },
 
   output: {
@@ -55,7 +48,10 @@ var paths = {
 
   watch: {
     css : path.join(BASE_SRC_PATH, 'css', '**', '*.scss'),
-    js  : path.join(BASE_SRC_PATH, '*.js')
+    js  : [
+      path.join(BASE_SRC_PATH, 'js', '*.coffee'),
+      path.join(BASE_SRC_PATH, 'js', '*.hbs')
+    ]
   },
 
   clean: [
@@ -93,9 +89,15 @@ gulp.task('css', function() {
 //
 // js
 gulp.task('js', function() {
-  var jsStream = browserify(paths.input.js.src)
+  var jsStream = browserify(paths.input.js.src, {
+      extensions: ['.coffee']
+    })
     .require(paths.input.js.vendor)
+    .transform('coffeeify')
+    .transform('hbsfy')
     .bundle()
+    .on('error', gutil.log)
+    .on('error', gutil.beep)
 
   return jsStream
     .pipe(plumber())
@@ -107,14 +109,6 @@ gulp.task('js', function() {
       .on('error', gutil.log)
       .on('error', gutil.beep))
     .pipe(gulp.dest(paths.output.js));
-});
-
-//
-// Dist
-gulp.task('dist', function() {
-  return gulp.src(paths.input.dist, {base: BASE_DIST_PATH})
-    .pipe(rename({dirname: ''}))
-    .pipe(gulp.dest(paths.output.dist));
 });
 
 //
@@ -134,12 +128,12 @@ gulp.task('watch', ['pre-watch'], function() {
   });
 });
 
-gulp.task('pre-watch', ['css', 'js', 'dist'], function(callback){
-  runSequence('clean', ['css', 'js'], 'dist', callback);
+gulp.task('pre-watch', ['css', 'js'], function(callback){
+  runSequence('clean', ['css', 'js'], callback);
 });
 
 //
 // Default
 gulp.task('default', function(callback) {
-  runSequence('clean', ['css', 'js'], 'dist', 'test', callback);
+  runSequence('clean', ['css', 'js'], 'test', callback);
 });

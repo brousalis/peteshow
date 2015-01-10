@@ -8,9 +8,10 @@ module('core plugin', {
 
     Peteshow.init({
       rules  : {
-        'input[name*=zip]'          : '60611',
-        'input[name*=middle_name]'  : Faker.Name.firstName(),
-        'input[name*=custom_name]'  : function() { return 'Custom' },
+        'input[name*=zip]'              : '60611',
+        'input[name*=middle_name]'      : Faker.Name.firstName(),
+        'input[name*=custom_name]'      : function() { return 'Custom' },
+        'input[name*=boolean_checkbox]' : true,
       },
       ignore : ['input[name=phone]', '#qunit-modulefilter'],
     });
@@ -71,4 +72,12 @@ test('should have valid values from plugin after filling out forms', function() 
 
   equal('60611', $('input[name*=zip]').val(), 'rule loaded from plugin, string');
   equal('Custom', $('input[name*=custom_name]').val(), 'rule loaded from plugin, function');
+});
+
+test('should not change value of checkbox but attribute checked', function() {
+  Peteshow.fillOutForms();
+
+  equal('1', $('input[name=boolean_checkbox]').val(), 'checkbox value should be inmutables');
+  equal(true, $('input[name=boolean_checkbox]').prop('checked'), 'should changed the attributed to checked');
+
 });

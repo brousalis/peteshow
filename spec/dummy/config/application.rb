@@ -26,7 +26,7 @@ module Dummy
     # config.active_record.raise_in_transactional_callbacks = true
 
     config.peteshow.enabled = true
-    config.assets.precompile += %w( peteshow.min.js peteshow.css )
+    config.assets.precompile += %w( peteshow.js peteshow.css )
   end
 end
 
