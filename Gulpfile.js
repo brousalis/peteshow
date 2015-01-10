@@ -47,7 +47,7 @@ var paths = {
     css : path.join(BASE_SRC_PATH, 'css', '**', '*.scss'),
     js  : [
       path.join(BASE_SRC_PATH, 'js', '*.coffee'),
-      path.join(BASE_SRC_PATH, 'js', '*.hbs')
+      path.join(BASE_SRC_PATH, 'templates', '*.hbs')
     ]
   },
 
