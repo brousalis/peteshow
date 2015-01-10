@@ -1,4 +1,3 @@
-// Gulpfile.js
 // Require the needed packages
 var browserify   = require('browserify'),
     coffeeify    = require('coffeeify'),
@@ -9,7 +8,7 @@ var browserify   = require('browserify'),
     minifycss    = require('gulp-minify-css'),
     path         = require('path'),
     plumber      = require('gulp-plumber'),
-    qunit        = require('gulp-qunit')
+    qunit        = require('gulp-qunit'),
     rename       = require('gulp-rename'),
     runSequence  = require('run-sequence'),
     sass         = require('gulp-sass'),
@@ -21,7 +20,6 @@ var browserify   = require('browserify'),
 
 // Base paths
 var BASE_SRC_PATH        = path.join(__dirname, 'src'),
-    BASE_DIST_PATH       = path.join(__dirname, 'dist'),
     BASE_LIB_ASSETS_PATH = path.join(__dirname, 'lib', 'assets'),
     BASE_JS_PATH         = path.join(BASE_SRC_PATH, 'js'),
     BASE_CSS_PATH        = path.join(BASE_SRC_PATH, 'css');
@@ -37,13 +35,12 @@ var paths = {
       src: [
         path.join(BASE_JS_PATH, 'peteshow.coffee')
       ]
-    } 
+    }
   },
 
   output: {
     css : path.join(BASE_LIB_ASSETS_PATH, 'stylesheets'),
     js  : path.join(BASE_LIB_ASSETS_PATH, 'javascripts'),
-    dist: BASE_DIST_PATH
   },
 
   watch: {
@@ -55,7 +52,6 @@ var paths = {
   },
 
   clean: [
-    path.join(BASE_DIST_PATH, '**', '*'),
     path.join(BASE_LIB_ASSETS_PATH, '**', '*')
   ],
 
@@ -97,7 +93,7 @@ gulp.task('js', function() {
     .transform('hbsfy')
     .bundle()
     .on('error', gutil.log)
-    .on('error', gutil.beep)
+    .on('error', gutil.beep);
 
   return jsStream
     .pipe(plumber())
@@ -114,7 +110,7 @@ gulp.task('js', function() {
 //
 // Clean
 gulp.task('clean', function() {
-  return del(paths.clean, { sync: true });
+  return del(paths.clean);
 });
 
 //
@@ -128,7 +124,7 @@ gulp.task('watch', ['pre-watch'], function() {
   });
 });
 
-gulp.task('pre-watch', ['css', 'js'], function(callback){
+gulp.task('pre-watch', function(callback) {
   runSequence('clean', ['css', 'js'], callback);
 });
 
