@@ -2,8 +2,14 @@
 store = require('store')
 
 module.exports =
-  get: -> console.log('PeteshowStorage::get')
-  set: (data) ->
+  get: (key) ->
+    console.log('PeteshowStorage::get')
+    data = store.get('peteshow')
+    return data[key] if key?
+    data
+
+  set: (key, data) ->
     console.log('PeteshowStorage::set')
-    data = JSON.stringify(data)
-    store.set('peteshow', data)
+    _data = {}
+    _data[key] = data
+    store.set('peteshow', _data)
