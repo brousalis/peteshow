@@ -50,15 +50,19 @@
     "vinyl-source-stream": "^1.0.0"
   },
   "devDependencies": {
+    "coffeeify": "^1.0.0",
     "grunt": "^0.4.0",
-    "grunt-contrib-watch": "^0.6.0",
-    "grunt-contrib-connect": "^0.7.0",
-    "grunt-contrib-concat": "^0.4.0",
     "grunt-closure-tools": "^0.9.0",
-    "grunt-contrib-uglify": "^0.4.0",
-    "grunt-contrib-cssmin": "~0.6.1",
-    "grunt-contrib-copy": "~0.4.1",
     "grunt-contrib-clean": "~0.4.1",
-    "grunt-contrib-qunit": "0.4.x"
+    "grunt-contrib-concat": "^0.4.0",
+    "grunt-contrib-connect": "^0.7.0",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-cssmin": "~0.6.1",
+    "grunt-contrib-qunit": "0.4.x",
+    "grunt-contrib-uglify": "^0.4.0",
+    "grunt-contrib-watch": "^0.6.0",
+    "handlebars": "^2.0.0",
+    "hbsfy": "^2.2.1",
+    "underscore": "^1.7.0"
   }
 }

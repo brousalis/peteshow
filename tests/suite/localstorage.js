@@ -19,7 +19,7 @@ test('fields are saved into localstorage', function() {
       input = $(field).val();
 
   // field was saved
-  ok(localStorage.getItem('peteshow') != null, 'localstorge isnt null')
+  ok(localStorage.getItem('peteshow') != null, 'localstorage isnt null')
 
   var saved = Peteshow.storage.get();
 

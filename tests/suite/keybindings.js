@@ -53,4 +53,3 @@ test('should hide when H is pressed', function() {
 
   equal(false, $('#peteshow').is(':visible'));
 });
-

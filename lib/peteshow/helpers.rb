@@ -8,7 +8,7 @@ module Peteshow
       return unless config.enabled == true
 
       tags = []
-      tags << javascript_include_tag('peteshow.min.js',     options)
+      tags << javascript_include_tag('peteshow.js',     options)
       tags << javascript_include_tag("peteshow.#{country}", options) if country
       tags << stylesheet_link_tag('peteshow')
 
