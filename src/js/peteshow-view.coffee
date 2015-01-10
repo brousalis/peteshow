@@ -46,16 +46,16 @@ class PeteshowView
       @_position.y = e.pageY
       @_positionWindow(@_position)
 
+  _positionWindow: (position) ->
+    position ?= @_position
+    $('#peteshow').css(left: position.x, top: position.y)
+
   render: ->
     console.log('PeteshowView::render')
     template = indexTemplate()
     $('body').append(template)
     @_positionWindow()
     @_createEvents(@_events)
-
-  _positionWindow: (position) ->
-    position ?= @_position
-    $('#peteshow').css(left: position.x, top: position.y)
 
   show: ->
     console.log('PeteshowView::show')
