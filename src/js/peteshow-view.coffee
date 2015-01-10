@@ -4,11 +4,12 @@ store = require('./peteshow-storage')
 
 class PeteshowView
   controller: require('./peteshow-controller')
-  _position: store.get('position') || {x:0, y:0}
+  _position: {}
   _events: {}
 
   constructor: ->
     console.log("PeteshowView::init")
+    @_position = store.get('position') || {x:0, y:0}
     @_events =
       '#fill-out-forms' : @controller.fillOutForms
       '#fill-out-forms-and-submit' : @controller.fillOutFormsAndSubmit
@@ -26,7 +27,7 @@ class PeteshowView
     __handleDragDown = _.debounce(@_handleDragDown, 100)
     __handleDragUp = _.debounce(@_handleDragUp, 100)
 
-    $('#peteshow').on 'mousedown', __handleDragDown
+    $('#peteshow-drag-handle').on 'mousedown', __handleDragDown
     $(document)
       .on 'mousemove', __handleDragMove
       .on 'mouseup', __handleDragUp
@@ -42,13 +43,28 @@ class PeteshowView
 
   _handleDragMove: (e) =>
     if @dragging
-      @_position.x = e.pageX
-      @_position.y = e.pageY
-      @_positionWindow(@_position)
+      position = {}
+      position.x = e.pageX
+      position.y = e.pageY
+      @_positionWindow(position)
 
   _positionWindow: (position) ->
+    $el = $("#peteshow")
+    if position
+      position.x = 0 if position.x < 0
+      position.y = 0 if position.y < 0
+
+      elBottom = $el.height() + $el.offset().top
+      windowBottom = $(window).height()
+      mouseBottomDiff = $el.offset().top - position.y + windowBottom - $el.height()
+
+      console.log position
+      position.y = windowBottom - $el.height() if position.y >= mouseBottomDiff
+      console.log position
+      @_position = position
+
     position ?= @_position
-    $('#peteshow').css(left: position.x, top: position.y)
+    $el.css(left: position.x, top: position.y)
 
   render: ->
     console.log('PeteshowView::render')

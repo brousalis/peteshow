@@ -44,6 +44,15 @@ $breakpoint-max-width: 768px;
 
   @include links { @extend %clear-text-decoration; }
 
+  #peteshow-drag-handle {
+    background: blue;
+    height: 20px;
+    position: absolute;
+    right: 0;
+    width: 20px;
+    z-index: 3000;
+  }
+
   #peteshow-toggle {
     @extend %clear-text-decoration;
     color: #fff;
@@ -177,6 +186,8 @@ $breakpoint-max-width: 768px;
   #peteshow {
     position: absolute;
     top: 0;
+    left: 0 !important;
+    right: 0 !important;
     width: 100%;
 
     &.active { width: 100%; }
