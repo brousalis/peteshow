@@ -1,4 +1,3 @@
-Handlebars = require('handlebars')
 indexTemplate = require('../templates/index.hbs')
 
 module.exports =
