@@ -1,11 +1,13 @@
-_     = require('underscore')
-rules = require('./peteshow-rules')
-view  = require('./peteshow-view')
+_          = require('underscore')
+store      = require('./peteshow-storage')
+helpers    = require('./peteshow-helpers')
 
 Peteshow =
-  store   : require('./peteshow-storage')
-  helpers : require('./peteshow-helpers')
-  defaults:
+  view       : null
+  store      : store
+  random     : helpers
+
+  defaults   :
     emailPrefix : 'test-'
     emailDomain : 'example.com'
     form        : ''
@@ -22,9 +24,10 @@ Peteshow =
     events      : null
 
   init: (options = {}) ->
-    @defaults.rules = rules
+    @view = require('./peteshow-view')
+
     @setOptions(options)
-    view.render()
+    @view.render()
 
   setOptions: (options = {}) ->
     @defaults = _.defaults(options, @defaults)
