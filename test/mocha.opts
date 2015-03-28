@@ -1,0 +1,6 @@
+--compilers coffee:coffee-script/register
+--require test/test-helper
+--recursive
+--timeout 10s
+--reporter spec
+--ui bdd

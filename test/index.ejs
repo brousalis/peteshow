@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>Peteshow.js Tests</title>
+    <link rel='stylesheet' href='stylesheets/peteshow.css'>
+    <style>
+      body { padding-left: 200px; }
+      input[name=first_name] { border: 2px solid red; }
+    </style>
+  </head>
+  <body>
+    <form name='random'>
+      <input name='password' type='password' />
+      <input name='text' type='text' />
+      <input name='email' type='email' />
+      <input name='number' type='number' >
+      <input name='decimal' type='number' >
+      <input name='date ' type='date' >
+      <input name='phone' type='tel' />
+      <input name='first_name' type='text' />
+      <input name='middle_name' type='text' />
+      <input name='custom_name' type='text' />
+      <input name='last_name' type='text' />
+      <input name='company' type='text' />
+      <input name='street' type='text' />
+      <input name='line1' type='text' />
+      <input name='line2' type='text' />
+      <input name='city' type='text' />
+      <input name='suite' type='text' />
+      <input name='zip' type='number' />
+      <input name='county' type='text' />
+      <input name='postal' type='text' />
+      <input name='state' type='text' />
+      <input name='job_title' type='text' />
+      <input name='intent' type='text' />
+      <input name='income' type='number' />
+      <input name='amount' type='number' />
+      <input name='routing' type='number' />
+      <input name='branch' type='number' />
+      <input name='card_type_cd' type='text' />
+      <input name='card_number' type='number' />
+      <input name='cvv' type='number' />
+      <input name='saved' type='text' />
+      <input name='saved_2' type='text' />
+      <input name='ignore_me' type='text' />
+    </form>
+
+    <script src='vendor/jquery.js'></script>
+    <script src='vendor/faker.js'></script>
+    <script src='vendor/jquery.formatDateTime.js'></script>
+    <script src='vendor/jquery.cookie.js'></script>
+    <script src='javascripts/peteshow.js'></script>
+    <script>
+      Peteshow.init({
+        cookies: true,
+        rules: {
+          "input[name*=middle_name]": Peteshow.random.name(),
+          "input[name*=custom_name]": 'Custom Name'
+        },
+        reuse: { 'input[name*=first_name]': '/tests' },
+        ignore : ['input[name=last_name]', '#qunit-modulefilter']
+      });
+    </script>
+  </body>
+</html>

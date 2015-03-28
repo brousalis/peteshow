@@ -6,3 +6,4 @@ junk/
 peteshow-*.gem
 Gemfile.lock
 npm-*.log
+.generated
