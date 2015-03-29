@@ -14,9 +14,12 @@ server = (options = {}) ->
   port = options.port || defaults.port
   host = options.host || defaults.host
 
-  app.get '/', (req, res) -> res.render('index')
+  env = process.env.NODE_ENV
+
+  app.get '/', (req, res) -> res.render('index', {env: env})
   app.listen(port)
 
-  console.log("[TEST_SERVER] Server running at: #{host}:#{port}")
+  if (env != 'test')
+    console.log("[TEST_SERVER] Server running at: #{host}:#{port}")
 
 module.exports = server

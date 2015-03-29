@@ -1,18 +1,10 @@
 var config = require('../config');
 var gulp   = require('gulp');
-var watch = require('gulp-watch');
+var watch  = require('gulp-watch');
 
 gulp.task('watch', ['pre-watch'], function() {
-  watch(config.watch.css, function() {
-    gulp.start('css');
-  });
-
-  watch(config.watch.js, function() {
-    gulp.start('js');
-  });
-
-  watch(config.watch.testSync, function() {
-    gulp.start('test-sync');
-  });
+  watch(config.watch.css, function() { gulp.start('css'); });
+  watch(config.watch.js, function() { gulp.start('js'); });
+  watch(config.test.features, function() { gulp.start('test'); });
 });
 

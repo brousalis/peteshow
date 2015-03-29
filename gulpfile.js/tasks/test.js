@@ -1,13 +1,14 @@
 var config = require('../config');
 var gulp   = require('gulp');
-var qunit  = require('gulp-qunit');
+var mocha  = require('gulp-mocha');
 var path   = require('path');
 var watch  = require('gulp-watch');
 
-// test : qunit
+// mocha tests 
 gulp.task('test', function() {
-  return gulp.src(config.input.test)
-    .pipe(watch(config.watch.test))
-    .pipe(qunit());
+  require('coffee-script/register');
+  require(config.test.helper);
+  return gulp.src(config.test.features, {read: false})
+    .pipe(mocha({ reporter: 'nyan', compilers: 'coffee:coffee-script' }));
 });
 

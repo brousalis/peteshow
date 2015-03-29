@@ -14,7 +14,6 @@ describe 'Helpers', ->
   it 'generates random values', (done) ->
     check = (fn, matcher, message) -> browser.assert.evaluate("Peteshow.random.#{fn}()", matcher, message)
 
-    check('date'        , REGEX.DATE)
     check('letters'     , REGEX.TEXT)
     check('number'      , REGEX.NUMBER)
     check('phoneNumber' , REGEX.PHONE)
