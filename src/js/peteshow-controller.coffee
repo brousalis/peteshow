@@ -1,4 +1,4 @@
-_     = require('lodash')
+_ = require('lodash')
 
 class PeteshowController
   fillOutForms: =>
@@ -15,19 +15,20 @@ class PeteshowController
 
   fillInputs: ->
     saved = Peteshow.options.saved
+
     for element, rule of Peteshow.options.rules
       value = if _.isFunction(rule) then rule() else rule
 
-      # Well, we've made it this far. Let's go ahead and fill this form out
       $(element).each (i, el) ->
-        # Restore saved fields values from the saved option
         key = _.findKey(saved, (v, k) -> $(el).is(k))
+
         if key != undefined
           return $(el).val(saved[key])
 
         return if $(el).is(':checkbox')
-        ignored = $(el).is(Peteshow.options.ignore.toString())
-        return if ignored
+
+        return if $(el).is(Peteshow.options.ignore.toString())
+
         $(el).val(value)
 
   _uniqueInputNames: ($inputs) ->
@@ -45,21 +46,22 @@ class PeteshowController
     return unless inputNames = @_uniqueInputNames($inputs)
 
     for name in inputNames
-      $els = $("input:radio[name='#{name}']")
-      randomIndex = Math.floor(Math.random() * $els.length)
-      $el = $els.eq(randomIndex)
+      $els   = $("input:radio[name='#{name}']")
+      random = Math.floor(Math.random() * $els.length)
+      $el    = $els.eq(random)
+
       $el
         .prop('checked', true)
         .change()
 
   fillSelectBoxes: ($inputs) ->
     for el in $inputs
-      selectOptions = $.makeArray($(el).find('option'))
-      values = selectOptions.map (el) -> $(el).val()
-      values = _.difference(values, Peteshow.options.filters)
+      options = $.makeArray($(el).find('option'))
+      values  = options.map (el) -> $(el).val()
+      values  = _.difference(values, Peteshow.options.filters)
 
-      randomIndex = Math.floor(Math.random() * values.length)
-      value = values[randomIndex]
+      random = Math.floor(Math.random() * values.length)
+      value  = values[random]
 
       $(el)
         .val(value)

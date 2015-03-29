@@ -1,4 +1,3 @@
-# LocalStorage should fallback to userData when not available
 store = require('store')
 
 module.exports =

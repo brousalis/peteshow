@@ -2,12 +2,13 @@ window._ = _          = require('lodash')
 store      = require('./peteshow-storage')
 helpers    = require('./peteshow-helpers')
 rules      = require('./peteshow-rules')
+controller = require('./peteshow-controller')
+view       = require('./peteshow-view')
 
 Peteshow =
   view     : null
   store    : store
   random   : helpers.random
-
   options  : {}
   defaults :
     emailPrefix : 'test-'
@@ -28,8 +29,8 @@ Peteshow =
   init: (options = {}) ->
     @setOptions(options)
 
-    @controller = require('./peteshow-controller')
-    @view       = require('./peteshow-view')
+    @controller = controller
+    @view       = view
     @view.render()
 
   setOptions: (options = {}) ->
