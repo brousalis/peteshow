@@ -1,6 +1,7 @@
 _             = require('lodash')
 indexTemplate = require('../templates/index.hbs')
 store         = require('./peteshow-storage')
+hand = require('hand')
 
 class PeteshowView
   controller  : Peteshow.controller
@@ -31,29 +32,19 @@ class PeteshowView
         e.stopPropagation()
         events["##{e.target.id}"]() unless @dragging
 
-    __handleDragMove = _.throttle(@_handleDragMove, 10)
-    __handleDragDown = _.debounce(@_handleDragDown, 100)
-    __handleDragUp   = _.debounce(@_handleDragUp, 100)
+    el = document.getElementById('peteshow')
+    hl = document.getElementById('peteshow-drag-handle')
 
-    @$dragHandle.on 'mousedown', __handleDragDown
-    $(document)
-      .on 'mousemove', __handleDragMove
-      .on 'mouseup', __handleDragUp
+    el.addEventListener 'mousedown', (e) ->
+      hand.grab(el, e.offsetX, e.offsetY)
+
+    el.addEventListener 'mouseup', (e) ->
+      hand.drop(el)
 
     $(document).keydown @_handleKeypress
 
   _handleKeypress: (e) =>
-    # key  = if (typeof e.which == 'number') then e.which else e.keyCode
     code = String.fromCharCode(e.keyCode)
-
-    # # modifier keys
-    # code = 'ctrl_'+code if (e.ctrlKey)
-    # if (e.altKey || (e.originalEvent && e.originalEvent.metaKey))
-    #   code = 'alt_'+code
-    # if (e.shiftKey)
-    #   code = 'shift_'+code
-    # return if ($.inArray(e.keyCode, [9,16,17,18, 91, 93, 224]) != -1)
-    # return if (e.metaKey)
 
     @show() if (e.keyCode == 192)
 
@@ -106,8 +97,6 @@ class PeteshowView
   show: (active) =>
     if active == undefined
       active = !@_active
-
-    cs.debug('PeteshowView::show', active)
 
     @$peteshow.toggleClass('active', active)
     @$tools.toggle(active)

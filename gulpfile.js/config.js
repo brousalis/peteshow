@@ -29,11 +29,13 @@ module.exports = {
   },
 
   watch: {
-    css : path.join(BASE_SRC_PATH, 'css', '**', '*.scss'),
+    css : [
+      path.join(BASE_SRC_PATH, 'css', '**', '*.scss'),
+    ],
     js  : [
       path.join(BASE_SRC_PATH, 'js', '*.coffee'),
       path.join(BASE_SRC_PATH, 'templates', '*.hbs')
-    ],
+    ]
   },
 
   browserSync: {

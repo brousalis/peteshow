@@ -10,7 +10,7 @@ gulp.task('watch', function(callback) {
 });
 
 gulp.task('reload', function() {
-  watch(config.watch.css, function() { gulp.start('css'); reload() });
-  watch(config.watch.js, function() { gulp.start('js'); reload() });
+  watch(config.watch.css, function() { gulp.start('css'); });
+  watch(config.watch.js, function() { gulp.start('js'); });
 });
 

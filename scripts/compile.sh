@@ -3,6 +3,7 @@ BASE_DIR=${TRAVIS_BUILD_DIR:-${PWD}}
 echo 'Compiling Assets...'
   node_modules/.bin/gulp js && \
   node_modules/.bin/gulp css && \
+  node_modules/.bin/gulp uglify && \
   node_modules/.bin/gulp vendor && \
 echo 'Done!\n'
 
