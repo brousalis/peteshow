@@ -6,6 +6,8 @@ var sourcemaps = require('gulp-sourcemaps');
 var sass       = require('gulp-sass');
 var gutil      = require('gulp-util');
 var rename     = require('gulp-rename');
+var browserSync = require('browser-sync');
+var reload = browserSync.reload;
 
 gulp.task('css', function() {
   // regular css
@@ -16,7 +18,8 @@ gulp.task('css', function() {
       .on('error', gutil.log)
       .on('error', gutil.beep))
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest(config.output.css));
+    .pipe(gulp.dest(config.output.css))
+    .pipe(reload({stream: true}));
 
   // minified css
   return gulp.src(config.input.css)
@@ -30,6 +33,6 @@ gulp.task('css', function() {
       .on('error', gutil.log)
       .on('error', gutil.beep))
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest(config.output.css));
+    .pipe(gulp.dest(config.output.css))
+    .pipe(reload({stream: true}));
 });
-
