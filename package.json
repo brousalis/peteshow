@@ -26,8 +26,7 @@
     "pretest": "scripts/compile.sh",
     "test": "./node_modules/.bin/mocha",
     "prepublish": "scripts/compile.sh",
-    "postpublish": "scripts/cleanup.sh",
-    "start": "node_modules/.bin/nodemon start.coffee"
+    "postpublish": "scripts/cleanup.sh"
   },
   "licenses": [
     {

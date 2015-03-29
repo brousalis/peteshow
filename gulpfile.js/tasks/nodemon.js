@@ -6,9 +6,10 @@ var browserSync = require('browser-sync');
 var BROWSER_SYNC_RELOAD_DELAY = 500;
 
 gulp.task('nodemon', function (cb) {
+  require('coffee-script/register');
   var called = false;
   return nodemon({
-    script: './test/test-server',
+    script: './start.coffee',
   })
     .on('start', function onStart() {
       // ensure start only got called once
