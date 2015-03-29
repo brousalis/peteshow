@@ -13,7 +13,7 @@
     "email": "brousapg@gmail.com",
     "url": "http://brousalis.com/"
   },
-  "main": "dist/peteshow.js",
+  "main": "lib/assets/javascripts/peteshow.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/brousalis/peteshow"
