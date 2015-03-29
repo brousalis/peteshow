@@ -1,6 +1,7 @@
 window._ = _          = require('lodash')
 store      = require('./peteshow-storage')
 helpers    = require('./peteshow-helpers')
+rules      = require('./peteshow-rules')
 cs         = require('calmsoul')
 
 cs.set
@@ -20,8 +21,7 @@ Peteshow =
     form        : ''
     blur        : false
     cookies     : false
-
-    rules       : require('./peteshow-rules')
+    rules       : rules
     filters     : ['', 'other', 'select']
     ignore      : []
     force       : {}
@@ -36,7 +36,7 @@ Peteshow =
     @setOptions(options)
 
     @controller = require('./peteshow-controller')
-    @view = require('./peteshow-view')
+    @view       = require('./peteshow-view')
     @view.render()
 
   setOptions: (options = {}) ->

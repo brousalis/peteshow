@@ -29,7 +29,6 @@ module.exports =
       Faker.phone.phoneNumberFormat(n)
 
     # People
-    #
     name: ->
       cs.log('PeteshowHelpers::firstName')
       Faker.name.findName()
@@ -51,7 +50,6 @@ module.exports =
       Faker.internet.email()
 
     # Address
-    #
     street: ->
       cs.log('PeteshowHelpers::street')
       Faker.address.streetAddress()

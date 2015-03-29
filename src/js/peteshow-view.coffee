@@ -4,22 +4,22 @@ store         = require('./peteshow-storage')
 cs            = require('calmsoul')
 
 class PeteshowView
-  controller: Peteshow.controller
-  _events: {}
+  controller  : Peteshow.controller
+  _events     : {}
 
-  $peteshow: '#peteshow'
-  $dragHandle: '#peteshow-drag-handle'
-  $tools: '#peteshow-tools'
+  $peteshow   : '#peteshow'
+  $dragHandle : '#peteshow-drag-handle'
+  $tools      : '#peteshow-tools'
 
   constructor: ->
     cs.log("PeteshowView::init")
     @_position = store.get('position') || {x:0, y:0}
-    @_active = store.get('active') || false
-    @_events =
-      '#fill-out-forms' : @controller.fillOutForms
+    @_active   = store.get('active') || false
+    @_events   =
+      '#fill-out-forms'            : @controller.fillOutForms
       '#fill-out-forms-and-submit' : @controller.fillOutFormsAndSubmit
-      '#peteshow-toggle': @show
-      '#peteshow-hide': @hide
+      '#peteshow-toggle'           : @show
+      '#peteshow-hide'             : @hide
 
   _bindElements: ->
     @$peteshow   = $(@$peteshow)
@@ -35,7 +35,7 @@ class PeteshowView
 
     __handleDragMove = _.throttle(@_handleDragMove, 10)
     __handleDragDown = _.debounce(@_handleDragDown, 100)
-    __handleDragUp = _.debounce(@_handleDragUp, 100)
+    __handleDragUp   = _.debounce(@_handleDragUp, 100)
 
     @$dragHandle.on 'mousedown', __handleDragDown
     $(document)
