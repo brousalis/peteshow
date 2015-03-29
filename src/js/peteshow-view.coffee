@@ -1,7 +1,6 @@
 _             = require('lodash')
 indexTemplate = require('../templates/index.hbs')
 store         = require('./peteshow-storage')
-cs            = require('calmsoul')
 
 class PeteshowView
   controller  : Peteshow.controller
@@ -12,7 +11,6 @@ class PeteshowView
   $tools      : '#peteshow-tools'
 
   constructor: ->
-    cs.log("PeteshowView::init")
     @_position = store.get('position') || {x:0, y:0}
     @_active   = store.get('active') || false
     @_events   =
@@ -57,7 +55,6 @@ class PeteshowView
     # return if ($.inArray(e.keyCode, [9,16,17,18, 91, 93, 224]) != -1)
     # return if (e.metaKey)
 
-    cs.log(e.keyCode)
     @show() if (e.keyCode == 192)
 
     action  = $("[data-command='#{code}']")
@@ -91,17 +88,13 @@ class PeteshowView
       windowBottom = $(window).height()
       mouseBottomDiff = $el.offset().top - position.y + windowBottom - $el.height()
 
-      cs.log position
       position.y = windowBottom - $el.height() if position.y >= mouseBottomDiff
-      cs.log position
       @_position = position
 
     position ?= @_position
     $el.css(left: position.x, top: position.y)
 
   render: ->
-    cs.log('PeteshowView::render')
-
     template = indexTemplate()
     $('body').append(template)
 
@@ -123,11 +116,9 @@ class PeteshowView
     @_active = active
 
   hide: =>
-    cs.log('PeteshowView::hide')
     $('#peteshow').show(false)
 
   destroy: ->
-    cs.log('PeteshowView::destroy')
     $('#peteshow').remove()
 
 module.exports = new PeteshowView()

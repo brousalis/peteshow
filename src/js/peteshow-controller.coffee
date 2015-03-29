@@ -3,22 +3,18 @@ cs    = require('calmsoul')
 
 class PeteshowController
   fillOutForms: =>
-    cs.log('PeteshowController::fillOutForms')
-
     @fillInputs()
     @fillRadioButtons($('input:radio'))
     @fillCheckboxes($('input:checkbox'))
     @fillSelectBoxes($('select'))
 
   fillOutFormsAndSubmit: =>
-    cs.log('PeteshowController::fillOutFormsAndSubmit')
     @fillOutForms()
     $(Peteshow.options.form).submit()
     $('form[name*=registration], .simple_form').submit()
     $('form').last().submit()
 
   fillInputs: ->
-    cs.log('PeteshowController::fillInputs')
     saved = Peteshow.options.saved
     for element, rule of Peteshow.options.rules
       value = if _.isFunction(rule) then rule() else rule
@@ -40,8 +36,6 @@ class PeteshowController
     _.uniq($inputs.map (i, $input) -> $input.name)
 
   fillCheckboxes: ($inputs) ->
-    cs.log('PeteshowController::fillCheckboxes')
-
     for el in $inputs
       # boolean = !!Peteshow.random.number(1)
       $(el)
@@ -49,7 +43,6 @@ class PeteshowController
         .change()
 
   fillRadioButtons: ($inputs) ->
-    cs.log('PeteshowController::fillRadioButtons')
     return unless inputNames = @_uniqueInputNames($inputs)
 
     for name in inputNames
@@ -61,8 +54,6 @@ class PeteshowController
         .change()
 
   fillSelectBoxes: ($inputs) ->
-    cs.log('PeteshowController::fillSelectBoxes')
-
     for el in $inputs
       selectOptions = $.makeArray($(el).find('option'))
       values = selectOptions.map (el) -> $(el).val()

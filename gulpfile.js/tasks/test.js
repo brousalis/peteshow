@@ -8,6 +8,7 @@ var watch  = require('gulp-watch');
 gulp.task('test', function() {
   require('coffee-script/register');
   require(config.test.helper);
+
   return gulp.src(config.test.features, {read: false})
     .pipe(mocha({ reporter: 'nyan', compilers: 'coffee:coffee-script' }));
 });

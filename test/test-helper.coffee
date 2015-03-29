@@ -6,7 +6,7 @@ global.Server  = require('./test-server')
 global.Browser = require('zombie')
 
 server         = new Server({port: 3017})
-global.browser = browser = new Browser({ site: 'http://localhost:3017' })
+global.browser = browser = new Browser({site: 'http://localhost:3017'})
 
 global.REGEX   =
   NUMBER     : /^[0-9]*$/
@@ -39,8 +39,8 @@ Browser.Assert.prototype.inputFirst = (selector, expected, message) ->
 
 # Key event method
 Browser.prototype.key = (keyAction, keyCode, callback)->
-  assert @window, "No window open"
-  event = @window.document.createEvent("KeyboardEvent")
+  assert @window, 'No window open'
+  event = @window.document.createEvent('KeyboardEvent')
   event.initEvent("key#{keyAction}", true, true)
   event.which = keyCode
   event.keyCode = keyCode
