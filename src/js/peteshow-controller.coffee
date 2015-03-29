@@ -1,5 +1,4 @@
 _     = require('lodash')
-cs    = require('calmsoul')
 
 class PeteshowController
   fillOutForms: =>

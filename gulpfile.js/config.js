@@ -5,6 +5,7 @@ var BASE_GENERATED_PATH = path.join(__dirname, '../.generated');
 var BASE_JS_PATH        = path.join(BASE_SRC_PATH, 'js');
 var BASE_CSS_PATH       = path.join(BASE_SRC_PATH, 'css');
 var BASE_TEST_PATH      = path.join(__dirname, '../test');
+var BASE_MODULES_PATH   = path.join(__dirname, '../node_modules');
 
 module.exports = {
   delay: 500,
@@ -12,13 +13,12 @@ module.exports = {
   input: {
     css    : path.join(BASE_CSS_PATH, 'peteshow.scss'),
     js     : path.join(BASE_JS_PATH, 'peteshow.coffee'),
-    test   : path.join(BASE_GENERATED_PATH, 'test_index.html'),
     vendor : [
-      path.join(__dirname, '../node_modules', 'qunitjs', 'qunit', '*'),
-      path.join(__dirname, '../node_modules', 'faker', 'build', 'build', '*'),
-      path.join(__dirname, '../node_modules', 'jquery', 'dist', '*'),
-      path.join(__dirname, '../node_modules', 'jquery.cookie', 'jquery.cookie.js'),
-      path.join(__dirname, '../node_modules', 'jquery-formatdatetime', 'jquery.formatDateTime.js')
+      path.join(BASE_MODULES_PATH, 'qunitjs', 'qunit', '*'),
+      path.join(BASE_MODULES_PATH, 'faker', 'build', 'build', '*'),
+      path.join(BASE_MODULES_PATH, 'jquery', 'dist', '*'),
+      path.join(BASE_MODULES_PATH, 'jquery.cookie', 'jquery.cookie.js'),
+      path.join(BASE_MODULES_PATH, 'jquery-formatdatetime', 'jquery.formatDateTime.js')
     ]
   },
 
@@ -41,7 +41,7 @@ module.exports = {
   browserSync: {
     proxy : 'http://localhost:3002',
     port  : 3003,
-    files : ['./.generated/**/*.*'],
+    files : path.join(BASE_GENERATED_PATH, '**', '*'),
   },
 
   test: {
@@ -51,5 +51,9 @@ module.exports = {
 
   server: path.join(BASE_TEST_PATH, 'test-server'),
 
-  clean: path.join(BASE_GENERATED_PATH, '**', '*'),
+  clean: [
+    path.join(BASE_GENERATED_PATH, 'stylesheets', '**', '*'),
+    path.join(BASE_GENERATED_PATH, 'javascripts', '**', '*'),
+    path.join(BASE_GENERATED_PATH, 'vendor', '**', '*')
+  ]
 };

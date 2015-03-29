@@ -1,7 +1,6 @@
 _             = require('lodash')
 indexTemplate = require('../templates/index.hbs')
 store         = require('./peteshow-storage')
-hand = require('hand')
 
 class PeteshowView
   controller  : Peteshow.controller
@@ -32,14 +31,29 @@ class PeteshowView
         e.stopPropagation()
         events["##{e.target.id}"]() unless @dragging
 
-    @$dragHandle.on 'mousedown', @_handleDragDown
-    @$dragHandle.on 'mouseup', @_handleDragUp
+    __handleDragMove = _.throttle(@_handleDragMove, 10)
+    __handleDragDown = _.debounce(@_handleDragDown, 100)
+    __handleDragUp   = _.debounce(@_handleDragUp, 100)
 
-    $(document).on 'mouseup', @_handleDragUp
+    @$dragHandle.on 'mousedown', __handleDragDown
+    $(document)
+      .on 'mousemove', __handleDragMove
+      .on 'mouseup', __handleDragUp
+
     $(document).keydown @_handleKeypress
 
   _handleKeypress: (e) =>
+    # key  = if (typeof e.which == 'number') then e.which else e.keyCode
     code = String.fromCharCode(e.keyCode)
+
+    # # modifier keys
+    # code = 'ctrl_'+code if (e.ctrlKey)
+    # if (e.altKey || (e.originalEvent && e.originalEvent.metaKey))
+    #   code = 'alt_'+code
+    # if (e.shiftKey)
+    #   code = 'shift_'+code
+    # return if ($.inArray(e.keyCode, [9,16,17,18, 91, 93, 224]) != -1)
+    # return if (e.metaKey)
 
     @show() if (e.keyCode == 192)
 
@@ -50,15 +64,19 @@ class PeteshowView
 
   _handleDragUp: =>
     @dragging = false
-    hand.drop(@$peteshow[0])
     document.onmousedown= -> return false
-    #store.set('position', @_position)
+    store.set('position', @_position)
 
-  _handleDragDown: (e) =>
+  _handleDragDown: =>
     @dragging = true
-    offset = @$peteshow.width() - 20
-    hand.grab(@$peteshow[0], e.offsetX + offset, e.offsetY)
     document.onmousedown= -> return true
+
+  _handleDragMove: (e) =>
+    if @dragging
+      position = {}
+      position.x = e.pageX
+      position.y = e.pageY
+      @_positionWindow(position)
 
   _positionWindow: (position) ->
     $el = @$peteshow
@@ -76,12 +94,12 @@ class PeteshowView
     position ?= @_position
     $el.css(left: position.x, top: position.y)
 
-
   render: ->
     template = indexTemplate()
     $('body').append(template)
 
     @_bindElements()
+    @_positionWindow()
     @_createEvents(@_events)
     @show(@_active)
 
