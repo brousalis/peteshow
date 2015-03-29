@@ -22,11 +22,11 @@
     "url": "https://github.com/brousalis/peteshow/issues"
   },
   "scripts": {
-    "preinstall": "scripts/install_dependencies.sh",
     "pretest": "scripts/compile.sh",
     "test": "./node_modules/.bin/mocha",
     "prepublish": "scripts/compile.sh",
-    "postpublish": "scripts/cleanup.sh"
+    "postpublish": "scripts/cleanup.sh",
+    "start": "node_modules/.bin/nodemon start.coffee"
   },
   "licenses": [
     {

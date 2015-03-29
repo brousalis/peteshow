@@ -8,6 +8,12 @@ gulp.task('nodemon', function (cb) {
 
   return nodemon({
     script: './start.coffee',
+    ignore: [
+      "gulpfile.js/**/*",
+      "app/**/*",
+      ".generated/**/*",
+      "start.coffee"
+    ]
   })
   .on('start', function onStart() {
     // ensure start only got called once

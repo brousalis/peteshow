@@ -6,12 +6,11 @@ var reload      = browserSync.reload;
 var runSequence = require('run-sequence');
 
 gulp.task('watch', function(callback) {
-  runSequence('pre-watch', 'nodemon', 'reload', 'browser-sync', callback);
+  runSequence('build', 'nodemon', 'reload', 'browser-sync', callback);
 });
 
 gulp.task('reload', function() {
   watch(config.watch.css, function() { gulp.start('css'); reload() });
   watch(config.watch.js, function() { gulp.start('js'); reload() });
-  watch(config.test.features, function() { gulp.start('test'); });
 });
 
