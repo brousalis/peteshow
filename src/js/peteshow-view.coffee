@@ -74,7 +74,7 @@ class PeteshowView
   _handleDragMove: (e) =>
     if @dragging
       position = {}
-      position.x = e.pageX
+      position.x = e.pageX - @$peteshow.width()
       position.y = e.pageY
       @_positionWindow(position)
 
