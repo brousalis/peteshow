@@ -32,15 +32,10 @@ class PeteshowView
         e.stopPropagation()
         events["##{e.target.id}"]() unless @dragging
 
-    el = document.getElementById('peteshow')
-    hl = document.getElementById('peteshow-drag-handle')
+    @$dragHandle.on 'mousedown', @_handleDragDown
+    @$dragHandle.on 'mouseup', @_handleDragUp
 
-    el.addEventListener 'mousedown', (e) ->
-      hand.grab(el, e.offsetX, e.offsetY)
-
-    el.addEventListener 'mouseup', (e) ->
-      hand.drop(el)
-
+    $(document).on 'mouseup', @_handleDragUp
     $(document).keydown @_handleKeypress
 
   _handleKeypress: (e) =>
@@ -55,19 +50,15 @@ class PeteshowView
 
   _handleDragUp: =>
     @dragging = false
+    hand.drop(@$peteshow[0])
     document.onmousedown= -> return false
-    store.set('position', @_position)
+    #store.set('position', @_position)
 
-  _handleDragDown: =>
+  _handleDragDown: (e) =>
     @dragging = true
+    offset = @$peteshow.width() - 20
+    hand.grab(@$peteshow[0], e.offsetX + offset, e.offsetY)
     document.onmousedown= -> return true
-
-  _handleDragMove: (e) =>
-    if @dragging
-      position = {}
-      position.x = e.pageX
-      position.y = e.pageY
-      @_positionWindow(position)
 
   _positionWindow: (position) ->
     $el = @$peteshow
@@ -85,12 +76,12 @@ class PeteshowView
     position ?= @_position
     $el.css(left: position.x, top: position.y)
 
+
   render: ->
     template = indexTemplate()
     $('body').append(template)
 
     @_bindElements()
-    @_positionWindow()
     @_createEvents(@_events)
     @show(@_active)
 
