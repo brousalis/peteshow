@@ -1,15 +1,13 @@
 var path = require('path');
 
 var BASE_SRC_PATH       = path.join(__dirname, '../src');
-var BASE_GENERATED_PATH = path.join(__dirname, '../.generated');
 var BASE_JS_PATH        = path.join(BASE_SRC_PATH, 'js');
 var BASE_CSS_PATH       = path.join(BASE_SRC_PATH, 'css');
+var BASE_GENERATED_PATH = path.join(__dirname, '../.generated');
 var BASE_TEST_PATH      = path.join(__dirname, '../test');
 var BASE_MODULES_PATH   = path.join(__dirname, '../node_modules');
 
 module.exports = {
-  delay: 500,
-
   input: {
     css    : path.join(BASE_CSS_PATH, 'peteshow.scss'),
     js     : path.join(BASE_JS_PATH, 'peteshow.coffee'),

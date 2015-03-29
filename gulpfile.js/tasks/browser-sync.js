@@ -6,5 +6,5 @@ var browserSync = require('browser-sync');
 gulp.task('browser-sync', function() {
   setTimeout(function reload() {
     browserSync(config.browserSync);
-  }, config.delay * 2.5);
+  }, 1000);
 });

@@ -19,6 +19,15 @@ class PeteshowView
       '#peteshow-toggle'           : @show
       '#peteshow-hide'             : @hide
 
+  render: ->
+    template = indexTemplate()
+    $('body').append(template)
+
+    @_bindElements()
+    @_positionWindow()
+    @_createEvents(@_events)
+    @show(@_active)
+
   _bindElements: ->
     @$peteshow   = $(@$peteshow)
     @$tools      = $(@$tools)
@@ -43,17 +52,7 @@ class PeteshowView
     $(document).keydown @_handleKeypress
 
   _handleKeypress: (e) =>
-    # key  = if (typeof e.which == 'number') then e.which else e.keyCode
     code = String.fromCharCode(e.keyCode)
-
-    # # modifier keys
-    # code = 'ctrl_'+code if (e.ctrlKey)
-    # if (e.altKey || (e.originalEvent && e.originalEvent.metaKey))
-    #   code = 'alt_'+code
-    # if (e.shiftKey)
-    #   code = 'shift_'+code
-    # return if ($.inArray(e.keyCode, [9,16,17,18, 91, 93, 224]) != -1)
-    # return if (e.metaKey)
 
     @show() if (e.keyCode == 192)
 
@@ -84,8 +83,8 @@ class PeteshowView
       position.x = 0 if position.x < 0
       position.y = 0 if position.y < 0
 
-      elBottom = $el.height() + $el.offset().top
-      windowBottom = $(window).height()
+      elBottom        = $el.height() + $el.offset().top
+      windowBottom    = $(window).height()
       mouseBottomDiff = $el.offset().top - position.y + windowBottom - $el.height()
 
       position.y = windowBottom - $el.height() if position.y >= mouseBottomDiff
@@ -93,15 +92,6 @@ class PeteshowView
 
     position ?= @_position
     $el.css(left: position.x, top: position.y)
-
-  render: ->
-    template = indexTemplate()
-    $('body').append(template)
-
-    @_bindElements()
-    @_positionWindow()
-    @_createEvents(@_events)
-    @show(@_active)
 
   show: (active) =>
     if active == undefined
