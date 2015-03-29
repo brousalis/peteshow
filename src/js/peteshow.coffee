@@ -4,7 +4,7 @@ helpers    = require('./peteshow-helpers')
 cs         = require('calmsoul')
 
 cs.set
-  "log"   : false
+  "log"   : true
   "debug" : false
   "info"  : true
 

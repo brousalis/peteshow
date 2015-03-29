@@ -1,2 +1,2 @@
 echo 'Removing lib folder...'
-rm -rfv lib && echo 'Done!\n'
+rm -rfv lib/assets && echo 'Done!\n'
