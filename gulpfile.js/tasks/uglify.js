@@ -24,7 +24,7 @@ gulp.task('uglify', ['css', 'js'], function() {
     .on('error', gutil.beep);
 
   // minified css
-  return gulp.src(config.input.css)
+  gulp.src(config.input.css)
     .pipe(plumber())
     .pipe(sourcemaps.init({loadMaps: true}))
     .pipe(sass()

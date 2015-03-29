@@ -12,7 +12,6 @@ module.exports = {
     css    : path.join(BASE_CSS_PATH, 'peteshow.scss'),
     js     : path.join(BASE_JS_PATH, 'peteshow.coffee'),
     vendor : [
-      path.join(BASE_MODULES_PATH, 'qunitjs', 'qunit', '*'),
       path.join(BASE_MODULES_PATH, 'faker', 'build', 'build', '*'),
       path.join(BASE_MODULES_PATH, 'jquery', 'dist', '*'),
       path.join(BASE_MODULES_PATH, 'jquery.cookie', 'jquery.cookie.js'),
