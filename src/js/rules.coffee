@@ -1,4 +1,4 @@
-random = require('./peteshow-helpers').random
+random = require('./helpers').random
 
 module.exports =
   'input[type=password]'      : 'password',

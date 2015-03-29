@@ -1,14 +1,15 @@
 window._ = _          = require('lodash')
-store      = require('./peteshow-storage')
-helpers    = require('./peteshow-helpers')
-rules      = require('./peteshow-rules')
-controller = require('./peteshow-controller')
-view       = require('./peteshow-view')
+store      = require('./storage')
+helpers    = require('./helpers')
+
+Controller = require('./controller')
 
 Peteshow =
-  view     : null
-  store    : store
-  random   : helpers.random
+  controller : null
+  view       : null
+  store      : store
+  random     : helpers.random
+
   options  : {}
   defaults :
     emailPrefix : 'test-'
@@ -16,7 +17,8 @@ Peteshow =
     form        : ''
     blur        : false
     cookies     : false
-    rules       : rules
+
+    rules       : require('./rules')
     filters     : ['', 'other', 'select']
     ignore      : []
     force       : {}
@@ -25,13 +27,17 @@ Peteshow =
     commands    : ''
     special     : null
     events      : null
+    resets      : []
 
   init: (options = {}) ->
     @setOptions(options)
 
-    @controller = controller
-    @view       = view
+    @controller = new Controller()
+
+    @view = require('./view')
     @view.render()
+
+    @controller.init(@view)
 
   setOptions: (options = {}) ->
     @options = _.merge(@defaults, options)

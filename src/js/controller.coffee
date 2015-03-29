@@ -1,11 +1,36 @@
 _ = require('lodash')
 
 class PeteshowController
+  view: null
+  session: null
+
+  init: (view) ->
+    @view = view
+    @resetSession(Peteshow.options.resets)
+
+  setSession: (id) ->
+    @session = id
+
+  saveSession: -> return
+
+  resetSession: (resets) ->
+    @view.setSession("new") if @hasReset(resets)
+
+  getSessionStorage: (id) ->
+    sessions = store.get('sessions') || {saved:null}
+    _.find(sessions.saved, {id: id})
+
+  hasReset: (resets) ->
+    selectors = resets.join(',')
+    $(selectors).length > 0
+
   fillOutForms: =>
-    @fillInputs()
-    @fillRadioButtons($('input:radio'))
-    @fillCheckboxes($('input:checkbox'))
-    @fillSelectBoxes($('select'))
+    session = @getSessionStorage(@session) if @session != 'new' && @session != 'last'
+
+    inputs     = @fillInputs(session)
+    radios     = @fillRadioButtons(session)
+    checkboxes = @fillCheckboxes(session)
+    selects    = @fillSelectBoxes(session)
 
   fillOutFormsAndSubmit: =>
     @fillOutForms()
@@ -15,6 +40,7 @@ class PeteshowController
 
   fillInputs: ->
     saved = Peteshow.options.saved
+    elements = []
 
     for element, rule of Peteshow.options.rules
       value = if _.isFunction(rule) then rule() else rule
@@ -30,6 +56,12 @@ class PeteshowController
         return if $(el).is(Peteshow.options.ignore.toString())
 
         $(el).val(value)
+
+      elementHash = {}
+      elementHash[element] = value
+      elements.push(elementHash)
+
+    return elements
 
   _uniqueInputNames: ($inputs) ->
     return false if $inputs.length < 0
@@ -67,4 +99,4 @@ class PeteshowController
         .val(value)
         .change()
 
-module.exports = new PeteshowController()
+module.exports = PeteshowController

@@ -7,7 +7,7 @@ $font-size: 13px;
 
 $collapsed-width: 60px;
 
-$active-width: 200px;
+$open-width: 200px;
 
 $breakpoint-max-width: 768px;
 
@@ -82,8 +82,8 @@ $breakpoint-max-width: 768px;
     &:before { content: 'PS'; }
   }
 
-  &.active {
-    width: $active-width;
+  &.open {
+    width: $open-width;
 
     #peteshow-toggle {
       i {
@@ -190,6 +190,6 @@ $breakpoint-max-width: 768px;
     right: 0 !important;
     width: 100%;
 
-    &.active { width: 100%; }
+    &.open { width: 100%; }
   }
 }

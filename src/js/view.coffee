@@ -1,6 +1,6 @@
 _             = require('lodash')
 indexTemplate = require('../templates/index.hbs')
-store         = require('./peteshow-storage')
+store         = require('./storage')
 
 class PeteshowView
   controller  : Peteshow.controller
@@ -9,14 +9,18 @@ class PeteshowView
   $peteshow   : '#peteshow'
   $dragHandle : '#peteshow-drag-handle'
   $tools      : '#peteshow-tools'
+  $sessions   : '.peteshow-sessions'
 
   constructor: ->
     @_position = store.get('position') || {x:0, y:0}
-    @_active   = store.get('active') || false
+
+    @_open = store.get('open')
+    @_open = if typeof @_open != "boolean" then false else @_open
+
     @_events   =
       '#fill-out-forms'            : @controller.fillOutForms
       '#fill-out-forms-and-submit' : @controller.fillOutFormsAndSubmit
-      '#peteshow-toggle'           : @show
+      '#peteshow-toggle'           : @open
       '#peteshow-hide'             : @hide
 
   render: ->
@@ -26,12 +30,13 @@ class PeteshowView
     @_bindElements()
     @_positionWindow()
     @_createEvents(@_events)
-    @show(@_active)
+    @open(@_open)
 
   _bindElements: ->
     @$peteshow   = $(@$peteshow)
     @$tools      = $(@$tools)
     @$dragHandle = $(@$dragHandle)
+    @$sessions   = $(@$sessions)
 
   _createEvents: (events) ->
     for key, value of events
@@ -51,13 +56,17 @@ class PeteshowView
 
     $(document).keydown @_handleKeypress
 
+    @$sessions.find('input:radio').on 'change', (e) =>
+      id = $(e.currentTarget).data('session')
+      @controller.setSession(id)
+
   _handleKeypress: (e) =>
     code = String.fromCharCode(e.keyCode)
 
-    @show() if (e.keyCode == 192)
+    @open() if (e.keyCode == 192)
 
     action  = $("[data-command='#{code}']")
-    visible = @$peteshow.is('.active')
+    visible = @$peteshow.is('.open')
 
     action.click() if (action.length > 0 && visible)
 
@@ -93,15 +102,18 @@ class PeteshowView
     position ?= @_position
     $el.css(left: position.x, top: position.y)
 
-  show: (active) =>
-    if active == undefined
-      active = !@_active
+  open: (open) =>
+    if open == undefined
+      open = !@_open
 
-    @$peteshow.toggleClass('active', active)
-    @$tools.toggle(active)
+    @$peteshow.toggleClass('open', open)
+    @$tools.toggle(open)
 
-    store.set('active', active)
-    @_active = active
+    store.set('open', open)
+    @_open = open
+
+  setSession: (id) ->
+    @$sessions.find("[data-session=#{id}]").prop('checked', true).change()
 
   hide: =>
     $('#peteshow').show(false)

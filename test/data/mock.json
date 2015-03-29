@@ -1,0 +1,35 @@
+{
+  "open": true,
+  "position": {
+    "x": 0,
+    "y": 0
+  },
+
+  "active_session": 3,
+
+  "sessions": {
+
+    "last": {
+      "id": "4",
+      "email": "test-19@example.com",
+      "first_name": "blah"
+    },
+
+    "saved": {
+      1: {
+        "_comment": "is this id needed?",
+        "email": "test-13@example.com",
+        "first_name": "blah"
+      },
+      2: {
+        "email": "test-12@example.com",
+        "first_name": "blah"
+      },
+      3: {
+        "id": "3",
+        "email": "test-18@example.com",
+        "first_name": "blah"
+      }
+    }
+  }
+}
