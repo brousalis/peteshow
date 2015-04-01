@@ -33,21 +33,21 @@ describe 'PeteShow', ->
     done()
 
   it 'shows peteshow when #peteshow-toggle is clicked', (done) ->
-    browser.assert.hasNoClass('#peteshow', 'active')
+    browser.assert.hasNoClass('#peteshow', 'open')
     browser.fire("#peteshow-toggle", 'click')
-    browser.assert.hasClass('#peteshow', 'active')
+    browser.assert.hasClass('#peteshow', 'open')
     done()
 
   it 'shows peteshow with Peteshow.show(true)', (done) ->
-    browser.assert.hasNoClass('#peteshow', 'active')
+    browser.assert.hasNoClass('#peteshow', 'open')
     browser.evaluate("Peteshow.show(true)")
-    browser.assert.hasClass('#peteshow', 'active')
+    browser.assert.hasClass('#peteshow', 'open')
     done()
 
   it 'hides peteshow with Peteshow.show(false)', (done) ->
     browser.evaluate("Peteshow.show(true)")
     browser.evaluate("Peteshow.show(false)")
-    browser.assert.hasNoClass('#peteshow', 'active')
+    browser.assert.hasNoClass('#peteshow', 'open')
     done()
 
   it 'should have valid values', (done) ->

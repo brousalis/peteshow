@@ -8,6 +8,7 @@ class Session
 
   constructor: (data) ->
     @id = shortId.generate() unless data.id?
+
     for key, value of data
       @[key] = value
 

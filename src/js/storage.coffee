@@ -1,7 +1,7 @@
 store = require('store')
 _     = require('lodash')
 
-Session = require('./session')
+Session = require('./models/session')
 
 unless store.get('peteshow')
   store.set('peteshow', {})
@@ -16,14 +16,15 @@ module.exports =
   set: (key, data) ->
     if key == 'sessions'
       return
+
     storedData = @get()
 
     switch typeof data
-      when "array"
+      when 'array'
         storedData[key] = [] unless storedData[key]?
         _data = _.merge(storedData[key], data)
 
-      when "object"
+      when 'object'
         storedData[key] = {} unless storedData[key]?
         _data = _.merge(storedData[key], data)
 
@@ -43,11 +44,11 @@ module.exports =
 
   activeSession: (id) ->
     if id?
-      @set("active_session", id)
+      @set('active_session', id)
     @get('active_session')
 
   lastSession: ->
-    @get("last_session")
+    @get('last_session')
 
   getAll: -> store.getAll().peteshow
 

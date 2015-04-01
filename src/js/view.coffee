@@ -115,10 +115,13 @@ class PeteshowView
   setSession: (id) ->
     @$sessions.find("[data-session=#{id}]").prop('checked', true).change()
 
+  show: =>
+    @$peteshow.show()
+
   hide: =>
-    $('#peteshow').show(false)
+    @$peteshow.hide()
 
   destroy: ->
-    $('#peteshow').remove()
+    @$peteshow.remove()
 
 module.exports = new PeteshowView()

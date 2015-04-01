@@ -8,9 +8,9 @@ describe 'Hotkeys', ->
         done()
 
   it 'should show peteshow when backtick is pressed', (done) ->
-    browser.assert.hasNoClass('#peteshow', 'active')
+    browser.assert.hasNoClass('#peteshow', 'open')
     browser.key('down', 192)
-    browser.assert.hasClass('#peteshow', 'active')
+    browser.assert.hasClass('#peteshow', 'open')
     done()
 
   it 'should fill out forms when F is pressed', (done) ->

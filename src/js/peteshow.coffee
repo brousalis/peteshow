@@ -1,7 +1,6 @@
-window._ = _          = require('lodash')
+window._ = _ = require('lodash')
 store      = require('./storage')
 helpers    = require('./helpers')
-
 Controller = require('./controller')
 
 Peteshow =
@@ -17,14 +16,14 @@ Peteshow =
     form        : ''
     blur        : false
     cookies     : false
-
     rules       : require('./rules')
-    filters     : ['', 'other', 'select']
-    ignore      : []
     force       : {}
-    reuse       : {}
+
+    # TODO:  refactor
     saved       : {}
     commands    : ''
+    filters     : ['', 'other', 'select']
+    ignore      : []
     special     : null
     events      : null
     resets      : []
@@ -33,17 +32,22 @@ Peteshow =
     @setOptions(options)
 
     @controller = new Controller()
+    @view       = require('./view')
 
-    @view = require('./view')
     @view.render()
-
     @controller.init(@view)
 
   setOptions: (options = {}) ->
     @options = _.merge(@defaults, options)
 
-  show: (active) ->
-    @view.show(active)
+  hide: ->
+    @view.hide()
+
+  show: ->
+    @view.show()
+
+  open: (active) ->
+    @view.open(active)
 
   destroy: ->
     @view.destroy()

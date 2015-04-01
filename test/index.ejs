@@ -6,6 +6,7 @@
     <link rel='stylesheet' href='stylesheets/peteshow.css'>
     <style>
       body { padding-left: 200px; }
+      input { margin: 20px; }
       input[name=first_name] { border: 2px solid red; }
     </style>
   </head>
@@ -62,7 +63,8 @@
             "input[name*=custom_name]": 'Custom Name'
           },
           reuse: { 'input[name*=first_name]': '/tests' },
-          ignore : ['input[name=last_name]', '#qunit-modulefilter']
+          ignore: ['input[name=last_name]', '#qunit-modulefilter'],
+          resets: ['form[name=random]']
         });
       }
     </script>
