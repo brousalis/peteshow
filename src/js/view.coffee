@@ -92,6 +92,9 @@ class PeteshowView
       position.x = 0 if position.x < 0
       position.y = 0 if position.y < 0
 
+      position.x = window.innerWidth - $el.width() if position.x > window.innerWidth - $el.width()
+      position.y = window.innerHeilght if position.y > window.innerHeight
+
       elBottom        = $el.height() + $el.offset().top
       windowBottom    = $(window).height()
       mouseBottomDiff = $el.offset().top - position.y + windowBottom - $el.height()

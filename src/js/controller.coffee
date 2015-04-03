@@ -2,8 +2,8 @@ _     = require('lodash')
 store = require('./storage')
 
 class PeteshowController
-  view: null
-  session: null
+  view    : null
+  session : null
 
   init: (view) ->
     @view = view
@@ -15,7 +15,7 @@ class PeteshowController
   saveSession: -> return
 
   resetSession: (resets) ->
-    @view.setSession("new") if @hasReset(resets)
+    @view.setSession('new') if @hasReset(resets)
 
   hasReset: (resets) ->
     selectors = resets.join(',')
@@ -26,10 +26,10 @@ class PeteshowController
     _.find(sessions.saved, {id: id})
 
   fillOutForms: =>
-    @fillInputs()
-    #radios     = @fillRadioButtons(session)
-    #@fillCheckboxes()
-    #@fillSelectBoxes()
+    inputs     = @fillInputs()
+    radios     = @fillRadioButtons()
+    checkboxes = @fillCheckboxes()
+    selects    = @fillSelectBoxes()
 
   fillOutFormsAndSubmit: =>
     @fillOutForms()
@@ -45,16 +45,15 @@ class PeteshowController
     for element, rule of Peteshow.options.rules
       value = if _.isFunction(rule) then rule() else rule
 
-      # Well, we've made it this far. Let's go ahead and fill this form out
       $(element).each (i, el) ->
-        # Restore saved fields values from the saved option
         key = _.findKey(saved, (v, k) -> $(el).is(k))
-        if key != undefined
-          return $(el).val(saved[key])
+
+        return $(el).val(saved[key]) if key != undefined
 
         return if $(el).is(':checkbox')
-        ignored = $(el).is(Peteshow.options.ignore.toString())
-        return if ignored
+
+        return if $(el).is(Peteshow.options.ignore.toString())
+
         $(el).val(value)
 
       elementHash = {}
@@ -68,7 +67,6 @@ class PeteshowController
 
   fillCheckboxes: ($inputs) ->
     for el in $('input:checkbox')
-      # boolean = !!Peteshow.random.number(1)
       $(el)
         .prop('checked', true)
         .change()

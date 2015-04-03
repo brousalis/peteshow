@@ -5,9 +5,11 @@
     <title>Peteshow.js Tests</title>
     <link rel='stylesheet' href='stylesheets/peteshow.css'>
     <style>
-      body { padding-left: 200px; }
-      input { margin: 20px; }
-      input[name=first_name] { border: 2px solid red; }
+      body { padding-left: 200px; font-family: 'helvetica'; font-size: 14px; }
+      form > div { display: inline-block; margin-bottom: 10px }
+        form input { display: block; padding: 8px 10px; border: 1px solid #f1f1f1; }
+      form [type=submit] { background: darkgreen; color: #fff; font-weight: bold; border-radius: 8px }
+      form label { display: block; padding: 3px 6px; font-size: 11px; background: #f1f1f1 ; }
     </style>
   </head>
   <body>
@@ -55,12 +57,20 @@
     <script src='vendor/jquery.cookie.js'></script>
     <script src='javascripts/peteshow.js'></script>
     <script>
+      // little somethin' for the labels
+      $(function() {
+        $('form > input:not("[type=submit]")').wrap('<div/>').after(function() {
+          return '<label for=' + this.name + '>' + this.name + '</label>'
+        });
+      });
+    </script>
+    <script>
       if ('<%= env %>' != 'test') {
         Peteshow.init({
           cookies: true,
           rules: {
-            "input[name*=middle_name]": Peteshow.random.name(),
-            "input[name*=custom_name]": 'Custom Name'
+            'input[name*=middle_name]': Peteshow.random.name(),
+            'input[name*=custom_name]': 'Custom Name'
           },
           reuse: { 'input[name*=first_name]': '/tests' },
           ignore: ['input[name=last_name]', '#qunit-modulefilter'],
