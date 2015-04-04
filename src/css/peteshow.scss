@@ -6,7 +6,6 @@ $font-family: 'Helvetica Neue', 'Tahoma';
 $font-size: 13px;
 
 $collapsed-width: 60px;
-
 $open-width: 200px;
 
 $breakpoint-max-width: 560px;
@@ -42,15 +41,8 @@ $breakpoint-max-width: 560px;
   width: $collapsed-width;
   z-index: 9001;
 
-  @include links { @extend %clear-text-decoration; }
-
-  #peteshow-drag-handle {
-    background: blue;
-    height: 20px;
-    position: absolute;
-    right: 0;
-    width: 20px;
-    z-index: 3000;
+  @include links { 
+    @extend %clear-text-decoration; 
   }
 
   #peteshow-toggle {
@@ -60,6 +52,7 @@ $breakpoint-max-width: 560px;
     display: block;
     padding: 5px 10px;
     position: relative;
+    cursor: pointer;
 
     i {
       border-color: transparent;

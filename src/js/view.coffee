@@ -1,18 +1,19 @@
 _             = require('lodash')
-indexTemplate = require('../templates/index.hbs')
+template      = require('../templates/index.hbs')
 store         = require('./storage')
+
+Draggabilly   = require('draggabilly')
 
 class PeteshowView
   controller  : Peteshow.controller
-  _events     : {}
 
   $peteshow   : '#peteshow'
-  $dragHandle : '#peteshow-drag-handle'
   $tools      : '#peteshow-tools'
-  $sessions   : '.peteshow-sessions'
+  $sessions   : '#peteshow-sessions'
 
   constructor: ->
     @_position = store.get('position') || {x:0, y:0}
+    console.log @_position
 
     @_open = store.get('open')
     @_open = if typeof @_open != "boolean" then false else @_open
@@ -20,11 +21,9 @@ class PeteshowView
     @_events   =
       '#fill-out-forms'            : @controller.fillOutForms
       '#fill-out-forms-and-submit' : @controller.fillOutFormsAndSubmit
-      '#peteshow-toggle'           : @open
       '#peteshow-hide'             : @hide
 
   render: ->
-    template = indexTemplate()
     $('body').append(template)
 
     @_bindElements()
@@ -33,34 +32,28 @@ class PeteshowView
     @open(@_open)
 
   _bindElements: ->
-    @$peteshow   = $(@$peteshow)
-    @$tools      = $(@$tools)
-    @$dragHandle = $(@$dragHandle)
-    @$sessions   = $(@$sessions)
+    @$drag     = new Draggabilly(@$peteshow)
+    @$peteshow = $(@$peteshow)
+    @$tools    = $(@$tools)
+    @$sessions = $(@$sessions)
 
   _createEvents: (events) ->
     for key, value of events
       $(key).on 'click', (e) =>
         e.preventDefault()
         e.stopPropagation()
-        events["##{e.target.id}"]() unless @dragging
+        events["##{e.target.id}"]()
 
-    __handleDragMove = _.throttle(@_handleDragMove, 10)
-    __handleDragDown = _.debounce(@_handleDragDown, 100)
-    __handleDragUp   = _.debounce(@_handleDragUp, 100)
+    $(document).on 'keydown', @_handleKeydown
 
-    @$dragHandle.on 'mousedown', __handleDragDown
-    $(document)
-      .on 'mousemove', __handleDragMove
-      .on 'mouseup', __handleDragUp
-
-    $(document).keydown @_handleKeypress
+    @$drag.on 'dragEnd', @_handleDragEnd
+    @$drag.on 'staticClick', @open
 
     @$sessions.find('input:radio').on 'change', (e) =>
       id = $(e.currentTarget).data('session')
       @controller.setSession(id)
 
-  _handleKeypress: (e) =>
+  _handleKeydown: (e) =>
     code = String.fromCharCode(e.keyCode)
 
     @open() if (e.keyCode == 192)
@@ -70,47 +63,21 @@ class PeteshowView
 
     action.click() if (action.length > 0 && visible)
 
-  _handleDragUp: =>
-    @dragging = false
-    document.onmousedown= -> return false
+  _handleDragEnd: ->
+    @_position = this.position
+    console.log @_position
     store.set('position', @_position)
 
-  _handleDragDown: =>
-    @dragging = true
-    document.onmousedown= -> return true
-
-  _handleDragMove: (e) =>
-    if @dragging
-      position = {}
-      position.x = e.pageX - @$peteshow.width()
-      position.y = e.pageY
-      @_positionWindow(position)
-
-  _positionWindow: (position) ->
+  _positionWindow: ->
     $el = @$peteshow
-    if position
-      position.x = 0 if position.x < 0
-      position.y = 0 if position.y < 0
-
-      position.x = window.innerWidth - $el.width() if position.x > window.innerWidth - $el.width()
-      position.y = window.innerHeilght if position.y > window.innerHeight
-
-      elBottom        = $el.height() + $el.offset().top
-      windowBottom    = $(window).height()
-      mouseBottomDiff = $el.offset().top - position.y + windowBottom - $el.height()
-
-      position.y = windowBottom - $el.height() if position.y >= mouseBottomDiff
-      @_position = position
-
-    position ?= @_position
-    $el.css(left: position.x, top: position.y)
+    $el.css(left: @_position.x, top: @_position.y)
 
   open: (open) =>
     if open == undefined
       open = !@_open
 
-    @$peteshow.toggleClass('open', open)
-    @$tools.toggle(open)
+    @$tools.toggle()
+    @$peteshow.toggleClass('open')
 
     store.set('open', open)
     @_open = open

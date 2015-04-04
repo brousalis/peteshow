@@ -5,11 +5,11 @@
     <title>Peteshow.js Tests</title>
     <link rel='stylesheet' href='stylesheets/peteshow.css'>
     <style>
-      body { padding-left: 200px; font-family: 'helvetica'; font-size: 14px; }
-      form > div { display: inline-block; margin-bottom: 10px }
-        form input { display: block; padding: 8px 10px; border: 1px solid #f1f1f1; }
-      form [type=submit] { background: darkgreen; color: #fff; font-weight: bold; border-radius: 8px }
-      form label { display: block; padding: 3px 6px; font-size: 11px; background: #f1f1f1 ; }
+      body { font-family: 'helvetica'; }
+      form > div { display: inline-block; margin-bottom: 20px; }
+      form input { display: block; padding: 8px 10px; }
+      form input[type=submit] { padding: 10px 55px; margin-top: 20px }
+      form label { display: block; padding: 3px 6px; }
     </style>
   </head>
   <body>
@@ -47,7 +47,6 @@
       <input name='saved' type='text' />
       <input name='saved_2' type='text' />
       <input name='ignore_me' type='text' />
-
       <input type='submit' value='submit' />
     </form>
 
@@ -59,8 +58,10 @@
     <script>
       // little somethin' for the labels
       $(function() {
-        $('form > input:not("[type=submit]")').wrap('<div/>').after(function() {
-          return '<label for=' + this.name + '>' + this.name + '</label>'
+        $('form > input:not("[type=submit]")')
+          .wrap('<div/>')
+          .after(function() {
+            return '<label for=' + this.name + '>' + this.name + '</label>'
         });
       });
     </script>

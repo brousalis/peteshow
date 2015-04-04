@@ -26,6 +26,8 @@ class PeteshowController
     _.find(sessions.saved, {id: id})
 
   fillOutForms: =>
+    session = @getSessionStorage(@session) if @session != 'new' && @session != 'last'
+
     inputs     = @fillInputs()
     radios     = @fillRadioButtons()
     checkboxes = @fillCheckboxes()
@@ -34,12 +36,10 @@ class PeteshowController
   fillOutFormsAndSubmit: =>
     @fillOutForms()
     $(Peteshow.options.form).submit()
-    $('form[name*=registration], .simple_form').submit()
-    $('form').last().submit()
+    $('form[name*=registration]').submit()
 
   fillInputs: (session) ->
-    saved = Peteshow.options.saved
-
+    saved    = Peteshow.options.saved
     elements = []
 
     for element, rule of Peteshow.options.rules
@@ -51,7 +51,6 @@ class PeteshowController
         return $(el).val(saved[key]) if key != undefined
 
         return if $(el).is(':checkbox')
-
         return if $(el).is(Peteshow.options.ignore.toString())
 
         $(el).val(value)
@@ -59,6 +58,7 @@ class PeteshowController
       elementHash = {}
       elementHash[element] = value
       elements.push(elementHash)
+
     return elements
 
   _uniqueInputNames: ($inputs) ->
@@ -66,16 +66,16 @@ class PeteshowController
     _.uniq($inputs.map (i, $input) -> $input.name)
 
   fillCheckboxes: ($inputs) ->
-    for el in $('input:checkbox')
+    for el in $('form input:checkbox')
       $(el)
         .prop('checked', true)
         .change()
 
   fillRadioButtons: ($inputs) ->
-    return unless inputNames = @_uniqueInputNames($('input:radio'))
+    return unless inputNames = @_uniqueInputNames($('form input:radio'))
 
     for name in inputNames
-      $els   = $("input:radio[name='#{name}']")
+      $els   = $("form input:radio[name='#{name}']")
       random = Math.floor(Math.random() * $els.length)
       $el    = $els.eq(random)
 
@@ -84,13 +84,13 @@ class PeteshowController
         .change()
 
   fillSelectBoxes: ($inputs) ->
-    for el in $('select')
+    for el in $('form select')
       options = $.makeArray($(el).find('option'))
       values  = options.map (el) -> $(el).val()
       values  = _.difference(values, Peteshow.options.filters)
 
-      random = Math.floor(Math.random() * values.length)
-      value  = values[random]
+      random  = Math.floor(Math.random() * values.length)
+      value   = values[random]
 
       $(el)
         .val(value)

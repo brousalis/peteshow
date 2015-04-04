@@ -10,6 +10,6 @@ gulp.task('test', function() {
   require(config.test.helper);
 
   return gulp.src(config.test.features, {read: false})
-    .pipe(mocha({ compilers: 'coffee:coffee-script' }));
+    .pipe(mocha({ reporter: 'nyan', compilers: 'coffee:coffee-script' }));
 });
 

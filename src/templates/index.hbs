@@ -1,5 +1,4 @@
 <div id='peteshow'>
-  <div id="peteshow-drag-handle"></div>
   <div id="peteshow-toggle"></div>
   <div id='peteshow-tools'>
     <ul id='peteshow-commands'>
@@ -8,10 +7,19 @@
 {{!stored.html}}
 <li><a data-command='H' href='#' id='peteshow-hide'>Hide</a></li>
     </ul>
-    <div class='peteshow-sessions'>
-      <input type="radio" name='peteshow-session' data-session="new" />
-      <input type="radio" name='peteshow-session' data-session="last" />
-      <input type="radio" name='peteshow-session' data-session="1" />
+    <div id='peteshow-sessions'>
+      <label>
+        <input type="radio" name='peteshow-session' data-session="new" />
+        new session
+      </label>
+      <label>
+        <input type="radio" name='peteshow-session' data-session="last" />
+        last session
+      </label>
+      <label>
+        <input type="radio" name='peteshow-session' data-session="1" />
+        1
+      </label>
     </div>
   </div>
 </div>
