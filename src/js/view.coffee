@@ -8,7 +8,7 @@ class PeteshowView
   controller  : Peteshow.controller
 
   $peteshow   : '#peteshow'
-  $tools      : '#peteshow-tools'
+  $tools      : '#peteshow-menu'
   $sessions   : '#peteshow-sessions'
 
   constructor: ->

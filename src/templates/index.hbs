@@ -1,25 +1,28 @@
 <div id='peteshow'>
-  <div id="peteshow-toggle"></div>
-  <div id='peteshow-tools'>
-    <ul id='peteshow-commands'>
+  <div id='peteshow-toggle'><i></i></div>
+  <div id='peteshow-menu'>
+    <ul>
 <li><a data-command='F' href='#' id='fill-out-forms'>Fill Out Forms</a></li>
 <li><a data-command='Q' href='#' id='fill-out-forms-and-submit'>Fill Out and Submit</a></li>
 {{!stored.html}}
 <li><a data-command='H' href='#' id='peteshow-hide'>Hide</a></li>
     </ul>
     <div id='peteshow-sessions'>
+      <span>Sessions</span>
       <label>
-        <input type="radio" name='peteshow-session' data-session="new" />
-        new session
+        <input type='radio' name='peteshow-session' data-session="new" checked />
+        New session
       </label>
       <label>
-        <input type="radio" name='peteshow-session' data-session="last" />
-        last session
+        <input type='radio' name='peteshow-session' data-session="last" />
+        Last session
       </label>
-      <label>
-        <input type="radio" name='peteshow-session' data-session="1" />
-        1
-      </label>
+      <div class='peteshow-stored-sessions'>
+        <label>
+          <input type='radio' name='peteshow-session' data-session="1" />
+          1
+        </label>
+      </div>
     </div>
   </div>
 </div>

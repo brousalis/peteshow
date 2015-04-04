@@ -1,8 +1,8 @@
 $primary-background-color: rgba(0,0,0, 0.85);
-$inner-background-color: rgba(0, 0, 0, 0.9);
+$inner-background-color: rgba(0, 0, 0, 0.3);
 
 $font-color: #ffffff;
-$font-family: 'Helvetica Neue', 'Tahoma';
+$font-family: 'Helvetica', 'Tahoma';
 $font-size: 13px;
 
 $collapsed-width: 60px;
@@ -15,6 +15,24 @@ $breakpoint-max-width: 560px;
   text-shadow: none;
 }
 
+%menu-link {
+  color: #999;
+  display: block;
+  height: 1%;
+  padding: 7px 10px;
+
+  &:visited {
+    color: #999;
+  }
+
+  &:hover {
+    background-color: rgba(0,0,0,0.1);
+    color: #ccc;
+  }
+
+  &:active { height: 1%; }
+}
+
 @mixin links {
   a,
   a:active,
@@ -23,6 +41,12 @@ $breakpoint-max-width: 560px;
   a:visited {
     @content;
   }
+}
+
+@mixin radial($inner-color: #555, $outer-color: #333) {
+  background-image: -webkit-radial-gradient(circle, $inner-color, $outer-color);
+  background-image: radial-gradient(circle, $inner-color, $outer-color);
+  background-repeat: no-repeat;
 }
 
 #peteshow {
@@ -40,17 +64,19 @@ $breakpoint-max-width: 560px;
   transition: width 0.2s ease;
   width: $collapsed-width;
   z-index: 9001;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 
-  @include links { 
-    @extend %clear-text-decoration; 
-  }
+
+  @include links { @extend %clear-text-decoration; }
 
   #peteshow-toggle {
     @extend %clear-text-decoration;
     color: #fff;
     font-weight: bold;
     display: block;
-    padding: 5px 10px;
+    padding: 8px 10px;
     position: relative;
     cursor: pointer;
 
@@ -65,9 +91,9 @@ $breakpoint-max-width: 560px;
       height: 0;
       line-height: 0;
       margin: 0px;
-      position: relative;
+      position: absolute;
       right: 3px;
-      top: 9px;
+      top: 8px;
       vertical-align: middle;
       width: 0;
     }
@@ -91,33 +117,19 @@ $breakpoint-max-width: 560px;
     }
   }
 
-  #peteshow-tools {
+  #peteshow-menu {
     display: none;
     color: #fff;
     transition: all 1.0s ease;
 
-    a {
+    a { 
       color: #999;
       display: block;
       font-weight: bold;
-      height: 1%;
       text-transform: capitalize;
-
-      &:link,
-      &:visited {
-        color: #999;
-        display: block;
-        height: 1%;
-        padding: 5px 10px;
-      }
-
-      &:hover {
-        background-color: #000;
-        color: #FFF;
-      }
-
-      &:active { height: 1%; }
+      @extend %menu-link;
     }
+
 
     ul {
       list-style: none;
@@ -128,51 +140,63 @@ $breakpoint-max-width: 560px;
         border-top: 1px dotted #666;
         display: block;
         margin: 0;
-
-        &.list {
-          color: #aaa;
-          font-size: 12px;
-          overflow: hidden;
-          padding: 5px 10px 10px;
-
-          &:hover { overflow: visible; }
-
-          &:before,
-          &:after {
-            content: " ";
-            display: table;
-          }
-
-          &:before {
-            color: #999;
-            content: 'Stored:';
-            display: block;
-            font-size: 13px;
-            margin-bottom: 3px;
-          }
-
-          &:after { clear: both; }
-
-          div {
-            display: block;
-            white-space: nowrap;
-          }
-          span {
-            display: inline-block;
-            margin-left: 15px;
-          }
-        }
-
-        .inner {
-          background-color: $inner-background-color;
-          float: left;
-          padding: 3px 5px;
-          position: relative;
-          z-index: 100;
-        }
       }
     }
   }
+
+  #peteshow-sessions {
+    background: $inner-background-color;
+    padding: 5px 0;
+
+    label {
+      @extend %menu-link;
+      padding: 5px 10px;
+      cursor: pointer; 
+
+      &:hover { background: none; }
+    }
+
+    span {
+      padding: 5px 10px;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: bold;
+      color: rgba(255,255,255,0.3);
+      display: block;
+    }
+
+    input {
+      -webkit-appearance: none; 
+      margin: 0;
+      margin-right: 5px;
+      margin-top: -3px;
+      width: 14px;
+      height: 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      vertical-align: middle;
+      box-shadow: hsla(0,0%,100%,.15) 0 1px 1px, inset hsla(0,0%,0%,.5) 0 0 0 1px;
+      background-color: hsla(100,100%,100%,.2);
+      @include radial(#999, #999);
+      background-repeat: no-repeat;
+      outline: none;
+    }
+
+    input, input:active { background-position: 0 14px; }
+
+    input:checked { background-position: 0 0; }
+
+    input:checked ~ input,
+    input:checked ~ input:active {
+      background-position: 0 -14px;
+    }
+  }
+
+  .peteshow-stored-sessions {
+    border-top: 1px dotted rgba(255,255,255,0.2);
+    margin-top: 5px;
+    padding-top: 5px;
+  } 
 }
 
 @media (max-width: $breakpoint-max-width) {
