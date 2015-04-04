@@ -32,7 +32,7 @@ class PeteshowView
     @open(@_open)
 
   _bindElements: ->
-    @$drag     = new Draggabilly(@$peteshow)
+    @$drag     = new Draggabilly(@$peteshow, containment: 'body')
     @$peteshow = $(@$peteshow)
     @$tools    = $(@$tools)
     @$sessions = $(@$sessions)
@@ -65,12 +65,10 @@ class PeteshowView
 
   _handleDragEnd: ->
     @_position = this.position
-    console.log @_position
     store.set('position', @_position)
 
   _positionWindow: ->
-    $el = @$peteshow
-    $el.css(left: @_position.x, top: @_position.y)
+    @$peteshow.css(left: @_position.x, top: @_position.y)
 
   open: (open) =>
     if open == undefined
