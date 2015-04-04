@@ -32,7 +32,7 @@ class PeteshowView
     @open(@_open)
 
   _bindElements: ->
-    @$drag     = new Draggabilly(@$peteshow, containment: 'body')
+    @$drag     = new Draggabilly(@$peteshow, handle: '#peteshow-toggle', containment: 'body')
     @$peteshow = $(@$peteshow)
     @$tools    = $(@$tools)
     @$sessions = $(@$sessions)
@@ -46,8 +46,9 @@ class PeteshowView
 
     $(document).on 'keydown', @_handleKeydown
 
-    @$drag.on 'dragEnd', @_handleDragEnd
-    @$drag.on 'staticClick', @open
+    @$drag
+      .on 'dragEnd', @_handleDragEnd
+      .on 'staticClick', @open
 
     @$sessions.find('input:radio').on 'change', (e) =>
       id = $(e.currentTarget).data('session')
