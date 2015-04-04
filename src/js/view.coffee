@@ -13,11 +13,7 @@ class PeteshowView
 
   constructor: ->
     @_position = store.get('position') || {x:0, y:0}
-    console.log @_position
-
-    @_open = store.get('open')
-    @_open = if typeof @_open != "boolean" then false else @_open
-
+    @_open     = store.get('open')
     @_events   =
       '#fill-out-forms'            : @controller.fillOutForms
       '#fill-out-forms-and-submit' : @controller.fillOutFormsAndSubmit
@@ -32,7 +28,7 @@ class PeteshowView
     @open(@_open)
 
   _bindElements: ->
-    @$drag     = new Draggabilly(@$peteshow, handle: '#peteshow-toggle', containment: 'body')
+    @$drag     = new Draggabilly(@$peteshow, handle: '#peteshow-toggle', containment: 'html')
     @$peteshow = $(@$peteshow)
     @$tools    = $(@$tools)
     @$sessions = $(@$sessions)
@@ -68,18 +64,32 @@ class PeteshowView
     @_position = this.position
     store.set('position', @_position)
 
-  _positionWindow: ->
-    @$peteshow.css(left: @_position.x, top: @_position.y)
+  _positionWindow: (position) ->
+    if position == undefined
+      position = @_position
+
+    @$peteshow.css(left: position.x, top: position.y)
 
   open: (open) =>
-    if open == undefined
+    if open == undefined || typeof open != 'boolean'
       open = !@_open
 
-    @$tools.toggle()
-    @$peteshow.toggleClass('open')
+    @$tools.toggle(open)
+    @$peteshow.toggleClass('open', open)
 
-    store.set('open', open)
     @_open = open
+    store.set('open', @_open)
+
+    return
+
+  reset: (position) ->
+    if position == undefined
+      position = {x:0, y:0}
+
+    @_positionWindow(position)
+    @_position = position
+    store.set('position', @_position)
+    return position
 
   setSession: (id) ->
     @$sessions.find("[data-session=#{id}]").prop('checked', true).change()

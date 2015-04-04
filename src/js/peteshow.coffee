@@ -46,11 +46,14 @@ Peteshow =
   show: ->
     @view.show()
 
-  open: (active) ->
-    @view.open(active)
+  open: (open) ->
+    @view.open(open)
 
   destroy: ->
     @view.destroy()
+
+  reset: (position) ->
+    @view.reset(position)
 
   fillOutForms: ->
     @controller.fillOutForms()
