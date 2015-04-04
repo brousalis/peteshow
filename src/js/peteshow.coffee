@@ -26,7 +26,6 @@ Peteshow =
     ignore      : []
     special     : null
     events      : null
-    resets      : []
 
   init: (options = {}) ->
     @setOptions(options)

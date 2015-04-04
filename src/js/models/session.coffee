@@ -1,10 +1,7 @@
 shortId = require('shortid')
 
 class Session
-  id         : null
-  email      : null
-  first_name : null
-  last_name  : null
+  id: null
 
   constructor: (data) ->
     @id = shortId.generate() unless data.id?

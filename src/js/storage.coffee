@@ -36,6 +36,7 @@ module.exports =
 
   sessions: ->
     sessions = @get('sessions') || []
+    console.log sessions
 
   addSession: (data) ->
     data = {sessions: @sessions()}

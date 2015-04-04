@@ -17,6 +17,8 @@ server = (options = {}) ->
   env = process.env.NODE_ENV
 
   app.get '/', (req, res) -> res.render('index', {env: env})
+  app.get '/two', (req, res) -> res.render('two', {env: env})
+
   app.listen(port)
 
   if (env != 'test')

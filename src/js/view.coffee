@@ -58,7 +58,7 @@ class PeteshowView
     action  = $("[data-command='#{code}']")
     visible = @$peteshow.is('.open')
 
-    action.click() if (action.length > 0 && visible)
+    action.click() if (action.length > 0 and visible)
 
   _handleDragEnd: ->
     @_position = this.position

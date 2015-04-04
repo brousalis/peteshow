@@ -6,27 +6,27 @@ class PeteshowController
   session : null
 
   init: (view) ->
-    @view = view
-    @resetSession(Peteshow.options.resets)
+    @view     = view
+    @sessions = store.get('sessions')
+
+    @resetSession()
+
+  saveSession: ->
 
   setSession: (id) ->
     @session = id
 
-  saveSession: -> return
-
-  resetSession: (resets) ->
-    @view.setSession('new') if @hasReset(resets)
-
-  hasReset: (resets) ->
-    selectors = resets.join(',')
-    $(selectors).length > 0
+  resetSession: ->
+    @view.setSession('new')
 
   getSessionStorage: (id) ->
+    return false if @session is 'new'
+
     sessions = store.get('sessions') || {saved:null}
     _.find(sessions.saved, {id: id})
 
   fillOutForms: =>
-    session = @getSessionStorage(@session) if @session != 'new' && @session != 'last'
+    session = @getSessionStorage(@session)
 
     inputs     = @fillInputs()
     radios     = @fillRadioButtons()
@@ -37,6 +37,7 @@ class PeteshowController
     @fillOutForms()
     $(Peteshow.options.form).submit()
     $('form[name*=registration]').submit()
+    @saveSession()
 
   fillInputs: (session) ->
     saved    = Peteshow.options.saved
