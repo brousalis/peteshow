@@ -1,39 +1,39 @@
-<div id='peteshow'>
-  <div id='peteshow-toggle'><i></i></div>
-  <div id='peteshow-menu'>
-    <ul>
-      <li><a data-command='F' href='#' id='fill-out-forms'>Fill Out Forms</a></li>
-      <li><a data-command='Q' href='#' id='fill-out-forms-and-submit'>Fill Out and Submit</a></li>
-      <li><a data-command='H' href='#' id='peteshow-hide'>Hide</a></li>
-    </ul>
-    <div id='peteshow-sessions'>
-      <span>Sessions</span>
-      <label>
-        <input type='radio' name='peteshow-session' data-session='new' />
-        New session
-      </label>
-      <label>
-        <input type='radio' name='peteshow-session' data-session='last' />
-        Last session
-        <div class='peteshow-last-session'>
-          <span>Pete Brousalis</span>
-          <svg class='icon icon-save'><use xlink:href='#icon-save'></use></svg>
-        </div>
-      </label>
-      <div class='peteshow-stored-sessions'>
-        <label>
-          <input type='radio' name='peteshow-session' data-session='1' />
-        </label>
+<div id='peteshow-toggle'><i></i></div>
+<div id='peteshow-menu'>
+  <ul>
+    <li><a data-command='F' href='#' id='fill-out-forms'>Fill Out Forms</a></li>
+    <li><a data-command='Q' href='#' id='fill-out-forms-and-submit'>Fill Out and Submit</a></li>
+    <li><a data-command='H' href='#' id='peteshow-hide'>Hide</a></li>
+  </ul>
+  <div id='peteshow-sessions'>
+    <span>Sessions</span>
+    <label>
+      <input type='radio' name='peteshow-session' data-session='new' />
+      New session
+    </label>
+    {{#if lastSession}}
+    <label>
+      <input type='radio' name='peteshow-session' data-session='last' />
+      Last session
+      <div class='peteshow-last-session'>
+        <span>{{lastSession.first_name}}</span>
+        <svg class='icon icon-save'><use xlink:href='#icon-save'></use></svg>
       </div>
+    </label>
+    {{/if}}
+    <div class='peteshow-stored-sessions'>
+      <label>
+        <input type='radio' name='peteshow-session' data-session='1' />
+      </label>
     </div>
   </div>
-
-  <svg display='none' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
-    <defs>
-    <symbol id='icon-save' viewBox='0 0 1024 1024'>
-      <title>save</title>
-      <path class='path1' d='M896 0h-896v1024h1024v-896l-128-128zM512 128h128v256h-128v-256zM896 896h-768v-768h64v320h576v-320h74.978l53.022 53.018v714.982z'></path>
-    </symbol>
-    </defs>
-  </svg>
 </div>
+
+<svg display='none' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
+  <defs>
+  <symbol id='icon-save' viewBox='0 0 1024 1024'>
+    <title>save</title>
+    <path class='path1' d='M896 0h-896v1024h1024v-896l-128-128zM512 128h128v256h-128v-256zM896 896h-768v-768h64v320h576v-320h74.978l53.022 53.018v714.982z'></path>
+  </symbol>
+  </defs>
+</svg>

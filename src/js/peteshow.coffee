@@ -13,7 +13,7 @@ Peteshow =
   defaults :
     emailPrefix : 'test-'
     emailDomain : 'example.com'
-    form        : ''
+    form        : ['form[name*=registration]']
     blur        : false
     cookies     : false
     rules       : require('./rules')

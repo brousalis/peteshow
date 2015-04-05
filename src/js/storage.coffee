@@ -14,9 +14,6 @@ module.exports =
     data
 
   set: (key, data) ->
-    if key == 'sessions'
-      return
-
     storedData = @get()
 
     switch typeof data
@@ -35,24 +32,29 @@ module.exports =
     store.set('peteshow', storedData)
 
   sessions: ->
-    sessions = @get('sessions') || []
-    console.log sessions
+    @get('sessions') || []
 
   addSession: (data) ->
-    data = {sessions: @sessions()}
-    data.sessions.push(new Session(data))
-    @set('peteshow', data)
+    session = new Session(data)
+    data    = @sessions()
+
+    data.sessions.push(session)
+    @set('sessions', data)
+
+    return session.id
 
   activeSession: (id) ->
-    if id?
-      @set('active_session', id)
+    @set('active_session', id) if id?
     @get('active_session')
 
-  lastSession: ->
+  lastSession: (data) ->
+    session = new Session(data)
+
+    @set('last_session', session) if data?
     @get('last_session')
+
+    return session.id
 
   getAll: -> store.getAll().peteshow
 
-  clear: ->
-    store.remove('peteshow')
-
+  clear: -> store.remove('peteshow')

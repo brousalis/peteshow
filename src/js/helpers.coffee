@@ -1,5 +1,6 @@
 Faker  = require('faker')
 moment = require('moment')
+Handlebars = require('handlebars')
 
 randomString = (length, chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') ->
   result = ''

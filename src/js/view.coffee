@@ -19,19 +19,19 @@ class PeteshowView
       '#fill-out-forms-and-submit' : @controller.fillOutFormsAndSubmit
       '#peteshow-hide'             : @hide
 
+    $('body').append('<div id="peteshow" />')
+
   render: ->
-    $('body').append(template)
-
-    @_bindElements()
-    @_positionWindow()
+    $(@$peteshow).html(
+      template(
+        lastSession : store.get('last_session')
+        sessions    : store.get('sessions')
+      )
+    )
+    @_positionWindow(store.get('position'))
     @_createEvents(@_events)
+    @setSession('new')
     @open(@_open)
-
-  _bindElements: ->
-    @$drag     = new Draggabilly(@$peteshow, handle: '#peteshow-toggle', containment: 'html')
-    @$peteshow = $(@$peteshow)
-    @$tools    = $(@$tools)
-    @$sessions = $(@$sessions)
 
   _createEvents: (events) ->
     for key, value of events
@@ -42,23 +42,19 @@ class PeteshowView
 
     $(document).on 'keydown', @_handleKeydown
 
+    @$drag = new Draggabilly(
+      @$peteshow,
+      handle      : '#peteshow-toggle',
+      containment : 'html'
+    )
+
     @$drag
       .on 'dragEnd', @_handleDragEnd
       .on 'staticClick', @open
 
-    @$sessions.find('input:radio').on 'change', (e) =>
+    $(@$sessions).find('input:radio').on 'change', (e) =>
       id = $(e.currentTarget).data('session')
       @controller.setSession(id)
-
-  _handleKeydown: (e) =>
-    code = String.fromCharCode(e.keyCode)
-
-    @open() if (e.keyCode == 192)
-
-    action  = $("[data-command='#{code}']")
-    visible = @$peteshow.is('.open')
-
-    action.click() if (action.length > 0 and visible)
 
   _handleDragEnd: ->
     @_position = this.position
@@ -68,14 +64,15 @@ class PeteshowView
     if position == undefined
       position = @_position
 
-    @$peteshow.css(left: position.x, top: position.y)
+    @_position = position
+    $(@$peteshow).css(left: position.x, top: position.y)
 
   open: (open) =>
     if open == undefined || typeof open != 'boolean'
       open = !@_open
 
-    @$tools.toggle(open)
-    @$peteshow.toggleClass('open', open)
+    $(@$tools).toggle(open)
+    $(@$peteshow).toggleClass('open', open)
 
     @_open = open
     store.set('open', @_open)
@@ -88,19 +85,31 @@ class PeteshowView
 
     @_positionWindow(position)
     @_position = position
+
     store.set('position', @_position)
+
     return position
 
   setSession: (id) ->
-    @$sessions.find("[data-session=#{id}]").prop('checked', true).change()
+    $(@$sessions).find("[data-session=#{id}]").prop('checked', true).change()
+
+  _handleKeydown: (e) =>
+    code = String.fromCharCode(e.keyCode)
+
+    @open() if (e.keyCode == 192)
+
+    action  = $("[data-command='#{code}']")
+    visible = $(@$peteshow).is('.open')
+
+    action.click() if (action.length > 0 and visible)
 
   show: =>
-    @$peteshow.show()
+    $(@$peteshow).show()
 
   hide: =>
-    @$peteshow.hide()
+    $(@$peteshow).hide()
 
   destroy: ->
-    @$peteshow.remove()
+    $(@$peteshow).remove()
 
 module.exports = new PeteshowView()

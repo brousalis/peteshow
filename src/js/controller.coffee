@@ -1,66 +1,55 @@
 _     = require('lodash')
 store = require('./storage')
 
+Session = require('./models/session')
+
 class PeteshowController
   view    : null
   session : null
 
   init: (view) ->
-    @view     = view
-    @sessions = store.get('sessions')
+    @view = view
 
     @resetSession()
 
-  saveSession: ->
+  saveLastSession: ->
+    data = []
 
-  setSession: (id) ->
-    @session = id
+    $(':input:not([name*=peteshow])').each ->
+      data[$(@).attr('name')] = $(@).val()
 
-  resetSession: ->
-    @view.setSession('new')
+    id = store.lastSession(data)
 
-  getSessionStorage: (id) ->
-    return false if @session is 'new'
+    @setSession(id)
 
-    sessions = store.get('sessions') || {saved:null}
-    _.find(sessions.saved, {id: id})
+  setSession: (id) -> @session = id
+
+  resetSession: -> @view.setSession('new')
 
   fillOutForms: =>
-    session = @getSessionStorage(@session)
-
     inputs     = @fillInputs()
     radios     = @fillRadioButtons()
     checkboxes = @fillCheckboxes()
     selects    = @fillSelectBoxes()
+    @saveLastSession()
 
   fillOutFormsAndSubmit: =>
     @fillOutForms()
     $(Peteshow.options.form).submit()
-    $('form[name*=registration]').submit()
-    @saveSession()
 
-  fillInputs: (session) ->
-    saved    = Peteshow.options.saved
-    elements = []
-
+  fillInputs: ->
     for element, rule of Peteshow.options.rules
       value = if _.isFunction(rule) then rule() else rule
 
       $(element).each (i, el) ->
-        key = _.findKey(saved, (v, k) -> $(el).is(k))
+        key = _.findKey(@session, (v, k) -> $(el).is(k))
 
-        return $(el).val(saved[key]) if key != undefined
+        return $(el).val(@session[key]) if key != undefined
 
         return if $(el).is(':checkbox')
         return if $(el).is(Peteshow.options.ignore.toString())
 
         $(el).val(value)
-
-      elementHash = {}
-      elementHash[element] = value
-      elements.push(elementHash)
-
-    return elements
 
   _uniqueInputNames: ($inputs) ->
     return false if $inputs.length < 0
