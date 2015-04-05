@@ -1,7 +1,6 @@
 window._ = _ = require('lodash')
 store      = require('./storage')
 helpers    = require('./helpers')
-Controller = require('./controller')
 
 Peteshow =
   controller : null
@@ -30,10 +29,9 @@ Peteshow =
   init: (options = {}) ->
     @setOptions(options)
 
-    @controller = new Controller()
+    @controller = require('./controller')
     @view       = require('./view')
 
-    @view.render()
     @controller.init(@view)
 
   setOptions: (options = {}) ->

@@ -4,12 +4,16 @@ store = require('./storage')
 Session = require('./models/session')
 
 class PeteshowController
-  view    : null
-  session : null
+  view        : null
+  session     : null
+  lastSession : null
 
   init: (view) ->
-    @view = view
-    @resetSession()
+    @view         = view
+    @session      = store.get('active_session') || 'new'
+    @last_session = store.get('last_session') || null
+
+    @view.render()
 
   fillOutForms: =>
     if @session is 'last'
@@ -77,14 +81,21 @@ class PeteshowController
     $('form :input').each ->
       data[$(@).attr('name')] = $(@).val()
 
-    store.lastSession(data)
+    @lastSession = store.lastSession(data)
 
-    @view.render()
+    @view.redraw()
 
   setSession: (id) ->
     @session = id
 
-  resetSession: ->
-    @view.setSession('new')
+  getLastSession: ->
+    return store.get('last_session') || false
 
-module.exports = PeteshowController
+  lastSessionName: ->
+    session = @getLastSession
+    return "#{session.first_name} #{session.last_name}" if session.first_name and session.last_name
+    return session.first_name if session.first_name
+    return session.email if session.email
+    return session.id
+
+module.exports = new PeteshowController()

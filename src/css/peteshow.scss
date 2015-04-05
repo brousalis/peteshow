@@ -164,7 +164,7 @@ $breakpoint-max-width: 560px;
     }
   }
 
-  #peteshow-sessions {
+  #peteshow-menu > div {
     background: $inner-background-color;
     padding: 5px 0;
 
@@ -195,7 +195,7 @@ $breakpoint-max-width: 560px;
       cursor: pointer;
       vertical-align: middle;
       box-shadow: hsla(0,0%,100%,.15) 0 1px 1px, inset hsla(0,0%,0%,.5) 0 0 0 1px;
-      background-color: hsla(100,100%,100%,.2);
+      background-color: hsla(100,100%,100%,.1);
       @include radial(#999, #999);
       background-repeat: no-repeat;
       outline: none;
@@ -208,7 +208,7 @@ $breakpoint-max-width: 560px;
       background-position: 0 -14px;
     }
 
-    .peteshow-last-session {
+    #peteshow-last-session {
       @include clearfix;
       padding: 5px 0;
 
@@ -216,15 +216,15 @@ $breakpoint-max-width: 560px;
         padding-left: 0;
         float: left;
         display: block;
-        font-style: italic;
         text-transform: none;
         font-weight: normal;
-        margin-left: 20px;
+        margin-left: 22px;
       }
 
       .icon {
         float: right;
         margin-top: 2px;
+        margin-right: 10px;
       }
     }
 

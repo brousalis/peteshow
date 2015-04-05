@@ -1,5 +1,7 @@
 _             = require('lodash')
-template      = require('../templates/index.hbs')
+indexTemplate = require('../templates/index.hbs')
+lastSessionTemplate = require('../templates/last_session.hbs')
+sessionsTemplate = require('../templates/sessions.hbs')
 store         = require('./storage')
 
 Draggabilly   = require('draggabilly')
@@ -7,9 +9,10 @@ Draggabilly   = require('draggabilly')
 class PeteshowView
   controller  : Peteshow.controller
 
-  $peteshow   : '#peteshow'
-  $tools      : '#peteshow-menu'
-  $sessions   : '#peteshow-sessions'
+  $peteshow    : '#peteshow'
+  $tools       : '#peteshow-menu'
+  $sessions    : '#peteshow-sessions'
+  $lastSession : '#peteshow-last-session'
 
   constructor: ->
     @_position = store.get('position') || {x:0, y:0}
@@ -22,16 +25,23 @@ class PeteshowView
     $('body').append('<div id="peteshow" />')
 
   render: ->
-    $(@$peteshow).html(
-      template(
-        lastSession : store.get('last_session')
-        sessions    : store.get('sessions')
-      )
-    )
+    $(@$peteshow).html(indexTemplate)
+    @redraw()
     @_positionWindow(store.get('position'))
     @_createEvents(@_events)
-    @setSession('new')
     @open(@_open)
+
+  redraw: ->
+    lastSession = store.get('last_session')
+    sessions    = store.get('sessions')
+
+    $(@$lastSession).html(
+      lastSessionTemplate
+        lastSession     : lastSession
+        lastSessionName : @_sessionName(lastSession)
+    )
+
+    $(@$sessions).html(sessionsTemplate(sessions: sessions))
 
   _createEvents: (events) ->
     for key, value of events
@@ -40,7 +50,7 @@ class PeteshowView
         e.stopPropagation()
         events["##{e.target.id}"]()
 
-    $(document).on 'keydown', @_handleKeydown
+    $(document).keydown @_handleKeydown
 
     @$drag = new Draggabilly(
       @$peteshow,
@@ -55,6 +65,16 @@ class PeteshowView
     $(@$sessions).find('input:radio').on 'change', (e) =>
       id = $(e.currentTarget).data('session')
       @controller.setSession(id)
+
+  _handleKeydown: (e) =>
+    code = String.fromCharCode(e.keyCode)
+
+    @open() if (e.keyCode == 192)
+
+    action  = $("[data-command='#{code}']")
+    visible = $(@$peteshow).is('.open')
+
+    action.click() if (action.length > 0 and visible)
 
   _handleDragEnd: ->
     @_position = this.position
@@ -93,15 +113,11 @@ class PeteshowView
   setSession: (id) ->
     $(@$sessions).find("[data-session=#{id}]").prop('checked', true).change()
 
-  _handleKeydown: (e) =>
-    code = String.fromCharCode(e.keyCode)
-
-    @open() if (e.keyCode == 192)
-
-    action  = $("[data-command='#{code}']")
-    visible = $(@$peteshow).is('.open')
-
-    action.click() if (action.length > 0 and visible)
+  _sessionName: (session) ->
+    return "#{session.first_name} #{session.last_name}" if session.first_name and session.last_name
+    return session.first_name if session.first_name
+    return session.email if session.email
+    return session.id
 
   show: =>
     $(@$peteshow).show()

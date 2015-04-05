@@ -5,27 +5,18 @@
     <li><a data-command='Q' href='#' id='fill-out-forms-and-submit'>Fill Out and Submit</a></li>
     <li><a data-command='H' href='#' id='peteshow-hide'>Hide</a></li>
   </ul>
-  <div id='peteshow-sessions'>
+  <div>
     <span>Sessions</span>
     <label>
       <input type='radio' name='peteshow-session' data-session='new' />
       New session
     </label>
-    {{#if lastSession}}
     <label>
       <input type='radio' name='peteshow-session' data-session='last' />
       Last session
-      <div class='peteshow-last-session'>
-        <span>{{lastSession.first_name}}</span>
-        <svg class='icon icon-save'><use xlink:href='#icon-save'></use></svg>
-      </div>
+      <div id='peteshow-last-session'></div>
     </label>
-    {{/if}}
-    <div class='peteshow-stored-sessions'>
-      <label>
-        <input type='radio' name='peteshow-session' data-session='1' />
-      </label>
-    </div>
+    <div id='peteshow-sessions'></div>
   </div>
 </div>
 

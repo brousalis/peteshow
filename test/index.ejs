@@ -73,8 +73,6 @@
             'input[name*=middle_name]': Peteshow.random.name(),
             'input[name*=custom_name]': 'Custom Name'
           },
-          reuse: { 'input[name*=first_name]': '/tests' },
-          ignore: ['input[name=last_name]', '#qunit-modulefilter'],
           resets: ['form[name=random]']
         });
       }
