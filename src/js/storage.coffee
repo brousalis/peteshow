@@ -48,12 +48,13 @@ module.exports =
     @get('active_session')
 
   lastSession: (data) ->
-    session = new Session(data)
+    if data?
+      session = new Session(data)
+      @set('last_session', session)
+      return session.id
 
-    @set('last_session', session) if data?
-    @get('last_session')
+    return @get('last_session')
 
-    return session.id
 
   getAll: -> store.getAll().peteshow
 

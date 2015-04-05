@@ -1,6 +1,5 @@
 Faker  = require('faker')
 moment = require('moment')
-Handlebars = require('handlebars')
 
 randomString = (length, chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') ->
   result = ''
@@ -25,7 +24,6 @@ module.exports =
       Faker.phone.phoneNumberFormat(n)
 
     # People
-    #
     name: ->
       Faker.name.findName()
 
@@ -42,7 +40,6 @@ module.exports =
       Faker.internet.email()
 
     # Address
-    #
     street: ->
       Faker.address.streetAddress()
 
@@ -61,8 +58,8 @@ module.exports =
     stateAbbr: ->
       Faker.address.stateAbbr()
 
-    zipCode: (n = 5) ->
-      Faker.address.zipCode(n)
+    zipCode: ->
+      Faker.address.zipCode()
 
     # Lorem
     catchPhrase: (n = 4) ->

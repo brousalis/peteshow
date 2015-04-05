@@ -9,28 +9,19 @@ class PeteshowController
 
   init: (view) ->
     @view = view
-
     @resetSession()
 
-  saveLastSession: ->
-    data = []
-
-    $(':input:not([name*=peteshow])').each ->
-      data[$(@).attr('name')] = $(@).val()
-
-    id = store.lastSession(data)
-
-    @setSession(id)
-
-  setSession: (id) -> @session = id
-
-  resetSession: -> @view.setSession('new')
-
   fillOutForms: =>
+    if @session is 'last'
+      for key, value of store.lastSession()
+        $("[name=#{key}]").val(value)
+      return
+
     inputs     = @fillInputs()
     radios     = @fillRadioButtons()
     checkboxes = @fillCheckboxes()
     selects    = @fillSelectBoxes()
+
     @saveLastSession()
 
   fillOutFormsAndSubmit: =>
@@ -40,20 +31,10 @@ class PeteshowController
   fillInputs: ->
     for element, rule of Peteshow.options.rules
       value = if _.isFunction(rule) then rule() else rule
-
-      $(element).each (i, el) ->
-        key = _.findKey(@session, (v, k) -> $(el).is(k))
-
-        return $(el).val(@session[key]) if key != undefined
-
-        return if $(el).is(':checkbox')
+      $(element).each (i, el) =>
         return if $(el).is(Peteshow.options.ignore.toString())
-
+        return if $(el).is(':checkbox')
         $(el).val(value)
-
-  _uniqueInputNames: ($inputs) ->
-    return false if $inputs.length < 0
-    _.uniq($inputs.map (i, $input) -> $input.name)
 
   fillCheckboxes: ($inputs) ->
     for el in $('form input:checkbox')
@@ -85,5 +66,25 @@ class PeteshowController
       $(el)
         .val(value)
         .change()
+
+  _uniqueInputNames: ($inputs) ->
+    return false if $inputs.length < 0
+    _.uniq($inputs.map (i, $input) -> $input.name)
+
+  saveLastSession: ->
+    data = []
+
+    $('form :input').each ->
+      data[$(@).attr('name')] = $(@).val()
+
+    store.lastSession(data)
+
+    @view.render()
+
+  setSession: (id) ->
+    @session = id
+
+  resetSession: ->
+    @view.setSession('new')
 
 module.exports = PeteshowController
