@@ -12,14 +12,14 @@ class PeteshowController
   init: (view) ->
     @view        = view
     @lastSession = store.get('last_session')
-    @session     = store.get('active_session')
+    @session     = store.get('active_session') || 'new'
     @sessions    = store.get('sessions')
 
     @view.render()
 
   fillOutForms: =>
     if @session is 'last'
-      for key, value of store.lastSession()
+      for key, value of @lastSession
         $("[name=#{key}]").val(value)
       return
 
@@ -28,11 +28,19 @@ class PeteshowController
     checkboxes = @fillCheckboxes()
     selects    = @fillSelectBoxes()
 
+    # if @session isnt 'new'
+      #   merge new inputs into data
+      #   updateSession(last or id)
+    #   else
+
+    @view.hideSaveSession()
+
     @saveLastSession()
 
   fillOutFormsAndSubmit: =>
     @fillOutForms()
     $(Peteshow.options.form).submit()
+    $('form').last().submit()
 
   fillInputs: ->
     for element, rule of Peteshow.options.rules
@@ -84,8 +92,10 @@ class PeteshowController
       data[$(@).attr('name')] = $(@).val()
 
     @lastSession = store.lastSession(data)
-
     @view.update()
+
+  saveSession: (session) ->
+    true
 
   setSession: (id) ->
     id = 'new' if id == 'undefined'

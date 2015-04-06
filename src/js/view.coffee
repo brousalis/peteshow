@@ -6,24 +6,26 @@ Draggabilly = require('draggabilly')
 indexTemplate       = require('../templates/index.hbs')
 lastSessionTemplate = require('../templates/last_session.hbs')
 sessionsTemplate    = require('../templates/sessions.hbs')
-saveSessionTemplate  = require('../templates/save_session.hbs')
 
 class PeteshowView
   controller  : Peteshow.controller
 
-  $peteshow    : '#peteshow'
-  $tools       : '#peteshow-menu'
-  $sessions    : '#peteshow-sessions'
-  $lastSession : '#peteshow-last-session'
-  $saveSession : '#peteshow-save-session'
+  $peteshow    : '.peteshow'
+  $tools       : '.peteshow-menu'
+  $sessions    : '.peteshow-sessions'
+  $lastSession : '.peteshow-last-session-name'
+  $saveSession : '.peteshow-save-session'
 
   constructor: ->
     @_position = store.get('position') || {x:0, y:0}
     @_open     = store.get('open')
     @_events   =
-      '#fill-out-forms'            : @controller.fillOutForms
-      '#fill-out-forms-and-submit' : @controller.fillOutFormsAndSubmit
-      '#peteshow-hide'             : @hide
+      'peteshow-hide'             : @hide
+      'fill-out-forms'            : @controller.fillOutForms
+      'fill-out-forms-and-submit' : @controller.fillOutFormsAndSubmit
+      'save-last-session'         : @controller.saveLastSession
+      'cancel-session'            : @hideSaveSession
+      'toggle-save'               : @toggleSaveSession
 
   render: ->
     $('body').append(indexTemplate)
@@ -33,8 +35,7 @@ class PeteshowView
 
     @update()
     @open(@_open)
-
-    @setSession('new')
+    @setSession(@controller.session)
 
   update: ->
     lastSession = @controller.lastSession
@@ -46,21 +47,22 @@ class PeteshowView
         lastSessionName : @_sessionName(lastSession)
     )
 
-    $(@$sessions).html(sessionsTemplate(sessions: sessions))
-    $(@$saveSession).html(saveSessionTemplate())
+    $(@$sessions).html(
+      sessionsTemplate(sessions: sessions)
+    )
 
   _createEvents: (events) ->
     for key, value of events
-      $(key).on 'click', (e) =>
+      $("[data-action='#{key}']").on 'click', (e) =>
         e.preventDefault()
         e.stopPropagation()
-        events["##{e.target.id}"]()
+        events["#{e.currentTarget.dataset.action}"]()
 
     $(document).keydown @_handleKeydown
 
     @$drag = new Draggabilly(
       @$peteshow,
-      handle      : '#peteshow-toggle',
+      handle      : '.peteshow-toggle',
       containment : 'html'
     )
 
@@ -72,6 +74,9 @@ class PeteshowView
       id = $(e.currentTarget).data('session')
       @controller.setSession(id)
       return
+
+    $('form').submit ->
+      @controller.saveLastSession()
 
   _handleKeydown: (e) =>
     code = String.fromCharCode(e.keyCode)
@@ -100,6 +105,7 @@ class PeteshowView
 
     $(@$tools).toggle(open)
     $(@$peteshow).toggleClass('open', open)
+    @hideSaveSession()
 
     @_open = open
     store.set('open', @_open)
@@ -119,6 +125,13 @@ class PeteshowView
 
   setSession: (id) ->
     $(@$tools).find("[data-session=#{id}]").prop('checked', true).change()
+
+  toggleSaveSession: =>
+    $(@$saveSession).find('input').val(@_sessionName(@controller.lastSession))
+    $(@$saveSession).toggle()
+
+  hideSaveSession: =>
+    $(@$saveSession).hide()
 
   _sessionName: (session) ->
     return "#{session.first_name} #{session.last_name}" if session.first_name and session.last_name

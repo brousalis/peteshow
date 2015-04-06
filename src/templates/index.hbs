@@ -1,7 +1,6 @@
-<div id='peteshow'>
-  <div id='peteshow-toggle'><i></i></div>
-
-  <div id='peteshow-menu'>
+<div class='peteshow'>
+  <div class='peteshow-toggle'><i></i></div>
+  <div class='peteshow-menu'>
     <div>
       <span>Sessions</span>
       <label>
@@ -11,18 +10,42 @@
       <label>
         <input type='radio' name='peteshow-session' data-session='last' />
         Last session
-        <div id='peteshow-last-session'></div>
+        <div class='peteshow-last-session'>
+          <div class='peteshow-last-session-name'></div>
+          <a href='#' class='peteshow-toggle-save' data-action='toggle-save'>
+            <svg class='icon-save'><use xlink:href='#icon-save'></use></svg>
+          </a>
+        </div>
       </label>
       <div id='peteshow-sessions'></div>
     </div>
+
     <ul>
-      <li><a data-command='F' href='#' id='fill-out-forms'>Fill Out Forms</a></li>
-      <li><a data-command='Q' href='#' id='fill-out-forms-and-submit'>Fill Out and Submit</a></li>
-      <li><a data-command='H' href='#' id='peteshow-hide'>Hide</a></li>
+      <li><a href='#' data-key='F' data-action='fill-out-forms'>Fill Out Forms</a></li>
+      <li><a href='#' data-key='Q' data-action='fill-out-forms-and-submit'>Fill Out and Submit</a></li>
+      <li><a href='#' data-key='H' data-action='peteshow-hide'>Hide</a></li>
     </ul>
   </div>
 
-  <div id='peteshow-save-session'></div>
+  <div class='peteshow-save-session'>
+    <div class='peteshow-dialog'>Save last session</div>
+    <div class='peteshow-title'>
+      <span>Title</span>
+      <input name='peteshow-title' type='text' />
+      <div class='peteshow-info'>
+        <a href='#'>Print to console</a>
+        <a href='#'>Delete session</a>
+      </div>
+    </div>
+    <div class='peteshow-notes'>
+      <span>Notes</span>
+      <textarea name='peteshow-notes' />
+    </div>
+    <div class='peteshow-actions'>
+      <a href='#' data-action='cancel-session'>Cancel</a>
+      <a href='#' data-action='save-last-session'>Save</a>
+    </div>
+  </div>
 
   <svg display='none' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
     <defs>

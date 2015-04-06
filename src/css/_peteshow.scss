@@ -1,10 +1,10 @@
-#peteshow {
+.peteshow {
   background-color: $primary-background-color;
   color: $font-color;
   font-family: $font-family;
   font-size: $font-size;
   font-weight: normal;
-  left: 0;
+  eft: 0;
   padding: 0;
   position: fixed;
   text-align: left;
@@ -25,7 +25,7 @@
   &.open {
     width: $open-width;
 
-    #peteshow-toggle {
+    .peteshow-toggle {
       i {
         border-left: 0;
         border-right-color: $arrow-color;
@@ -36,13 +36,9 @@
 
       &:before { content: 'PETESHOW'; }
     }
-
-    #peteshow-save-session {
-      display: block;
-    }
   }
 
-  #peteshow-toggle {
+  .peteshow-toggle {
     @extend %clear-text-decoration;
     color: #fff;
     font-weight: bold;

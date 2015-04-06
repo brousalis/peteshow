@@ -1,12 +1,5 @@
-#peteshow-menu {
+.peteshow-menu {
   transition: all 1.0s ease;
-
-  a { 
-    display: block;
-    font-weight: bold;
-    text-transform: capitalize;
-    @extend %menu-link;
-  }
 
   ul {
     list-style: none;
@@ -17,11 +10,18 @@
       border-top: 1px dotted $border-color;
       display: block;
       margin: 0;
+
+      a { 
+        display: block;
+        font-weight: bold;
+        text-transform: capitalize;
+        @extend %menu-link;
+      }
     }
   }
 }
 
-#peteshow-menu > div {
+.peteshow-menu > div {
   background: $inner-background-color;
   padding: 5px 0;
 
@@ -56,7 +56,7 @@
     @include radio-active($radio-size);
   }
 
-  #peteshow-last-session {
+  .peteshow-last-session {
     @include clearfix;
     padding: 5px 0;
 
@@ -69,18 +69,20 @@
       margin-left: 22px;
     }
 
-    .icon-save {
+    .peteshow-toggle-save {
       float: right;
       margin-top: 2px;
       margin-right: 10px;
       display: inline-block;
-      color: rgba(255,255,255,0.2);
-      fill: currentColor;
-      width: 14px;
-      height: 14px;
-      cursor: pointer;
 
-      &:hover { color: rgba(255,255,255,0.5); }
+      .icon-save {
+        color: rgba(255,255,255,0.2);
+        fill: currentColor;
+        width: 14px;
+        height: 14px;
+
+        &:hover { color: rgba(255,255,255,0.5); }
+      }
     }
   }
 }
