@@ -6,12 +6,14 @@ Session = require('./models/session')
 class PeteshowController
   view        : null
   session     : null
+  sessions    : null
   lastSession : null
 
   init: (view) ->
-    @view         = view
-    @session      = store.get('active_session') || 'new'
-    @last_session = store.get('last_session') || null
+    @view        = view
+    @lastSession = store.get('last_session')
+    @session     = store.get('active_session')
+    @sessions    = store.get('sessions')
 
     @view.render()
 
@@ -83,19 +85,10 @@ class PeteshowController
 
     @lastSession = store.lastSession(data)
 
-    @view.redraw()
+    @view.update()
 
   setSession: (id) ->
+    id = 'new' if id == 'undefined'
     @session = id
-
-  getLastSession: ->
-    return store.get('last_session') || false
-
-  lastSessionName: ->
-    session = @getLastSession
-    return "#{session.first_name} #{session.last_name}" if session.first_name and session.last_name
-    return session.first_name if session.first_name
-    return session.email if session.email
-    return session.id
 
 module.exports = new PeteshowController()

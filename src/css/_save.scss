@@ -1,0 +1,86 @@
+#peteshow-save-session {
+  position: absolute;
+  right: -($open-width + 100);
+  top: 96px;
+  background: $primary-background-color;
+  width: 300px;
+  padding-top: 5px;
+  display: none;
+
+  .peteshow-dialog {
+    background: $inner-background-color;
+    padding: 6px 15px;
+    @extend %menu-header;
+    color: #999;
+  }
+
+  .peteshow-title,
+  .peteshow-notes {
+    padding: 5px 15px;
+  }
+  
+  span {
+    @extend %menu-header;
+    font-weight: normal;
+    text-transform: none;
+    padding: 5px 0;
+  }
+
+  input, textarea {
+    @extend %input;
+    border: none;
+    padding: 5px;
+    color: #999;
+    width: $save-width - 40px;
+    border-radius: 4px;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  input {
+    width: $save-width - 150px
+  }
+
+  .peteshow-actions {
+    @include clearfix;
+    border-top: 1px solid $border-color;
+    background: $inner-background-color;
+    margin-top: 10px;
+
+    a {
+      width: 50%;
+      display: block;
+      font-size: 12px;
+      float: left;
+      color: $menu-link-color;
+      padding: 8px 0;
+      text-align: center;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+
+      &:first-child { border-right: 1px solid $border-color; }
+
+      &:hover {
+        background: rgba(0,0,0,0.5);
+        color: $menu-link-hover-color;
+      }
+    }
+  }
+
+  .peteshow-info {
+    display: block;
+    float: right;
+    font-size: 12px;
+    margin-top: -15px;
+
+    a {
+      display: block;
+      text-align: right;
+      margin-bottom: 4px;
+      font-style: normal;
+    }
+  }
+}
+

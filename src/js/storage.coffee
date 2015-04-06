@@ -51,7 +51,6 @@ module.exports =
     if data?
       session = new Session(data)
       @set('last_session', session)
-      return session.id
 
     return @get('last_session')
 

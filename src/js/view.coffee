@@ -1,10 +1,12 @@
-_             = require('lodash')
-indexTemplate = require('../templates/index.hbs')
-lastSessionTemplate = require('../templates/last_session.hbs')
-sessionsTemplate = require('../templates/sessions.hbs')
-store         = require('./storage')
+_                   = require('lodash')
+store               = require('./storage')
 
-Draggabilly   = require('draggabilly')
+Draggabilly = require('draggabilly')
+
+indexTemplate       = require('../templates/index.hbs')
+lastSessionTemplate = require('../templates/last_session.hbs')
+sessionsTemplate    = require('../templates/sessions.hbs')
+saveSessionTemplate  = require('../templates/save_session.hbs')
 
 class PeteshowView
   controller  : Peteshow.controller
@@ -13,6 +15,7 @@ class PeteshowView
   $tools       : '#peteshow-menu'
   $sessions    : '#peteshow-sessions'
   $lastSession : '#peteshow-last-session'
+  $saveSession : '#peteshow-save-session'
 
   constructor: ->
     @_position = store.get('position') || {x:0, y:0}
@@ -22,18 +25,20 @@ class PeteshowView
       '#fill-out-forms-and-submit' : @controller.fillOutFormsAndSubmit
       '#peteshow-hide'             : @hide
 
-    $('body').append('<div id="peteshow" />')
-
   render: ->
-    $(@$peteshow).html(indexTemplate)
-    @redraw()
+    $('body').append(indexTemplate)
+
     @_positionWindow(store.get('position'))
     @_createEvents(@_events)
+
+    @update()
     @open(@_open)
 
-  redraw: ->
-    lastSession = store.get('last_session')
-    sessions    = store.get('sessions')
+    @setSession('new')
+
+  update: ->
+    lastSession = @controller.lastSession
+    sessions    = @controller.sessions
 
     $(@$lastSession).html(
       lastSessionTemplate
@@ -42,6 +47,7 @@ class PeteshowView
     )
 
     $(@$sessions).html(sessionsTemplate(sessions: sessions))
+    $(@$saveSession).html(saveSessionTemplate())
 
   _createEvents: (events) ->
     for key, value of events
@@ -62,9 +68,10 @@ class PeteshowView
       .on 'dragEnd', @_handleDragEnd
       .on 'staticClick', @open
 
-    $(@$sessions).find('input:radio').on 'change', (e) =>
+    $('#peteshow-menu input:radio').on 'change', (e) =>
       id = $(e.currentTarget).data('session')
       @controller.setSession(id)
+      return
 
   _handleKeydown: (e) =>
     code = String.fromCharCode(e.keyCode)
@@ -111,7 +118,7 @@ class PeteshowView
     return position
 
   setSession: (id) ->
-    $(@$sessions).find("[data-session=#{id}]").prop('checked', true).change()
+    $(@$tools).find("[data-session=#{id}]").prop('checked', true).change()
 
   _sessionName: (session) ->
     return "#{session.first_name} #{session.last_name}" if session.first_name and session.last_name

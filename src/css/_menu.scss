@@ -1,0 +1,86 @@
+#peteshow-menu {
+  transition: all 1.0s ease;
+
+  a { 
+    display: block;
+    font-weight: bold;
+    text-transform: capitalize;
+    @extend %menu-link;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      border-top: 1px dotted $border-color;
+      display: block;
+      margin: 0;
+    }
+  }
+}
+
+#peteshow-menu > div {
+  background: $inner-background-color;
+  padding: 5px 0;
+
+  label {
+    @extend %menu-link;
+    color: $menu-link-color;
+    &:hover {
+      background: none;
+      color: $menu-link-hover-color;
+    }
+  }
+
+  span { 
+    @extend %menu-header; 
+    padding: 5px 10px;
+  }
+
+  input {
+    -webkit-appearance: none;
+    margin: 0;
+    margin-right: 5px;
+    margin-top: -3px;
+    width: $radio-size;
+    height: $radio-size;
+    border-radius: 12px;
+    cursor: pointer;
+    vertical-align: middle;
+    background-position: 0 14px;
+    @include radial($menu-link-color, $menu-link-color);
+    @extend %input;
+
+    @include radio-active($radio-size);
+  }
+
+  #peteshow-last-session {
+    @include clearfix;
+    padding: 5px 0;
+
+    span {
+      padding-left: 0;
+      float: left;
+      display: block;
+      text-transform: none;
+      font-weight: normal;
+      margin-left: 22px;
+    }
+
+    .icon-save {
+      float: right;
+      margin-top: 2px;
+      margin-right: 10px;
+      display: inline-block;
+      color: rgba(255,255,255,0.2);
+      fill: currentColor;
+      width: 14px;
+      height: 14px;
+      cursor: pointer;
+
+      &:hover { color: rgba(255,255,255,0.5); }
+    }
+  }
+}
