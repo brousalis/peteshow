@@ -15,6 +15,7 @@ class PeteshowController
     @session     = store.get('active_session') || 'new'
     @sessions    = store.get('sessions')
     @view.render()
+    @view.setSession(@session)
 
   fillOutForms: =>
     inputs     = @fillInputs()
@@ -29,8 +30,6 @@ class PeteshowController
     @view.hideSaveSession()
 
     if @session isnt 'new' and @session isnt 'last'
-      console.log @session
-      console.log @getSessionStorage(@session)
       for key, value of @getSessionStorage(@session)
         $("[name=#{key}]").val(value)
       return
@@ -97,15 +96,14 @@ class PeteshowController
 
     @lastSession = store.lastSession(data)
     @view.update()
+    @view.setSession(@session)
 
   saveSession: (data) =>
     unless data?
       data = @lastSession
 
-    @session = store.addSession(data)
+    @session  = store.addSession(data)
     @sessions = store.get('sessions')
-
-    console.log @session
 
     @view.update()
     @view.setSession(@session)

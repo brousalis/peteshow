@@ -33,7 +33,6 @@ class PeteshowView
 
     @update()
     @open(@_open)
-    @setSession(@controller.session)
 
   update: ->
     lastSession = store.get('last_session')
@@ -69,9 +68,6 @@ class PeteshowView
       id = $(e.currentTarget).data('session')
       @controller.setSession(id)
       return
-
-    $('form').submit ->
-      @controller.saveLastSession()
 
   _handleKeydown: (e) =>
     code = String.fromCharCode(e.keyCode)
