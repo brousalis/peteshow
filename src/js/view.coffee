@@ -4,7 +4,6 @@ store = require('./storage')
 Draggabilly = require('draggabilly')
 
 indexTemplate       = require('../templates/index.hbs')
-lastSessionTemplate = require('../templates/last_session.hbs')
 sessionsTemplate    = require('../templates/sessions.hbs')
 
 class PeteshowView
@@ -13,7 +12,6 @@ class PeteshowView
   $peteshow    : '.peteshow'
   $tools       : '.peteshow-menu'
   $sessions    : '.peteshow-sessions'
-  $lastSession : '.peteshow-last-session'
   $saveSession : '.peteshow-save-session'
 
   constructor: ->
@@ -41,14 +39,11 @@ class PeteshowView
     lastSession = store.get('last_session')
     sessions    = store.get('sessions')
 
-    $(@$lastSession).html(
-      lastSessionTemplate
+    $(@$sessions).html(
+      sessionsTemplate
         lastSession     : lastSession
         lastSessionName : @_sessionName(lastSession)
-    )
-
-    $(@$sessions).html(
-      sessionsTemplate(sessions: sessions)
+        sessions        : sessions
     )
 
   _createEvents: (events) ->
@@ -70,7 +65,7 @@ class PeteshowView
       .on 'dragEnd', @_handleDragEnd
       .on 'staticClick', @open
 
-    $('#peteshow-menu input:radio').on 'change', (e) =>
+    $('body').on 'change', '.peteshow-menu input:radio', (e) =>
       id = $(e.currentTarget).data('session')
       @controller.setSession(id)
       return

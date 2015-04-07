@@ -14,28 +14,32 @@ class PeteshowController
     @lastSession = store.get('last_session') || false
     @session     = store.get('active_session') || 'new'
     @sessions    = store.get('sessions')
-    console.log @sessions
-
     @view.render()
 
   fillOutForms: =>
-    if @session is 'last'
-      for key, value of @lastSession
-        $("[name=#{key}]").val(value)
-      return
-
     inputs     = @fillInputs()
     radios     = @fillRadioButtons()
     checkboxes = @fillCheckboxes()
     selects    = @fillSelectBoxes()
 
-    # if @session isnt 'new'
-      #   merge new inputs into data
-      #   updateSession(last or id)
-    #   else
+    if @session is 'last'
+      for key, value of @lastSession
+        $("[name=#{key}]").val(value)
 
     @view.hideSaveSession()
+
+    if @session isnt 'new' and @session isnt 'last'
+      console.log @session
+      console.log @getSessionStorage(@session)
+      for key, value of @getSessionStorage(@session)
+        $("[name=#{key}]").val(value)
+      return
+
     @saveLastSession()
+
+  getSessionStorage: (id) ->
+    sessions = store.get('sessions')
+    _.find(sessions, {id: id})
 
   fillOutFormsAndSubmit: =>
     @fillOutForms()
@@ -85,7 +89,7 @@ class PeteshowController
     return false if $inputs.length < 0
     _.uniq($inputs.map (i, $input) -> $input.name)
 
-  saveLastSession: ->
+  saveLastSession: =>
     data = []
 
     $('form :input').each ->
@@ -100,6 +104,8 @@ class PeteshowController
 
     @session = store.addSession(data)
     @sessions = store.get('sessions')
+
+    console.log @session
 
     @view.update()
     @view.setSession(@session)

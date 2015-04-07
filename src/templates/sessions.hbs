@@ -1,8 +1,31 @@
-{{#if sessions}}
-  {{#each sessions}}
+{{#if lastSession}}
+  <div>
+    <span>Sessions</span>
     <label>
-      <input type='radio' name='peteshow-session' data-session='{{id}}' />
-      {{first_name}} {{last_name}}
+      <input type='radio' name='peteshow-session' data-session='new' />
+      New session
     </label>
-  {{/each}}
+
+    <label>
+      <input type='radio' name='peteshow-session' data-session='last' />
+      Last session
+      <div class='peteshow-last-session'>
+        <span>{{lastSessionName}}</span>
+        <a href='#' class='peteshow-toggle-save' data-action='toggle-save'>
+          <svg class='icon-save'><use xlink:href='#icon-save'></use></svg>
+        </a>
+      </div>
+    </label>
+
+    {{#if sessions}}
+      <div class='peteshow-session-list'>
+        {{#each sessions}}
+          <label>
+            <input type='radio' name='peteshow-session' data-session='{{id}}' />
+            {{first_name}} {{last_name}}
+          </label>
+        {{/each}}
+      </div>
+    {{/if}}
+  </div>
 {{/if}}
