@@ -125,4 +125,8 @@ class PeteshowController
     return data.email if data.email
     return data.id
 
+  clearSessions: =>
+    store.clearSessions()
+    @view.update()
+
 module.exports = new PeteshowController()

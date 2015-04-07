@@ -11,7 +11,7 @@ module.exports =
     data = store.get('peteshow') || {}
     return unless data
     return data[key] if key?
-    data
+    return data
 
   set: (key, data) ->
     stored = @get()
@@ -43,9 +43,7 @@ module.exports =
     return session.id
 
   activeSession: (id) ->
-    if id?
-      @set('active_session', id)
-
+    @set('active_session', id) if id?
     @get('active_session')
 
   lastSession: (data) ->
@@ -57,6 +55,10 @@ module.exports =
 
   getAll: -> store.getAll().peteshow
 
+  clearSessions: ->
+    @set('sessions', [])
+    @set('last_session', null)
+    @set('active_session', null)
+
   clear: ->
     store.remove('peteshow')
-    Peteshow.view.update()

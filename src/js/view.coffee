@@ -25,6 +25,7 @@ class PeteshowView
       'peteshow-hide'             : @hide
       'fill-out-forms'            : @controller.fillOutForms
       'fill-out-forms-and-submit' : @controller.fillOutFormsAndSubmit
+      'clear-store'               : @controller.clearSessions
 
   render: ->
     $('body').append(indexTemplate)
