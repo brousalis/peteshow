@@ -69,11 +69,8 @@
       margin-left: 22px;
     }
 
-    .peteshow-toggle-save {
-      float: right;
-      margin-top: 2px;
-      margin-right: 10px;
-      display: inline-block;
+    .toggle-save {
+      @extend %menu-action-icon;
 
       .icon-save {
         color: rgba(255,255,255,0.2);
@@ -89,5 +86,16 @@
   .peteshow-session-list {
     border-top: 1px dotted $border-color;
     padding-top: 5px;
+
+    .delete-session {
+      @extend %menu-action-icon;
+      color: rgba(255,0,0,0.5);
+      padding: 5px;
+      margin-right: -5px;
+      margin-top: -5px;
+
+      &:before { content:"\2716"; }
+      &:hover { color: rgba(255,0,0,0.9); }
+    }
   }
 }

@@ -11,7 +11,7 @@
       Last session
       <div class='peteshow-last-session'>
         <span>{{lastSessionName}}</span>
-        <a href='#' class='peteshow-toggle-save' data-action='toggle-save'>
+        <a href='#' class='toggle-save' data-action='toggle-save'>
           <svg class='icon-save'><use xlink:href='#icon-save'></use></svg>
         </a>
       </div>
@@ -23,6 +23,7 @@
           <label>
             <input type='radio' name='peteshow-session' data-session='{{id}}' />
             {{title}}
+            <a href='#' class='delete-session' data-action='delete-session' data-session='{{id}}'></a>
           </label>
         {{/each}}
       </div>
@@ -35,8 +36,8 @@
       <span>Title</span>
       <input name='peteshow-title' type='text' value="{{lastSessionName}}"/>
       <div class='peteshow-info'>
-        <a href='#'>Print to console</a>
-        <a href='#'>Delete session</a>
+        <a href='#' data-action='print-console'>Print to console</a>
+        <a href='#' data-action='delete-session'>Delete session</a>
       </div>
     </div>
     <div class='peteshow-notes'>
@@ -45,7 +46,7 @@
     </div>
     <div class='peteshow-actions'>
       <a href='#' data-action='cancel-session'>Cancel</a>
-      <a href='#' data-action='save-last-session'>Save</a>
+      <a href='#' data-action='save-session'>Save</a>
     </div>
   </div>
 {{/if}}

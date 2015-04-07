@@ -18,10 +18,12 @@ class PeteshowView
     @_position = store.get('position') || {x:0, y:0}
     @_open     = store.get('open')
     @_events   =
-      'save-session'              : @controller.saveSession
+      'save-session'              : @saveSession
       'cancel-session'            : @hideSaveSession
       'toggle-save'               : @toggleSaveSession
-    @_actions =
+      'print-console'             : @printToConsole
+      'delete-session'            : @deleteSession
+    @_actions  =
       'peteshow-hide'             : @hide
       'fill-out-forms'            : @controller.fillOutForms
       'fill-out-forms-and-submit' : @controller.fillOutFormsAndSubmit
@@ -48,29 +50,24 @@ class PeteshowView
     $(@$sessions).html(template)
 
   _createEvents: () =>
-    # events
     for key, value of @_events
       $('body').on 'click', "[data-action='#{key}']", (e) =>
         e.preventDefault()
         e.stopPropagation()
-        @_events["#{e.currentTarget.dataset.action}"]()
+        @_events["#{e.currentTarget.dataset.action}"](e)
 
-    # actions
     for key, value of @_actions
       $("[data-action='#{key}']").on 'click', (e) =>
         e.preventDefault()
         e.stopPropagation()
         @_actions["#{e.currentTarget.dataset.action}"]()
 
-    # switching sessions
     $('body').on 'change', "#{@$tools} input:radio", (e) =>
       id = $(e.currentTarget).data('session')
       @controller.setSession(id)
 
-    # hotkeys
     $(document).keydown @_handleKeydown
 
-    # dragging
     @$drag = new Draggabilly(@$peteshow, handle: @$handle, containment: 'html')
     @$drag
       .on 'dragEnd', @_handleDragEnd
@@ -125,11 +122,21 @@ class PeteshowView
       notes: $(@$saveDialog).find('[name="peteshow-notes"]').val()
     }
 
+  saveSession: (e) =>
+    @controller.saveSession()
+
   setSession: (id) ->
     $(@$tools)
       .find("[data-session=#{id}]")
       .prop('checked', true)
       .change()
+
+  printToConsole: ->
+    true
+
+  deleteSession: (e) =>
+    id = e.currentTarget.dataset.session
+    @controller.deleteSession(id)
 
   hideSaveSession: =>
     $(@$saveDialog).hide()

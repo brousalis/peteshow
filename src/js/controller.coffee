@@ -30,15 +30,11 @@ class PeteshowController
     @view.hideSaveSession()
 
     if @session isnt 'new' and @session isnt 'last'
-      for key, value of @getSessionStorage(@session)
+      for key, value of store.getSessionStorage(@session)
         $("[name*=#{key}]").val(value)
       return
 
     @saveLastSession()
-
-  getSessionStorage: (id) ->
-    sessions = store.get('sessions')
-    _.find(sessions, {id: id})
 
   fillOutFormsAndSubmit: =>
     @fillOutForms()
@@ -87,6 +83,13 @@ class PeteshowController
   _uniqueInputNames: ($inputs) ->
     return false if $inputs.length < 0
     _.uniq($inputs.map (i, $input) -> $input.name)
+
+  deleteSession: (id) =>
+    store.deleteSession(id)
+    @session = 'new'
+    @sessions = store.get('sessions')
+    @view.update()
+    @view.setSession(@session)
 
   saveLastSession: =>
     data = []

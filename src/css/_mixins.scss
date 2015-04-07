@@ -66,6 +66,13 @@
   &:active { height: 1%; }
 }
 
+%menu-action-icon {
+  float: right;
+  margin-top: 1px;
+  margin-right: 0px;
+  display: inline-block;
+}
+
 %menu-header {
   text-transform: uppercase;
   font-size: 12px;
