@@ -80,7 +80,11 @@
       text-align: right;
       margin-bottom: 4px;
       font-style: normal;
+      i { font-style: normal; }
     }
+
+    [data-action=print-console] i { @extend %icon-print; }
+    [data-action=delete-session] i { @extend %icon-delete; }
   }
 }
 

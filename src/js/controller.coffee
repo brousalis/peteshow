@@ -91,9 +91,10 @@ class PeteshowController
     else
       store.deleteSession(id)
 
-    @session = 'new'
-    @sessions = store.get('sessions')
+    @session     = 'new'
+    @sessions    = store.get('sessions')
     @lastSession = store.get('last_session')
+
     @view.update()
     @view.setSession(@session)
 
@@ -132,17 +133,29 @@ class PeteshowController
     return "#{data.first_name} #{data.last_name}" if data.first_name and data.last_name
     return data.first_name if data.first_name
     return data.email if data.email
-    return data.id
+    data.id
 
   clearSessions: =>
     store.clearSessions()
+
+    @session     = 'new'
+    @sessions    = store.get('sessions')
+    @lastSession = store.get('last_session')
+
     @view.update()
+    @view.setSession(@session)
 
   printToConsole: (id) =>
-    stored = store.getSessionStorage(id)
+    if id == 'last'
+      stored = @lastSession
+    else
+      stored = store.getSessionStorage(id)
+
     console.group(@sessionName(stored))
+
     for key, value of stored
-      console.log stored
+      console.log "#{key} : #{value}"
+
     console.groupEnd()
 
 module.exports = new PeteshowController()

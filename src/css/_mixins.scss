@@ -68,9 +68,13 @@
 
 %menu-action-icon {
   float: right;
-  margin-top: 1px;
+  margin-top: -1px;
   margin-right: 0px;
+  margin-left: 5px;
   display: inline-block;
+  font-size: 16px;
+  color: rgba(255,255,255,0.2);
+  &:hover { color: rgba(255,255,255,0.5); }
 }
 
 %menu-header {
@@ -79,4 +83,15 @@
   font-weight: bold;
   color: rgba(255,255,255,0.3);
   display: block;
+}
+
+%icon-delete {
+  color: rgba(255,0,0,0.5);
+
+  &:before { content:"\2716"; }
+  &:hover { color: rgba(255,0,0,0.9); }
+}
+
+%icon-print {
+  &:before { content:"\270E"; }
 }

@@ -70,14 +70,12 @@
 
     .toggle-save {
       @extend %menu-action-icon;
+      margin-top: -10px;
 
       .icon-save {
-        color: rgba(255,255,255,0.2);
         fill: currentColor;
         width: 14px;
         height: 14px;
-
-        &:hover { color: rgba(255,255,255,0.5); }
       }
     }
   }
@@ -86,15 +84,15 @@
     border-top: 1px dotted $border-color;
     padding-top: 5px;
 
+    .print-console {
+      @extend %menu-action-icon;
+      @extend %icon-print;
+      margin-top: -2px;
+    }
+
     .delete-session {
       @extend %menu-action-icon;
-      color: rgba(255,0,0,0.5);
-      padding: 5px;
-      margin-right: -5px;
-      margin-top: -5px;
-
-      &:before { content:"\2716"; }
-      &:hover { color: rgba(255,0,0,0.9); }
+      @extend %icon-delete;
     }
   }
 }
