@@ -7,10 +7,11 @@ indexTemplate       = require('../templates/index.hbs')
 sessionsTemplate    = require('../templates/sessions.hbs')
 
 class PeteshowView
-  controller  : Peteshow.controller
+  controller   : Peteshow.controller
 
   $peteshow    : '.peteshow'
   $tools       : '.peteshow-menu'
+  $handle      : '.peteshow-toggle'
   $sessions    : '.peteshow-sessions'
   $saveSession : '.peteshow-save-session'
 
@@ -56,7 +57,7 @@ class PeteshowView
 
     @$drag = new Draggabilly(
       @$peteshow,
-      handle      : '.peteshow-toggle',
+      handle      : @$handle,
       containment : 'html'
     )
 
@@ -74,7 +75,7 @@ class PeteshowView
 
     @open() if (e.keyCode == 192)
 
-    action  = $("[data-command='#{code}']")
+    action  = $("[data-key='#{code}']")
     visible = $(@$peteshow).is('.open')
 
     action.click() if (action.length > 0 and visible)
@@ -84,8 +85,7 @@ class PeteshowView
     store.set('position', @_position)
 
   _positionWindow: (position) ->
-    unless position?
-      position = @_position
+    position = @_position unless position?
 
     @_position = position
     $(@$peteshow).css(left: position.x, top: position.y)
@@ -120,7 +120,10 @@ class PeteshowView
     }
 
   setSession: (id) ->
-    $(@$tools).find("[data-session=#{id}]").prop('checked', true).change()
+    $(@$tools)
+      .find("[data-session=#{id}]")
+      .prop('checked', true)
+      .change()
 
   hideSaveSession: =>
     $(@$saveSession).hide()
