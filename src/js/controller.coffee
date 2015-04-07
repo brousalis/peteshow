@@ -25,13 +25,13 @@ class PeteshowController
 
     if @session is 'last'
       for key, value of @lastSession
-        $("[name=#{key}]").val(value)
+        $("[name*=#{key}]").val(value)
 
     @view.hideSaveSession()
 
     if @session isnt 'new' and @session isnt 'last'
       for key, value of @getSessionStorage(@session)
-        $("[name=#{key}]").val(value)
+        $("[name*=#{key}]").val(value)
       return
 
     @saveLastSession()

@@ -8,6 +8,7 @@ module.exports =
   'input[type=date]'          : -> random.date(),
   'input[type=tel]'           : -> random.phoneNumber(5),
   'input[name*=decimal]'      : -> random.number(8),
+  'input[name*=date]'         : -> random.date(),
   'input[name*=first_name]'   : -> random.firstName(),
   'input[name*=last_name]'    : -> random.lastName(),
   'input[name*=company]'      : -> random.companyName(),
