@@ -16,6 +16,7 @@ Peteshow =
     rules       : require('./rules')
     filters     : ['', 'other', 'select']
     sessionName : false
+    ignore      : []
 
     # TODO:  implement
     blur        : false
@@ -23,7 +24,6 @@ Peteshow =
     force       : {}
     saved       : {}
     commands    : ''
-    ignore      : []
     special     : null
     events      : null
 

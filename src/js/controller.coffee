@@ -18,10 +18,10 @@ class PeteshowController
     @view.setSession(@session)
 
   fillOutForms: =>
-    inputs     = @fillInputs()
-    radios     = @fillRadioButtons()
     checkboxes = @fillCheckboxes()
+    radios     = @fillRadioButtons()
     selects    = @fillSelectBoxes()
+    inputs     = @fillInputs()
 
     if @session is 'last'
       for key, value of @lastSession
@@ -47,7 +47,12 @@ class PeteshowController
       $(element).each (i, el) =>
         return if $(el).is(Peteshow.options.ignore.toString())
         return if $(el).is(':checkbox')
-        $(el).val(value)
+        $(el)
+          .filter(':visible')
+          .filter('input:not(:checked)')
+          .filterFields()
+          .val(value)
+        $(el).blur() if Peteshow.options.blur
 
   fillCheckboxes: ($inputs) ->
     for el in $('form input:checkbox')
@@ -85,7 +90,6 @@ class PeteshowController
     _.uniq($inputs.map (i, $input) -> $input.name)
 
   deleteSession: (id) =>
-    console.log id
     if id == 'last'
       store.deleteLastSession()
     else
@@ -159,4 +163,13 @@ class PeteshowController
 
     console.groupEnd()
 
+  $.fn.filterFields = ->
+    @filter ->
+      element = this
+      ignored = false
+      $.each Peteshow.options.ignore, (i, v) ->
+        if $(element).is(v)
+          ignored = true
+        return
+      !ignored
 module.exports = new PeteshowController()
