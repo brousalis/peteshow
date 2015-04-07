@@ -58,9 +58,7 @@ class PeteshowController
         return if $(el).is(':checkbox')
 
         if ignoreHidden
-          $el = $(el)
-                  .filter(':visible')
-                  .filter('input:not(:checked)')
+          $el = $(el).filter(':visible')
         else
           $el = $(el)
 
@@ -151,7 +149,7 @@ class PeteshowController
     @session = id
 
   sessionName: (data) ->
-    data = @getSessionStorage(@session) unless data?
+    data = store.getSessionStorage(@session) unless data?
     return false unless data
     return data.title if data.title
     return data[Peteshow.options.sessionName] if Peteshow.options.sessionName
