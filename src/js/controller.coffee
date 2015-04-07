@@ -11,9 +11,10 @@ class PeteshowController
 
   init: (view) ->
     @view        = view
-    @lastSession = store.get('last_session')
+    @lastSession = store.get('last_session') || false
     @session     = store.get('active_session') || 'new'
     @sessions    = store.get('sessions')
+    console.log @sessions
 
     @view.render()
 
@@ -34,7 +35,6 @@ class PeteshowController
     #   else
 
     @view.hideSaveSession()
-
     @saveLastSession()
 
   fillOutFormsAndSubmit: =>
@@ -94,11 +94,21 @@ class PeteshowController
     @lastSession = store.lastSession(data)
     @view.update()
 
-  saveSession: (session) ->
-    true
+  saveSession: (data) =>
+    unless data?
+      data = @lastSession
+
+    @session = store.addSession(data)
+    @sessions = store.get('sessions')
+
+    @view.update()
+    @view.setSession(@session)
+    @view.hideSaveSession()
 
   setSession: (id) ->
-    id = 'new' if id == 'undefined'
+    unless id?
+      id = 'new'
+
     @session = id
 
 module.exports = new PeteshowController()

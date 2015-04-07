@@ -1,5 +1,5 @@
-_                   = require('lodash')
-store               = require('./storage')
+_     = require('lodash')
+store = require('./storage')
 
 Draggabilly = require('draggabilly')
 
@@ -13,7 +13,7 @@ class PeteshowView
   $peteshow    : '.peteshow'
   $tools       : '.peteshow-menu'
   $sessions    : '.peteshow-sessions'
-  $lastSession : '.peteshow-last-session-name'
+  $lastSession : '.peteshow-last-session'
   $saveSession : '.peteshow-save-session'
 
   constructor: ->
@@ -23,7 +23,7 @@ class PeteshowView
       'peteshow-hide'             : @hide
       'fill-out-forms'            : @controller.fillOutForms
       'fill-out-forms-and-submit' : @controller.fillOutFormsAndSubmit
-      'save-last-session'         : @controller.saveLastSession
+      'save-last-session'         : @controller.saveSession
       'cancel-session'            : @hideSaveSession
       'toggle-save'               : @toggleSaveSession
 
@@ -38,8 +38,8 @@ class PeteshowView
     @setSession(@controller.session)
 
   update: ->
-    lastSession = @controller.lastSession
-    sessions    = @controller.sessions
+    lastSession = store.get('last_session')
+    sessions    = store.get('sessions')
 
     $(@$lastSession).html(
       lastSessionTemplate
@@ -53,7 +53,7 @@ class PeteshowView
 
   _createEvents: (events) ->
     for key, value of events
-      $("[data-action='#{key}']").on 'click', (e) =>
+      $('body').on 'click', "[data-action='#{key}']", (e) =>
         e.preventDefault()
         e.stopPropagation()
         events["#{e.currentTarget.dataset.action}"]()
@@ -93,7 +93,7 @@ class PeteshowView
     store.set('position', @_position)
 
   _positionWindow: (position) ->
-    if position == undefined
+    unless position?
       position = @_position
 
     @_position = position
@@ -113,7 +113,7 @@ class PeteshowView
     return
 
   reset: (position) ->
-    if position == undefined
+    unless position?
       position = {x:0, y:0}
 
     @_positionWindow(position)
@@ -134,6 +134,7 @@ class PeteshowView
     $(@$saveSession).hide()
 
   _sessionName: (session) ->
+    return false unless session
     return "#{session.first_name} #{session.last_name}" if session.first_name and session.last_name
     return session.first_name if session.first_name
     return session.email if session.email

@@ -58,7 +58,7 @@
 
   .peteshow-last-session {
     @include clearfix;
-    padding: 5px 0;
+    padding-bottom: 5px;
 
     span {
       padding-left: 0;
@@ -84,5 +84,10 @@
         &:hover { color: rgba(255,255,255,0.5); }
       }
     }
+  }
+
+  .peteshow-sessions {
+    border-top: 1px dotted $border-color;
+    padding-top: 5px;
   }
 }

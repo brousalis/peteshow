@@ -14,31 +14,30 @@ module.exports =
     data
 
   set: (key, data) ->
-    storedData = @get()
+    stored = @get()
 
-    switch typeof data
-      when 'array'
-        storedData[key] = [] unless storedData[key]?
-        _data = _.merge(storedData[key], data)
+    if data instanceof Array
+      stored[key] = [] unless stored[key]?
+      _data       = _.merge(stored[key], data)
 
-      when 'object'
-        storedData[key] = {} unless storedData[key]?
-        _data = _.merge(storedData[key], data)
+    else if data instanceof Object
+      stored[key] = {} unless stored[key]?
+      _data       = _.merge(stored[key], data)
 
-      else
-        _data = data
+    else
+      _data = data
 
-    storedData[key] = _data
-    store.set('peteshow', storedData)
+    stored[key] = _data
+    store.set('peteshow', stored)
 
   sessions: ->
-    @get('sessions') || []
+    return @get('sessions') || []
 
   addSession: (data) ->
     session = new Session(data)
-    data    = @sessions()
+    data    = @get('sessions') || []
 
-    data.sessions.push(session)
+    data.push(session)
     @set('sessions', data)
 
     return session.id

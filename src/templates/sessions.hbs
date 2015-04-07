@@ -1,7 +1,8 @@
 {{#if sessions}}
-  <div id='peteshow-stored-sessions'>
+  {{#each sessions}}
     <label>
-      <input type='radio' name='peteshow-session' data-session='1' />
+      <input type='radio' name='peteshow-session' data-session='{{id}}' />
+      {{first_name}} {{last_name}}
     </label>
-  </div>
+  {{/each}}
 {{/if}}
