@@ -43,7 +43,9 @@ module.exports =
     return session.id
 
   activeSession: (id) ->
-    @set('active_session', id) if id?
+    if id?
+      @set('active_session', id)
+
     @get('active_session')
 
   lastSession: (data) ->
@@ -53,7 +55,8 @@ module.exports =
 
     return @get('last_session')
 
-
   getAll: -> store.getAll().peteshow
 
-  clear: -> store.remove('peteshow')
+  clear: ->
+    store.remove('peteshow')
+    Peteshow.view.update()

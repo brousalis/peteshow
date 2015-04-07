@@ -21,7 +21,7 @@
   }
 }
 
-.peteshow-sessions > div {
+.peteshow-sessions-wrapper {
   background: $inner-background-color;
   padding: 5px 0;
 
@@ -39,7 +39,7 @@
     padding: 5px 10px;
   }
 
-  input {
+  input[type=radio] {
     -webkit-appearance: none;
     margin: 0;
     margin-right: 5px;

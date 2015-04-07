@@ -41,7 +41,7 @@ class PeteshowView
     $(@$sessions).html(
       sessionsTemplate
         lastSession     : lastSession
-        lastSessionName : @_sessionName(lastSession)
+        lastSessionName : @controller.sessionName(lastSession)
         sessions        : sessions
     )
 
@@ -104,8 +104,7 @@ class PeteshowView
     return
 
   reset: (position) ->
-    unless position?
-      position = {x:0, y:0}
+    position = {x:0, y:0} unless position?
 
     @_positionWindow(position)
     @_position = position
@@ -114,22 +113,20 @@ class PeteshowView
 
     return position
 
+  getSaveDetails: ->
+    return {
+      title: $(@$saveSession).find('[name="peteshow-title"]').val()
+      notes: $(@$saveSession).find('[name="peteshow-notes"]').val()
+    }
+
   setSession: (id) ->
     $(@$tools).find("[data-session=#{id}]").prop('checked', true).change()
-
-  toggleSaveSession: =>
-    $(@$saveSession).find('input').val(@_sessionName(@controller.lastSession))
-    $(@$saveSession).toggle()
 
   hideSaveSession: =>
     $(@$saveSession).hide()
 
-  _sessionName: (session) ->
-    return false unless session
-    return "#{session.first_name} #{session.last_name}" if session.first_name and session.last_name
-    return session.first_name if session.first_name
-    return session.email if session.email
-    return session.id
+  toggleSaveSession: =>
+    $(@$saveSession).toggle()
 
   show: =>
     $(@$peteshow).show()

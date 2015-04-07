@@ -1,21 +1,20 @@
 .peteshow-save-session {
   position: absolute;
-  right: -($open-width + 100);
+  right: -($open-width + 101);
   top: 96px;
-  background: $primary-background-color;
   width: 300px;
-  padding-top: 5px;
   display: none;
 
   .peteshow-dialog {
-    background: $inner-background-color;
-    padding: 6px 15px;
     @extend %menu-header;
-    color: #999;
+    background: rgba(0,0,0,0.85);
+    padding: 8px 15px;
+    color: #fff;
   }
 
   .peteshow-title,
   .peteshow-notes {
+    background: rgba(0,0,0,0.895);
     padding: 5px 15px;
   }
   
@@ -37,6 +36,7 @@
 
   textarea {
     resize: vertical;
+    margin-bottom: 10px;
   }
 
   input {
@@ -46,8 +46,7 @@
   .peteshow-actions {
     @include clearfix;
     border-top: 1px solid $border-color;
-    background: $inner-background-color;
-    margin-top: 10px;
+    background: rgba(0,0,0,0.85);
 
     a {
       width: 50%;
@@ -59,11 +58,12 @@
       text-align: center;
       box-sizing: border-box;
       -moz-box-sizing: border-box;
+      font-weight: bold;
 
       &:first-child { border-right: 1px solid $border-color; }
 
       &:hover {
-        background: rgba(0,0,0,0.5);
+        background: rgba(0,0,0,0.1);
         color: $menu-link-hover-color;
       }
     }
@@ -73,7 +73,7 @@
     display: block;
     float: right;
     font-size: 12px;
-    margin-top: -15px;
+    margin-top: 0px;
 
     a {
       display: block;

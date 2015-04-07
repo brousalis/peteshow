@@ -95,12 +95,16 @@ class PeteshowController
       data[$(@).attr('name')] = $(@).val()
 
     @lastSession = store.lastSession(data)
+
     @view.update()
     @view.setSession(@session)
 
   saveSession: (data) =>
-    unless data?
-      data = @lastSession
+    data       = @lastSession unless data?
+
+    details    = @view.getSaveDetails()
+    data       = _.merge(data, details) if details?
+    data.title = @sessionName(data)
 
     @session  = store.addSession(data)
     @sessions = store.get('sessions')
@@ -110,9 +114,15 @@ class PeteshowController
     @view.hideSaveSession()
 
   setSession: (id) ->
-    unless id?
-      id = 'new'
-
+    id = 'new' unless id?
     @session = id
+
+  sessionName: (data) ->
+    return false unless data
+    return data.title if data.title
+    return "#{data.first_name} #{data.last_name}" if data.first_name and data.last_name
+    return data.first_name if data.first_name
+    return data.email if data.email
+    return data.id
 
 module.exports = new PeteshowController()

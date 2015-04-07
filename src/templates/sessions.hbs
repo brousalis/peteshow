@@ -1,5 +1,5 @@
 {{#if lastSession}}
-  <div>
+  <div class='peteshow-sessions-wrapper'>
     <span>Sessions</span>
     <label>
       <input type='radio' name='peteshow-session' data-session='new' />
@@ -22,10 +22,30 @@
         {{#each sessions}}
           <label>
             <input type='radio' name='peteshow-session' data-session='{{id}}' />
-            {{first_name}} {{last_name}}
+            {{title}}
           </label>
         {{/each}}
       </div>
     {{/if}}
+  </div>
+
+  <div class='peteshow-save-session'>
+    <div class='peteshow-dialog'>Save last session</div>
+    <div class='peteshow-title'>
+      <span>Title</span>
+      <input name='peteshow-title' type='text' value="{{lastSessionName}}"/>
+      <div class='peteshow-info'>
+        <a href='#'>Print to console</a>
+        <a href='#'>Delete session</a>
+      </div>
+    </div>
+    <div class='peteshow-notes'>
+      <span>Notes</span>
+      <textarea name='peteshow-notes' />
+    </div>
+    <div class='peteshow-actions'>
+      <a href='#' data-action='cancel-session'>Cancel</a>
+      <a href='#' data-action='save-last-session'>Save</a>
+    </div>
   </div>
 {{/if}}
