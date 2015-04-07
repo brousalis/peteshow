@@ -1,11 +1,11 @@
-{{#if lastSession}}
-  <div class='peteshow-sessions-wrapper'>
-    <span>Sessions</span>
-    <label>
-      <input type='radio' name='peteshow-session' data-session='new' />
-      New session
-    </label>
+<div class='peteshow-sessions-wrapper'>
+  <span>Sessions</span>
+  <label>
+    <input type='radio' name='peteshow-session' data-session='new' />
+    New session
+  </label>
 
+  {{#if lastSession}}
     <label>
       <input type='radio' name='peteshow-session' data-session='last' />
       Last session
@@ -16,37 +16,37 @@
         </a>
       </div>
     </label>
+  {{/if}}
 
-    {{#if sessions}}
-      <div class='peteshow-session-list'>
-        {{#each sessions}}
-          <label>
-            <input type='radio' name='peteshow-session' data-session='{{id}}' />
-            {{title}}
-            <a href='#' class='delete-session' data-action='delete-session' data-session='{{id}}'></a>
-          </label>
-        {{/each}}
-      </div>
-    {{/if}}
-  </div>
+  {{#if sessions}}
+    <div class='peteshow-session-list'>
+      {{#each sessions}}
+        <label>
+          <input type='radio' name='peteshow-session' data-session='{{id}}' />
+          {{title}}
+          <a href='#' class='delete-session' data-action='delete-session' data-session='{{id}}'></a>
+        </label>
+      {{/each}}
+    </div>
+  {{/if}}
+</div>
 
-  <div class='peteshow-save-session'>
-    <div class='peteshow-dialog'>Save last session</div>
-    <div class='peteshow-title'>
-      <span>Title</span>
-      <input name='peteshow-title' type='text' value="{{lastSessionName}}"/>
-      <div class='peteshow-info'>
-        <a href='#' data-action='print-console'>Print to console</a>
-        <a href='#' data-action='delete-session'>Delete session</a>
-      </div>
-    </div>
-    <div class='peteshow-notes'>
-      <span>Notes</span>
-      <textarea name='peteshow-notes' />
-    </div>
-    <div class='peteshow-actions'>
-      <a href='#' data-action='cancel-session'>Cancel</a>
-      <a href='#' data-action='save-session'>Save</a>
+<div class='peteshow-save-session'>
+  <div class='peteshow-dialog'>Save last session</div>
+  <div class='peteshow-title'>
+    <span>Title</span>
+    <input name='peteshow-title' type='text' value="{{lastSessionName}}"/>
+    <div class='peteshow-info'>
+      <a href='#' data-action='print-console' data-session='{{id}}'>Print to console</a>
+      <a href='#' data-action='delete-session' data-session='last'>Delete session</a>
     </div>
   </div>
-{{/if}}
+  <div class='peteshow-notes'>
+    <span>Notes</span>
+    <textarea name='peteshow-notes' />
+  </div>
+  <div class='peteshow-actions'>
+    <a href='#' data-action='cancel-session'>Cancel</a>
+    <a href='#' data-action='save-session'>Save</a>
+  </div>
+</div>

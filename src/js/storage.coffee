@@ -30,30 +30,28 @@ module.exports =
     stored[key] = _data
     store.set('peteshow', stored)
 
-
   sessions: ->
-    return @get('sessions') || []
+    @get('sessions') || []
+
+  getSessionStorage: (id) ->
+    sessions = @sessions()
+    _.find(sessions, {id: id})
 
   addSession: (data) ->
     session = new Session(data)
-    data    = @get('sessions') || []
+    data    = @sessions()
 
     data.push(session)
     @set('sessions', data)
 
     return session.id
 
-  getSessionStorage: (id) ->
-    sessions = @get('sessions')
-    _.find(sessions, {id: id})
-
   deleteSession: (id) ->
-    stored = @get()
-    sessions = @get('sessions')
+    stored   = @get()
+    sessions = @sessions()
 
     stored['sessions'] = null
     _.remove(sessions, {id: id})
-
     data = _.merge(stored, {sessions: sessions})
     store.set('peteshow', data)
 
@@ -61,8 +59,11 @@ module.exports =
     @set('active_session', id) if id?
     @get('active_session')
 
+  deleteLastSession: ->
+    @set('last_session', null)
+
   lastSession: (data) ->
-    if data?
+    if data? or data == {}
       session = new Session(data)
       @set('last_session', session)
 

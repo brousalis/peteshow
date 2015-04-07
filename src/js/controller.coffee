@@ -85,9 +85,15 @@ class PeteshowController
     _.uniq($inputs.map (i, $input) -> $input.name)
 
   deleteSession: (id) =>
-    store.deleteSession(id)
+    console.log id
+    if id == 'last'
+      store.deleteLastSession()
+    else
+      store.deleteSession(id)
+
     @session = 'new'
     @sessions = store.get('sessions')
+    @lastSession = store.get('last_session')
     @view.update()
     @view.setSession(@session)
 
@@ -131,5 +137,12 @@ class PeteshowController
   clearSessions: =>
     store.clearSessions()
     @view.update()
+
+  printToConsole: (id) =>
+    stored = store.getSessionStorage(id)
+    console.group(@sessionName(stored))
+    for key, value of stored
+      console.log stored
+    console.groupEnd()
 
 module.exports = new PeteshowController()

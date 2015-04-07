@@ -131,26 +131,22 @@ class PeteshowView
       .prop('checked', true)
       .change()
 
-  printToConsole: ->
-    true
+  printToConsole: (e) =>
+    id = e.currentTarget.dataset.session
+    @controller.printToConsole(id)
 
   deleteSession: (e) =>
     id = e.currentTarget.dataset.session
     @controller.deleteSession(id)
 
-  hideSaveSession: =>
-    $(@$saveDialog).hide()
+  hideSaveSession: => $(@$saveDialog).hide()
 
-  toggleSaveSession: =>
-    $(@$saveDialog).toggle()
+  toggleSaveSession: => $(@$saveDialog).toggle()
 
-  show: =>
-    $(@$peteshow).show()
+  show: => $(@$peteshow).show()
 
-  hide: =>
-    $(@$peteshow).hide()
+  hide: => $(@$peteshow).hide()
 
-  destroy: ->
-    $(@$peteshow).remove()
+  destroy: -> $(@$peteshow).remove()
 
 module.exports = new PeteshowView()
