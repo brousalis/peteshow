@@ -13,15 +13,15 @@ Peteshow =
     emailPrefix : 'test-'
     emailDomain : 'example.com'
     form        : ['form[name*=registration]']
+    rules       : require('./rules')
+    filters     : ['', 'other', 'select']
+
+    # TODO:  implement
     blur        : false
     cookies     : false
-    rules       : require('./rules')
     force       : {}
-
-    # TODO:  refactor
     saved       : {}
     commands    : ''
-    filters     : ['', 'other', 'select']
     ignore      : []
     special     : null
     events      : null

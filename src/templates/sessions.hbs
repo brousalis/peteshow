@@ -1,4 +1,4 @@
-<div class='peteshow-sessions-wrapper'>
+<div class='peteshow-wrapper'>
   <span>Sessions</span>
   <label>
     <input type='radio' name='peteshow-session' data-session='new' />
@@ -23,7 +23,7 @@
       {{#each sessions}}
         <label>
           <input type='radio' name='peteshow-session' data-session='{{id}}' />
-          {{title}}
+          <span>{{title}}</span>
           <a href='#' class='delete-session' data-action='delete-session' data-session='{{id}}'></a>
           <a href='#' class='print-console' data-action='print-console' data-session='{{id}}'></a>
         </label>

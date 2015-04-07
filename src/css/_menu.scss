@@ -21,7 +21,7 @@
   }
 }
 
-.peteshow-sessions-wrapper {
+.peteshow-wrapper {
   background: $inner-background-color;
   padding: 5px 0;
 
@@ -34,8 +34,12 @@
     }
   }
 
-  span { 
-    @extend %menu-header; 
+  > span { 
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+    color: $inner-font-color;
+    display: block;
     padding: 5px 10px;
   }
 
@@ -52,31 +56,32 @@
     background-position: 0 14px;
     @include radial($menu-link-color, $menu-link-color);
     @extend %input;
-
     @include radio-active($radio-size);
   }
 
   .peteshow-last-session {
     @include clearfix;
 
-    span {
-      padding-left: 0;
-      float: left;
-      display: block;
-      text-transform: none;
-      font-weight: normal;
-      margin-left: 22px;
-    }
-
     .toggle-save {
       @extend %menu-action-icon;
-      margin-top: -10px;
+      margin-top: -11px;
 
       .icon-save {
         fill: currentColor;
         width: 14px;
         height: 14px;
       }
+    }
+
+    span {
+      float: left;
+      text-transform: none;
+      font-weight: normal;
+      margin-left: 22px;
+      padding: 5px 0;
+      color: $inner-font-color;
+      @extend %ellipsis;
+      display: block;
     }
   }
 
@@ -93,6 +98,10 @@
     .delete-session {
       @extend %menu-action-icon;
       @extend %icon-delete;
+    }
+
+    label > span { 
+      @extend %ellipsis;
     }
   }
 }
