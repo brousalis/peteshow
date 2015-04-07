@@ -17,15 +17,18 @@ Peteshow =
     filters     : ['', 'other', 'select']
     sessionName : false
     ignore      : []
+    blur        : false
+    force       : {}
+    special     : null
 
     # TODO:  implement
-    blur        : false
     cookies     : false
-    force       : {}
-    saved       : {}
     commands    : ''
-    special     : null
     events      : null
+
+    # DEPRECATED
+    saved       : {}
+    reuse       : {}
 
   init: (options = {}) ->
     @setOptions(options)

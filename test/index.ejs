@@ -48,6 +48,7 @@
       <input name='saved' type='text' />
       <input name='saved_2' type='text' />
       <input name='ignore_me' type='text' />
+      <input name='hidden' style='display: none;' type='text' />
       <input type='submit' value='submit' />
     </form>
 
@@ -74,6 +75,10 @@
             'input[name*=middle_name]': Peteshow.random.name(),
             'input[name*=custom_name]': 'Custom Name'
           },
+          force: {
+            'input[name=hidden]' : 'hidden'
+          },
+          ignore: ['[name*=ignore]','[name*=name]'],
           resets: ['form[name=random]']
         });
       }

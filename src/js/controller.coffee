@@ -11,9 +11,11 @@ class PeteshowController
 
   init: (view) ->
     @view        = view
+
     @lastSession = store.get('last_session') || false
     @session     = store.get('active_session') || 'new'
     @sessions    = store.get('sessions')
+
     @view.render()
     @view.setSession(@session)
 
@@ -42,21 +44,36 @@ class PeteshowController
     $('form').last().submit()
 
   fillInputs: ->
-    for element, rule of Peteshow.options.rules
+    @_fillInputs(Peteshow.options.force, false)
+    @_fillInputs(Peteshow.options.rules, true)
+    Peteshow.options.special() if Peteshow.options.special?
+    return
+
+  _fillInputs: (inputs, ignoreHidden) ->
+    for element, rule of inputs
       value = if _.isFunction(rule) then rule() else rule
+
       $(element).each (i, el) =>
         return if $(el).is(Peteshow.options.ignore.toString())
         return if $(el).is(':checkbox')
-        $(el)
-          .filter(':visible')
-          .filter('input:not(:checked)')
+
+        if ignoreHidden
+          $el = $(el)
+                  .filter(':visible')
+                  .filter('input:not(:checked)')
+        else
+          $el = $(el)
+
+        $el
           .filterFields()
           .val(value)
-        $(el).blur() if Peteshow.options.blur
+
+        $el.blur() if Peteshow.options.blur
 
   fillCheckboxes: ($inputs) ->
     for el in $('form input:checkbox')
       $(el)
+        .filterFields()
         .prop('checked', true)
         .change()
 
@@ -69,6 +86,7 @@ class PeteshowController
       $el    = $els.eq(random)
 
       $el
+        .filterFields()
         .prop('checked', true)
         .change()
 
@@ -82,6 +100,7 @@ class PeteshowController
       value   = values[random]
 
       $(el)
+        .filterFields()
         .val(value)
         .change()
 
@@ -132,6 +151,7 @@ class PeteshowController
     @session = id
 
   sessionName: (data) ->
+    data = @getSessionStorage(@session) unless data?
     return false unless data
     return data.title if data.title
     return data[Peteshow.options.sessionName] if Peteshow.options.sessionName
