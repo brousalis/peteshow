@@ -130,6 +130,7 @@ class PeteshowController
   sessionName: (data) ->
     return false unless data
     return data.title if data.title
+    return data[Peteshow.options.sessionName] if Peteshow.options.sessionName
     return "#{data.first_name} #{data.last_name}" if data.first_name and data.last_name
     return data.first_name if data.first_name
     return data.email if data.email

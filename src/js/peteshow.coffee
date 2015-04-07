@@ -15,6 +15,7 @@ Peteshow =
     form        : ['form[name*=registration]']
     rules       : require('./rules')
     filters     : ['', 'other', 'select']
+    sessionName : false
 
     # TODO:  implement
     blur        : false
