@@ -8,7 +8,7 @@ class PeteshowController
   lastSession : null
 
   init: (view) ->
-    @view        = view
+    @view = view
 
     @lastSession = store.get('last_session') || false
     @session     = store.get('active_session') || 'new'
@@ -115,7 +115,6 @@ class PeteshowController
     @lastSession = store.get('last_session')
 
     @view.update()
-    @view.setSession(@session)
 
   saveLastSession: =>
     data = []
@@ -126,7 +125,6 @@ class PeteshowController
     @lastSession = store.lastSession(data)
 
     @view.update()
-    @view.setSession(@session)
 
   saveSession: (data) =>
     data       = @lastSession unless data?
@@ -139,7 +137,6 @@ class PeteshowController
     @sessions = store.get('sessions')
 
     @view.update()
-    @view.setSession(@session)
     @view.hideSaveSession()
 
   setSession: (id) ->
@@ -164,7 +161,6 @@ class PeteshowController
     @lastSession = store.get('last_session')
 
     @view.update()
-    @view.setSession(@session)
 
   printToConsole: (id) =>
     if id == 'last'

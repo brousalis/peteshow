@@ -1,8 +1,9 @@
 window._ = _ = require('lodash')
-global.$ = require('jquery')
+window.$ = $ = require('jquery')
 
 store    = require('./storage')
 helpers  = require('./helpers')
+rules    = require('./rules')
 
 Peteshow =
   controller : null
@@ -12,12 +13,10 @@ Peteshow =
 
   options    : {}
   defaults   :
-    emailPrefix : 'test-'
-    emailDomain : 'example.com'
     sessionName : null
     form        : ['form[name*=registration]']
-    rules       : require('./rules')
-    filters     : ['', 'other', 'select']
+    filters     : ['other', 'select']
+    rules       : rules
     blur        : false
     ignore      : []
     force       : {}

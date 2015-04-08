@@ -49,6 +49,8 @@ class PeteshowView
 
     $(@$sessions).html(template)
 
+    @setSession(@controller.session)
+
   _createEvents: () =>
     for key, value of @_events
       $('body').on 'click', "[data-action='#{key}']", (e) =>

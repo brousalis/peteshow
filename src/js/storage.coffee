@@ -1,20 +1,19 @@
-store = require('store')
+store  = require('store')
 cookie = require('mmm-cookies')
-_     = require('lodash')
+_      = require('lodash')
 
 Session = require('./models/session')
-cookies = true
+cookies = false
+
+subdomain = new RegExp(/^([a-z]+\:\/{2})?([\w-]+\.[\w-]+\.\w+)$/)
+
+if (window.location.href).match(subdomain) or !store.enabled
+  cookies = true
+  unless cookie.get('peteshow')?
+    cookie.set('peteshow', JSON.stringify({}))
 
 unless store.get('peteshow')
   store.set('peteshow', {})
-
-regex = new RegExp(/^([a-z]+\:\/{2})?([\w-]+\.[\w-]+\.\w+)$/)
-url   = window.location.href
-
-#if url.match(regex) or !store.enabled
-cookies = true
-unless cookie.get('peteshow')?
-  cookie.set('peteshow', JSON.stringify({}))
 
 module.exports =
   get: (key) ->
@@ -26,7 +25,7 @@ module.exports =
 
     return unless data
     return data[key] if key?
-    data
+    return data
 
   set: (key, data) ->
     stored = @get()
