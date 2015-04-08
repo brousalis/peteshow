@@ -27,8 +27,6 @@ class PeteshowController
       for key, value of @lastSession
         $("[name*=#{key}]").val(value)
 
-    @view.hideSaveDialog()
-
     if @session isnt 'new' and @session isnt 'last'
       for key, value of store.getSessionStorage(@session)
         $("[name*=#{key}]").val(value)
