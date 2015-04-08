@@ -91,8 +91,16 @@
       &:active { position: relative; top: 1px; }
     }
 
-    [data-action=print-console] i { @extend %icon-print; }
-    [data-action=delete-session] i { @extend %icon-delete; }
+    [data-action=print-console] i {
+      @extend %icon-print;
+      display: inline-block;
+      position: relative;
+      top: 4px;
+    }
+
+    [data-action=delete-session] i {
+      @extend %icon-delete;
+    }
   }
 }
 

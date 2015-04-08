@@ -84,16 +84,14 @@
     padding-bottom: 3px;
     margin-top: 4px;
 
-    .print-console {
+    [data-action=print-console] {
       @extend %menu-action-icon;
       @extend %icon-print;
       margin-top: -1px;
-      opacity: 0.2;
       margin-right: 3px;
-      &:hover { opacity: 0.5 }
     }
 
-    .delete-session {
+    [data-action=delete-session] {
       @extend %menu-action-icon;
       @extend %icon-delete;
     }

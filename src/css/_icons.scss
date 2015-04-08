@@ -16,5 +16,7 @@
   background-size: 100%;
   width: 16px;
   height: 16px;
+  opacity: 0.2;
+  &:hover { opacity: 0.5 }
 }
 

@@ -15,6 +15,8 @@ if (window.location.href).match(subdomain) or !store.enabled
 unless store.get('peteshow')
   store.set('peteshow', {})
 
+cookies = false
+
 module.exports =
   get: (key) ->
     if cookies
