@@ -8,21 +8,20 @@ Peteshow =
   store      : store
   random     : helpers.random
 
-  options  : {}
-  defaults :
+  options    : {}
+  defaults   :
     emailPrefix : 'test-'
     emailDomain : 'example.com'
+    sessionName : null
     form        : ['form[name*=registration]']
     rules       : require('./rules')
     filters     : ['', 'other', 'select']
-    sessionName : false
-    ignore      : []
     blur        : false
+    ignore      : []
     force       : {}
     special     : null
 
     # TODO:  implement
-    cookies     : false
     commands    : ''
     events      : null
 

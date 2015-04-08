@@ -14,8 +14,6 @@ module.exports = {
     vendor : [
       path.join(BASE_MODULES_PATH, 'faker', 'build', 'build', '*'),
       path.join(BASE_MODULES_PATH, 'jquery', 'dist', '*'),
-      path.join(BASE_MODULES_PATH, 'jquery.cookie', 'jquery.cookie.js'),
-      path.join(BASE_MODULES_PATH, 'jquery-formatdatetime', 'jquery.formatDateTime.js')
     ]
   },
 

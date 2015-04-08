@@ -1,14 +1,30 @@
 store = require('store')
+cookie = require('mmm-cookies')
 _     = require('lodash')
 
 Session = require('./models/session')
+cookies = true
 
 unless store.get('peteshow')
   store.set('peteshow', {})
 
+regex = new RegExp(/^([a-z]+\:\/{2})?([\w-]+\.[\w-]+\.\w+)$/)
+url   = window.location.href
+
+#if url.match(regex) or !store.enabled
+cookies = true
+unless cookie.get('peteshow')?
+  console.log 'new'
+  cookie.set('peteshow', JSON.stringify({}))
+
 module.exports =
   get: (key) ->
-    data = store.get('peteshow') || {}
+    if cookies
+      c = cookie.get('peteshow')
+      data = JSON.parse(c) if c?
+    else
+      data = store.get('peteshow') || {}
+
     return unless data
     return data[key] if key?
     data
@@ -18,17 +34,39 @@ module.exports =
 
     if data instanceof Array
       stored[key] = [] unless stored[key]?
-      _data       = _.merge(stored[key], data)
+      _data = _.merge(stored[key], data)
 
     else if data instanceof Object
       stored[key] = {} unless stored[key]?
-      _data       = _.merge(stored[key], data)
+      _data = _.merge(stored[key], data)
 
     else
       _data = data
 
+    if key == 'sessions'
+      stored['sessions'] = null
+      console.log stored
+
     stored[key] = _data
-    store.set('peteshow', stored)
+    console.log stored
+
+    if cookies
+      cookie.set('peteshow', JSON.stringify(stored))
+      console.log JSON.parse(cookie.get('peteshow'))
+    else
+      store.set('peteshow', stored)
+
+  _getDomain: ->
+    # http://rossscrivener.co.uk/blog/javascript-get-domain-exclude-subdomain
+    i = 0
+    d = document.domain
+    p = d.split('.')
+    s = '_gd' + (new Date).getTime()
+    while i < p.length - 1 and document.cookie.indexOf(s + '=' + s) == -1
+      d = p.slice(-1 - ++i).join('.')
+      document.cookie = s + '=' + s + ';domain=' + d + ';'
+    document.cookie = s + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=' + d + ';'
+    if d == 'localhost' then '' else d
 
   sessions: ->
     @get('sessions') || []
@@ -69,7 +107,11 @@ module.exports =
 
     return @get('last_session')
 
-  getAll: -> store.getAll().peteshow
+  getAll: ->
+    if cookie
+      JSON.parse(cookie.get('peteshow'))
+    else
+      store.getAll().peteshow
 
   clearSessions: ->
     stored   = @get()

@@ -1,14 +1,68 @@
-#peteshow, #peteshow a, #peteshow a:active, #peteshow a:link, #peteshow a:hover, #peteshow a:visited, #peteshow #peteshow-toggle {
+.peteshow-save-session input, .peteshow-save-session textarea, .peteshow-wrapper input[type=radio] {
+  box-shadow: rgba(255, 255, 255, 0.15) 0 1px 1px, inset rgba(0, 0, 0, 0.5) 0 0 0 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+  background-repeat: no-repeat;
+  outline: none;
+  font-size: 12px; }
+
+.peteshow {
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility; }
+
+.peteshow, .peteshow a, .peteshow .peteshow-toggle {
   text-decoration: none;
   text-shadow: none; }
 
-#peteshow {
+.peteshow-menu ul li a, .peteshow-wrapper label {
+  display: block;
+  height: 1%;
+  padding: 5px 10px; }
+  .peteshow-menu ul li a:hover, .peteshow-wrapper label:hover {
+    background-color: rgba(0, 0, 0, 0.1); }
+  .peteshow-menu ul li a:active, .peteshow-wrapper label:active {
+    height: 1%; }
+
+.peteshow-wrapper .peteshow-last-session .toggle-save, .peteshow-wrapper .peteshow-session-list .print-console, .peteshow-wrapper .peteshow-session-list .delete-session {
+  float: right;
+  margin-top: -1px;
+  margin-right: 0px;
+  margin-left: 5px;
+  display: inline-block;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.3); }
+  .peteshow-wrapper .peteshow-last-session .toggle-save:hover, .peteshow-wrapper .peteshow-session-list .print-console:hover, .peteshow-wrapper .peteshow-session-list .delete-session:hover {
+    color: rgba(255, 255, 255, 0.5); }
+  .peteshow-wrapper .peteshow-last-session .toggle-save:active, .peteshow-wrapper .peteshow-session-list .print-console:active, .peteshow-wrapper .peteshow-session-list .delete-session:active {
+    position: relative;
+    top: 1px; }
+
+.peteshow-save-session .peteshow-info [data-action=delete-session] i, .peteshow-wrapper .peteshow-session-list .delete-session {
+  color: rgba(255, 0, 0, 0.5); }
+  .peteshow-save-session .peteshow-info [data-action=delete-session] i:before, .peteshow-wrapper .peteshow-session-list .delete-session:before {
+    content: "\2716"; }
+  .peteshow-save-session .peteshow-info [data-action=delete-session] i:hover, .peteshow-wrapper .peteshow-session-list .delete-session:hover {
+    color: rgba(255, 0, 0, 0.9); }
+
+.peteshow-save-session .peteshow-info [data-action=print-console] i:before, .peteshow-wrapper .peteshow-session-list .print-console:before {
+  content: "\270E"; }
+
+.peteshow-wrapper .peteshow-last-session span, .peteshow-wrapper .peteshow-session-list label > span {
+  width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  position: relative;
+  top: 3px; }
+
+.peteshow {
   background-color: rgba(0, 0, 0, 0.85);
   color: #ffffff;
-  font-family: 'Helvetica Neue', 'Tahoma';
+  font-family: 'Helvetica', 'Tahoma';
   font-size: 13px;
   font-weight: normal;
-  left: 0;
+  eft: 0;
   padding: 0;
   position: fixed;
   text-align: left;
@@ -16,23 +70,33 @@
   transition: width 0.2s ease;
   width: 60px;
   z-index: 9001; }
-  #peteshow #peteshow-drag-handle {
-    background: blue;
-    height: 20px;
-    position: absolute;
-    right: 0;
-    width: 20px;
-    z-index: 3000; }
-  #peteshow #peteshow-toggle {
+  .peteshow a {
+    color: #999; }
+    .peteshow a:visited {
+      color: #999; }
+    .peteshow a:hover {
+      color: #ccc; }
+  .peteshow.open {
+    width: 200px; }
+    .peteshow.open .peteshow-toggle i {
+      border-left: 0;
+      border-right-color: #fff;
+      border-right-style: solid;
+      border-right-width: 6px;
+      right: 10px; }
+    .peteshow.open .peteshow-toggle:before {
+      content: 'PETESHOW'; }
+  .peteshow .peteshow-toggle {
     color: #fff;
     font-weight: bold;
     display: block;
-    padding: 5px 10px;
-    position: relative; }
-    #peteshow #peteshow-toggle i {
+    padding: 8px 10px;
+    position: relative;
+    cursor: pointer; }
+    .peteshow .peteshow-toggle i {
       border-color: transparent;
       border-left: 6px solid #fff;
-      border-style: dashed;
+      border-style: solid;
       border-width: 5px;
       display: -moz-inline-box;
       display: inline-block;
@@ -40,91 +104,168 @@
       height: 0;
       line-height: 0;
       margin: 0px;
-      position: relative;
+      position: absolute;
       right: 3px;
-      top: 9px;
+      top: 8px;
       vertical-align: middle;
       width: 0; }
-    #peteshow #peteshow-toggle:before {
+    .peteshow .peteshow-toggle:before {
       content: 'PS'; }
-  #peteshow.active {
-    width: 200px; }
-    #peteshow.active #peteshow-toggle i {
-      border-left: 0;
-      border-right-color: #fff;
-      border-right-style: solid;
-      border-right-width: 6px;
-      right: 10px; }
-    #peteshow.active #peteshow-toggle:before {
-      content: 'PETESHOW'; }
-  #peteshow #peteshow-tools {
-    display: none;
-    color: #fff;
-    transition: all 1s ease; }
-    #peteshow #peteshow-tools a {
-      color: #999;
-      display: block;
-      font-weight: bold;
-      height: 1%;
-      text-transform: capitalize; }
-      #peteshow #peteshow-tools a:link, #peteshow #peteshow-tools a:visited {
-        color: #999;
-        display: block;
-        height: 1%;
-        padding: 5px 10px; }
-      #peteshow #peteshow-tools a:hover {
-        background-color: #000;
-        color: #FFF; }
-      #peteshow #peteshow-tools a:active {
-        height: 1%; }
-    #peteshow #peteshow-tools ul {
-      list-style: none;
-      margin: 0;
-      padding: 0; }
-      #peteshow #peteshow-tools ul li {
-        border-top: 1px dotted #666;
-        display: block;
-        margin: 0; }
-        #peteshow #peteshow-tools ul li.list {
-          color: #aaa;
-          font-size: 12px;
-          overflow: hidden;
-          padding: 5px 10px 10px; }
-          #peteshow #peteshow-tools ul li.list:hover {
-            overflow: visible; }
-          #peteshow #peteshow-tools ul li.list:before, #peteshow #peteshow-tools ul li.list:after {
-            content: " ";
-            display: table; }
-          #peteshow #peteshow-tools ul li.list:before {
-            color: #999;
-            content: 'Stored:';
-            display: block;
-            font-size: 13px;
-            margin-bottom: 3px; }
-          #peteshow #peteshow-tools ul li.list:after {
-            clear: both; }
-          #peteshow #peteshow-tools ul li.list div {
-            display: block;
-            white-space: nowrap; }
-          #peteshow #peteshow-tools ul li.list span {
-            display: inline-block;
-            margin-left: 15px; }
-        #peteshow #peteshow-tools ul li .inner {
-          background-color: rgba(0, 0, 0, 0.9);
-          float: left;
-          padding: 3px 5px;
-          position: relative;
-          z-index: 100; }
 
-@media (max-width: 768px) {
-  #peteshow {
-    position: absolute;
-    top: 0;
-    left: 0 !important;
-    right: 0 !important;
-    width: 100%; }
-    #peteshow.active {
-      width: 100%; } }
+.peteshow-save-session {
+  position: absolute;
+  right: -301px;
+  top: 96px;
+  width: 300px;
+  display: none; }
+  .peteshow-save-session .peteshow-dialog {
+    background: rgba(0, 0, 0, 0.85);
+    padding: 8px 15px;
+    color: #fff; }
+  .peteshow-save-session .peteshow-title, .peteshow-save-session .peteshow-notes {
+    background: rgba(0, 0, 0, 0.895);
+    padding: 5px 15px; }
+  .peteshow-save-session span {
+    font-weight: normal;
+    text-transform: none;
+    padding: 5px 0;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.3);
+    display: block; }
+  .peteshow-save-session input, .peteshow-save-session textarea {
+    border: none;
+    padding: 5px;
+    color: #999;
+    width: 260px;
+    border-radius: 4px; }
+  .peteshow-save-session textarea {
+    resize: vertical;
+    margin-bottom: 10px; }
+  .peteshow-save-session input {
+    width: 150px; }
+  .peteshow-save-session .peteshow-actions {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.85); }
+    .peteshow-save-session .peteshow-actions:before, .peteshow-save-session .peteshow-actions:after {
+      content: ' ';
+      display: table; }
+    .peteshow-save-session .peteshow-actions:after {
+      clear: both; }
+    .peteshow-save-session .peteshow-actions a {
+      width: 50%;
+      display: block;
+      font-size: 12px;
+      float: left;
+      color: #999;
+      padding: 8px 0;
+      text-align: center;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      font-weight: bold; }
+      .peteshow-save-session .peteshow-actions a:first-child {
+        border-right: 1px solid rgba(255, 255, 255, 0.1); }
+      .peteshow-save-session .peteshow-actions a:hover {
+        background: rgba(0, 0, 0, 0.1);
+        color: #ccc; }
+      .peteshow-save-session .peteshow-actions a:active {
+        position: relative;
+        top: 1px; }
+  .peteshow-save-session .peteshow-info {
+    display: block;
+    float: right;
+    font-size: 12px;
+    margin-top: -4px; }
+    .peteshow-save-session .peteshow-info a {
+      display: block;
+      text-align: right;
+      margin-bottom: 4px;
+      font-style: normal; }
+      .peteshow-save-session .peteshow-info a i {
+        font-style: normal; }
+      .peteshow-save-session .peteshow-info a:active {
+        position: relative;
+        top: 1px; }
+
+.peteshow-menu {
+  transition: all 1s ease; }
+  .peteshow-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0; }
+    .peteshow-menu ul li {
+      border-top: 1px dotted rgba(255, 255, 255, 0.1);
+      display: block;
+      margin: 0; }
+      .peteshow-menu ul li a {
+        display: block;
+        font-weight: bold;
+        text-transform: capitalize; }
+
+.peteshow-wrapper {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 5px 0; }
+  .peteshow-wrapper label {
+    color: #999; }
+    .peteshow-wrapper label:hover {
+      background: none;
+      color: #ccc; }
+  .peteshow-wrapper > span {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.3);
+    display: block;
+    padding: 5px 10px; }
+  .peteshow-wrapper input[type=radio] {
+    -webkit-appearance: none;
+    margin: 0;
+    margin-right: 5px;
+    margin-top: -3px;
+    width: 14px;
+    height: 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    vertical-align: middle;
+    background-position: 0 14px;
+    background-image: -webkit-radial-gradient(circle, #999, #999);
+    background-image: radial-gradient(circle, #999, #999);
+    background-repeat: no-repeat; }
+    .peteshow-wrapper input[type=radio]:active {
+      background-position: 0 14px; }
+    .peteshow-wrapper input[type=radio]:checked {
+      background-position: 0 0; }
+      .peteshow-wrapper input[type=radio]:checked ~ input {
+        background-position: -14px; }
+        .peteshow-wrapper input[type=radio]:checked ~ input:active {
+          background-position: -14px; }
+  .peteshow-wrapper .peteshow-last-session:before, .peteshow-wrapper .peteshow-last-session:after {
+    content: ' ';
+    display: table; }
+  .peteshow-wrapper .peteshow-last-session:after {
+    clear: both; }
+  .peteshow-wrapper .peteshow-last-session .toggle-save {
+    margin-top: -11px; }
+    .peteshow-wrapper .peteshow-last-session .toggle-save .icon-save {
+      fill: currentColor;
+      width: 14px;
+      height: 14px; }
+  .peteshow-wrapper .peteshow-last-session span {
+    float: left;
+    text-transform: none;
+    font-weight: normal;
+    margin-left: 22px;
+    padding: 5px 0;
+    color: rgba(255, 255, 255, 0.3);
+    display: block; }
+  .peteshow-wrapper .peteshow-session-list {
+    border-top: 1px dotted rgba(255, 255, 255, 0.1);
+    padding-top: 6px;
+    padding-bottom: 3px;
+    margin-top: 4px; }
+    .peteshow-wrapper .peteshow-session-list .print-console {
+      margin-top: -2px; }
 
 
 /*# sourceMappingURL=peteshow.css.map */
