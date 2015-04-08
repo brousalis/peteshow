@@ -14,7 +14,6 @@ url   = window.location.href
 #if url.match(regex) or !store.enabled
 cookies = true
 unless cookie.get('peteshow')?
-  console.log 'new'
   cookie.set('peteshow', JSON.stringify({}))
 
 module.exports =
@@ -43,16 +42,10 @@ module.exports =
     else
       _data = data
 
-    if key == 'sessions'
-      stored['sessions'] = null
-      console.log stored
-
     stored[key] = _data
-    console.log stored
 
     if cookies
       cookie.set('peteshow', JSON.stringify(stored))
-      console.log JSON.parse(cookie.get('peteshow'))
     else
       store.set('peteshow', stored)
 
