@@ -42,8 +42,8 @@
   input[type=radio] {
     -webkit-appearance: none;
     margin: 0;
-    margin-right: 5px;
-    margin-top: -3px;
+    margin-right: 3px;
+    margin-top: -4px;
     width: $radio-size;
     height: $radio-size;
     border-radius: 12px;
@@ -70,8 +70,8 @@
       float: left;
       text-transform: none;
       font-weight: normal;
-      margin-left: 22px;
-      padding: 5px 0;
+      margin-left: 20px;
+      padding: 3px 0;
       color: $inner-font-color;
       @extend %ellipsis;
       display: block;
@@ -87,13 +87,14 @@
     [data-action=print-console] {
       @extend %menu-action-icon;
       @extend %icon-print;
-      margin-top: -1px;
+      margin-top: 1px;
       margin-right: 3px;
     }
 
     [data-action=delete-session] {
       @extend %menu-action-icon;
       @extend %icon-delete;
+      margin-top: 2px;
     }
 
     label > span { @extend %ellipsis; }

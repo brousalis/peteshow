@@ -76,6 +76,8 @@ class PeteshowView
       .on 'staticClick', @open
 
   _handleKeydown: (e) =>
+    return false if @$saveDialog.is(':visible')
+
     code = String.fromCharCode(e.keyCode)
 
     @open() if (e.keyCode == 192)
@@ -141,14 +143,19 @@ class PeteshowView
     id = e.currentTarget.dataset.session
     @controller.deleteSession(id)
 
-  hideSaveDialog: => $(@$saveDialog).hide()
+  hideSaveDialog: =>
+    $(@$saveDialog).hide()
 
-  toggleSaveSession: => $(@$saveDialog).toggle()
+  toggleSaveSession: =>
+    $(@$saveDialog).toggle()
 
-  show: => $(@$peteshow).show()
+  show: =>
+    $(@$peteshow).show()
 
-  hide: => $(@$peteshow).hide()
+  hide: =>
+    $(@$peteshow).hide()
 
-  destroy: -> $(@$peteshow).remove()
+  destroy: ->
+    $(@$peteshow).remove()
 
 module.exports = new PeteshowView()
