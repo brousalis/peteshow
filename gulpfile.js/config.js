@@ -9,18 +9,13 @@ var BASE_MODULES_PATH   = path.join(__dirname, '../node_modules');
 
 module.exports = {
   input: {
-    css    : path.join(BASE_CSS_PATH, 'peteshow.scss'),
-    js     : path.join(BASE_JS_PATH, 'peteshow.coffee'),
-    vendor : [
-      path.join(BASE_MODULES_PATH, 'faker', 'build', 'build', '*'),
-      path.join(BASE_MODULES_PATH, 'jquery', 'dist', '*'),
-    ]
+    css : path.join(BASE_CSS_PATH, 'peteshow.scss'),
+    js  : path.join(BASE_JS_PATH, 'peteshow.coffee')
   },
 
   output: {
     css    : path.join(BASE_GENERATED_PATH, 'stylesheets'),
-    js     : path.join(BASE_GENERATED_PATH, 'javascripts'),
-    vendor : path.join(BASE_GENERATED_PATH, 'vendor'),
+    js     : path.join(BASE_GENERATED_PATH, 'javascripts')
   },
 
   watch: {
@@ -48,7 +43,6 @@ module.exports = {
 
   clean: [
     path.join(BASE_GENERATED_PATH, 'stylesheets', '**', '*'),
-    path.join(BASE_GENERATED_PATH, 'javascripts', '**', '*'),
-    path.join(BASE_GENERATED_PATH, 'vendor', '**', '*')
+    path.join(BASE_GENERATED_PATH, 'javascripts', '**', '*')
   ]
 };

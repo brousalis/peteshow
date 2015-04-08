@@ -1,8 +1,6 @@
 _     = require('lodash')
 store = require('./storage')
 
-Session = require('./models/session')
-
 class PeteshowController
   view        : null
   session     : null

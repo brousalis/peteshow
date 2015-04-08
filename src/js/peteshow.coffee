@@ -1,6 +1,8 @@
 window._ = _ = require('lodash')
-store      = require('./storage')
-helpers    = require('./helpers')
+global.$ = require('jquery')
+
+store    = require('./storage')
+helpers  = require('./helpers')
 
 Peteshow =
   controller : null
