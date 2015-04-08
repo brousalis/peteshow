@@ -18,16 +18,16 @@ class PeteshowView
     @_position = store.get('position') || {x:0, y:0}
     @_open     = store.get('open')
     @_events   =
-      'save-session'              : @saveSession
-      'cancel-session'            : @hideSaveDialog
-      'toggle-save'               : @toggleSaveSession
-      'print-console'             : @printToConsole
-      'delete-session'            : @deleteSession
+      'save-session'        : @saveSession
+      'cancel-session'      : @hideSaveDialog
+      'toggle-save'         : @toggleSaveDialog
+      'print-console'       : @printToConsole
+      'delete-session'      : @deleteSession
     @_actions  =
-      'peteshow-hide'             : @hide
-      'fill-out-forms'            : @controller.fillOutForms
-      'fill-out-forms-and-submit' : @controller.fillOutFormsAndSubmit
-      'clear-sessions'            : @controller.clearSessions
+      'peteshow-hide'       : @hide
+      'fill-out-forms'      : @controller.fillOutForms
+      'fill-out-and-submit' : @controller.fillOutFormsAndSubmit
+      'clear-sessions'      : @controller.clearSessions
 
   render: ->
     $('body').append(indexTemplate)
@@ -54,15 +54,13 @@ class PeteshowView
   _createEvents: () =>
     for key, value of @_events
       $('body').on 'click', "[data-action='#{key}']", (e) =>
-        e.preventDefault()
-        e.stopPropagation()
         @_events["#{e.currentTarget.dataset.action}"](e)
+        return false
 
     for key, value of @_actions
       $("[data-action='#{key}']").on 'click', (e) =>
-        e.preventDefault()
-        e.stopPropagation()
         @_actions["#{e.currentTarget.dataset.action}"]()
+        return false
 
     $('body').on 'change', "#{@$tools} input:radio", (e) =>
       id = $(e.currentTarget).data('session')
@@ -146,7 +144,7 @@ class PeteshowView
   hideSaveDialog: =>
     $(@$saveDialog).hide()
 
-  toggleSaveSession: =>
+  toggleSaveDialog: =>
     $(@$saveDialog).toggle()
 
   show: =>
