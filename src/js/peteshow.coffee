@@ -21,14 +21,7 @@ Peteshow =
     ignore      : []
     force       : {}
     special     : null
-
-    # TODO:  implement
-    commands    : ''
-    events      : null
-
-    # DEPRECATED
-    saved       : {}
-    reuse       : {}
+    commands    : []
 
   init: (options = {}) ->
     @setOptions(options)

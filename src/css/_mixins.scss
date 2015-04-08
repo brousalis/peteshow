@@ -61,32 +61,21 @@
   display: block;
   height: 1%;
   padding: 5px 10px;
+  color: $menu-link-color;
 
-  &:hover { background-color: rgba(0,0,0,0.1); }
+  &:hover {
+    color: $menu-link-hover-color;
+    background-color: rgba(0,0,0,0.1);
+  }
   &:active { height: 1%; }
 }
 
 %menu-action-icon {
   float: right;
-  margin-top: -1px;
-  margin-right: 0px;
-  margin-left: 5px;
-  display: inline-block;
+  display: block;
   font-size: 16px;
-  color: $inner-font-color;
-  &:hover { color: rgba(255,255,255,0.5); }
+
   &:active { position: relative; top: 1px; }
-}
-
-%icon-delete {
-  color: rgba(255,0,0,0.5);
-
-  &:before { content:"\2716"; }
-  &:hover { color: rgba(255,0,0,0.9); }
-}
-
-%icon-print {
-  &:before { content:"\270E"; }
 }
 
 %ellipsis {

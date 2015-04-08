@@ -19,7 +19,7 @@ class PeteshowView
     @_open     = store.get('open')
     @_events   =
       'save-session'              : @saveSession
-      'cancel-session'            : @hideSaveSession
+      'cancel-session'            : @hideSaveDialog
       'toggle-save'               : @toggleSaveSession
       'print-console'             : @printToConsole
       'delete-session'            : @deleteSession
@@ -101,7 +101,7 @@ class PeteshowView
 
     $(@$tools).toggle(open)
     $(@$peteshow).toggleClass('open', open)
-    @hideSaveSession()
+    @hideSaveDialog()
 
     @_open = open
     store.set('open', @_open)
@@ -141,7 +141,7 @@ class PeteshowView
     id = e.currentTarget.dataset.session
     @controller.deleteSession(id)
 
-  hideSaveSession: => $(@$saveDialog).hide()
+  hideSaveDialog: => $(@$saveDialog).hide()
 
   toggleSaveSession: => $(@$saveDialog).toggle()
 

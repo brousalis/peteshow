@@ -27,11 +27,7 @@
 
   label {
     @extend %menu-link;
-    color: $menu-link-color;
-    &:hover {
-      background: none;
-      color: $menu-link-hover-color;
-    }
+    &:hover { background: none; }
   }
 
   > span { 
@@ -62,15 +58,12 @@
   .peteshow-last-session {
     @include clearfix;
 
-    .toggle-save {
+    [data-action=toggle-save] {
       @extend %menu-action-icon;
+      @extend %icon-save;
       margin-top: -11px;
-
-      .icon-save {
-        fill: currentColor;
-        width: 14px;
-        height: 14px;
-      }
+      opacity: 0.2;
+      &:hover { opacity: 0.5 }
     }
 
     span {
@@ -94,7 +87,10 @@
     .print-console {
       @extend %menu-action-icon;
       @extend %icon-print;
-      margin-top: -2px;
+      margin-top: -1px;
+      opacity: 0.2;
+      margin-right: 3px;
+      &:hover { opacity: 0.5 }
     }
 
     .delete-session {
@@ -102,8 +98,6 @@
       @extend %icon-delete;
     }
 
-    label > span { 
-      @extend %ellipsis;
-    }
+    label > span { @extend %ellipsis; }
   }
 }

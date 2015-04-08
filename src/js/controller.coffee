@@ -26,15 +26,11 @@ class PeteshowController
     if @session is 'last'
       for key, value of @lastSession
         $("[name*=#{key}]").val(value)
-
-    @view.hideSaveSession()
+      @saveLastSession()
 
     if @session isnt 'new' and @session isnt 'last'
       for key, value of store.getSessionStorage(@session)
         $("[name*=#{key}]").val(value)
-      return
-
-    @saveLastSession()
 
   fillOutFormsAndSubmit: =>
     @fillOutForms()
@@ -137,7 +133,7 @@ class PeteshowController
     @sessions = store.get('sessions')
 
     @view.update()
-    @view.hideSaveSession()
+    @view.hideSaveDialog()
 
   setSession: (id) ->
     id = 'new' unless id?
