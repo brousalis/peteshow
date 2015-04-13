@@ -16,13 +16,10 @@
     <form class='simple_form' name='random'>
       <input name='email' type='email' />
       <input name='number' type='number' >
+
       <input type='submit' value='submit' />
     </form>
 
-    <script src='vendor/jquery.js'></script>
-    <script src='vendor/faker.js'></script>
-    <script src='vendor/jquery.formatDateTime.js'></script>
-    <script src='vendor/jquery.cookie.js'></script>
     <script src='javascripts/peteshow.js'></script>
     <script>
       // little somethin' for the labels
@@ -37,7 +34,6 @@
     <script>
       if ('<%= env %>' != 'test') {
         Peteshow.init({
-          cookies: true,
           rules: {
             "input[name*=middle_name]": Peteshow.random.name(),
             "input[name*=custom_name]": 'Custom Name'

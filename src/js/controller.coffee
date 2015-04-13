@@ -26,9 +26,10 @@ class PeteshowController
     if @session is 'last'
       for key, value of @lastSession
         $("[name*=#{key}]").val(value)
+      return
 
     if @session isnt 'new' and @session isnt 'last'
-      for key, value of store.getSessionStorage(@session)
+      for key, value of store.getSession(@session)
         $("[name*=#{key}]").val(value)
       return
 
@@ -38,10 +39,11 @@ class PeteshowController
     @fillOutForms()
     $(Peteshow.options.form).submit()
     $('form').last().submit()
+    return
 
   fillInputs: ->
-    @_fillInputs(Peteshow.options.force, false)
     @_fillInputs(Peteshow.options.rules, true)
+    @_fillInputs(Peteshow.options.force, false)
     Peteshow.options.special() if Peteshow.options.special?
     return
 
@@ -53,10 +55,7 @@ class PeteshowController
         return if $(el).is(Peteshow.options.ignore.toString())
         return if $(el).is(':checkbox')
 
-        if ignoreHidden
-          $el = $(el).filter(':visible')
-        else
-          $el = $(el)
+        $el = ignoreHidden and $(el).filter(':visible') or $(el)
 
         $el
           .filterFields()
@@ -64,14 +63,14 @@ class PeteshowController
 
         $el.blur() if Peteshow.options.blur
 
-  fillCheckboxes: ($inputs) ->
+  fillCheckboxes: ->
     for el in $('form input:checkbox')
       $(el)
         .filterFields()
         .prop('checked', true)
         .change()
 
-  fillRadioButtons: ($inputs) ->
+  fillRadioButtons: ->
     return unless inputNames = @_uniqueInputNames($('form input:radio'))
 
     for name in inputNames
@@ -83,8 +82,9 @@ class PeteshowController
         .filterFields()
         .prop('checked', true)
         .change()
+    return
 
-  fillSelectBoxes: ($inputs) ->
+  fillSelectBoxes: ->
     for el in $('form select')
       options = $.makeArray($(el).find('option'))
       values  = options.map (el) -> $(el).val()
@@ -97,22 +97,21 @@ class PeteshowController
         .filterFields()
         .val(value)
         .change()
+    return
 
   _uniqueInputNames: ($inputs) ->
     return false if $inputs.length < 0
-    _.uniq($inputs.map (i, $input) -> $input.name)
+    return _.uniq($inputs.map (i, $input) -> $input.name)
 
   deleteSession: (id) =>
-    if id == 'last'
-      store.deleteLastSession()
-    else
-      store.deleteSession(id)
+    store.deleteSession(id)
 
     @session     = 'new'
     @sessions    = store.get('sessions')
     @lastSession = store.get('last_session')
 
     @view.update()
+    return id
 
   saveLastSession: =>
     data = []
@@ -131,8 +130,10 @@ class PeteshowController
     data       = _.merge(data, details) if details?
     data.title = @sessionName(data)
 
-    @session  = store.addSession(data)
-    @sessions = store.get('sessions')
+    session    = store.saveSession(data).id
+    @sessions  = store.get('sessions')
+
+    @setSession(session)
 
     @view.update()
     @view.hideSaveDialog()
@@ -142,13 +143,15 @@ class PeteshowController
     @session = id
 
   sessionName: (data) ->
-    data = store.getSessionStorage(@session) unless data?
+    data = store.getSession(@session) unless data?
+
     return false unless data
     return data.title if data.title
     return data[Peteshow.options.sessionName] if Peteshow.options.sessionName
     return "#{data.first_name} #{data.last_name}" if data.first_name and data.last_name
     return data.first_name if data.first_name
     return data.email if data.email
+
     data.id
 
   clearSessions: =>
@@ -164,7 +167,7 @@ class PeteshowController
     if id == 'last'
       stored = @lastSession
     else
-      stored = store.getSessionStorage(id)
+      stored = store.getSession(id)
 
     console.group(@sessionName(stored))
 
@@ -182,4 +185,5 @@ class PeteshowController
           ignored = true
         return
       !ignored
+
 module.exports = new PeteshowController()

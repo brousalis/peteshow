@@ -1,10 +1,9 @@
 shortId = require('shortid')
 
-
 class Session
-  id: null
-  title: null
-  notes: null
+  id    : null
+  title : null
+  notes : null
 
   constructor: (data) ->
     @id = shortId.generate() unless data.id?
@@ -13,4 +12,3 @@ class Session
       @[key] = value
 
 module.exports = Session
-

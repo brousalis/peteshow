@@ -68,13 +68,19 @@ class PeteshowView
 
     $(document).keydown @_handleKeydown
 
-    @$drag = new Draggabilly(@$peteshow, handle: @$handle, containment: 'html')
+    @$drag = new Draggabilly(
+      @$peteshow,
+      handle      : @$handle,
+      containment : 'html'
+    )
     @$drag
       .on 'dragEnd', @_handleDragEnd
       .on 'staticClick', @open
 
+    $('form').on 'submit', @controller.saveLastSession
+
   _handleKeydown: (e) =>
-    return false if @$saveDialog.is(':visible')
+    return false if $(@$saveDialog).is(':visible')
 
     code = String.fromCharCode(e.keyCode)
 
