@@ -14,8 +14,8 @@ module.exports = {
   },
 
   output: {
-    css    : path.join(BASE_GENERATED_PATH, 'stylesheets'),
-    js     : path.join(BASE_GENERATED_PATH, 'javascripts')
+    css : path.join(BASE_GENERATED_PATH, 'stylesheets'),
+    js  : path.join(BASE_GENERATED_PATH, 'javascripts')
   },
 
   watch: {
