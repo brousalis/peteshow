@@ -2,9 +2,6 @@
 
 > a customizable javascript framework for filling out forms with fake data
 
-
-![Imgur](http://i.imgur.com/JcT5eMS.png)
-
 ## Getting Started
 See the [Wiki on GitHub](https://github.com/brousalis/peteshow/wiki) for documentation.
 
