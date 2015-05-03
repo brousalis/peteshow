@@ -62,8 +62,8 @@
       @extend %menu-action-icon;
       @extend %icon-save;
       margin-top: -11px;
-      opacity: 0.2;
-      &:hover { opacity: 0.5 }
+      opacity: 0.5;
+      &:hover { opacity: 0.8 }
     }
 
     span {
@@ -87,7 +87,7 @@
     [data-action=print-console] {
       @extend %menu-action-icon;
       @extend %icon-print;
-      margin-top: 1px;
+      margin-top: 2px;
       margin-right: 3px;
     }
 

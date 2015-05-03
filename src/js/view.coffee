@@ -1,33 +1,32 @@
-_           = require('lodash')
-store       = require('./storage')
+store = require('./storage')
 Draggabilly = require('draggabilly')
 
-indexTemplate    = require('../templates/index.hbs')
+indexTemplate = require('../templates/index.hbs')
 sessionsTemplate = require('../templates/sessions.hbs')
 
 class PeteshowView
-  controller   : Peteshow.controller
+  controller: Peteshow.controller
 
-  $peteshow    : '.peteshow'
-  $tools       : '.peteshow-menu'
-  $handle      : '.peteshow-toggle'
-  $sessions    : '.peteshow-sessions'
-  $saveDialog  : '.peteshow-save-session'
+  $peteshow: '.peteshow'
+  $tools: '.peteshow-menu'
+  $handle: '.peteshow-toggle'
+  $sessions: '.peteshow-sessions'
+  $saveDialog: '.peteshow-save-session'
 
   constructor: ->
     @_position = store.get('position') || {x:0, y:0}
-    @_open     = store.get('open')
-    @_events   =
-      'save-session'        : @saveSession
-      'cancel-session'      : @hideSaveDialog
-      'toggle-save'         : @toggleSaveDialog
-      'print-console'       : @printToConsole
-      'delete-session'      : @deleteSession
-    @_actions  =
-      'peteshow-hide'       : @hide
-      'fill-out-forms'      : @controller.fillOutForms
-      'fill-out-and-submit' : @controller.fillOutFormsAndSubmit
-      'clear-sessions'      : @controller.clearSessions
+    @_open = store.get('open')
+    @_events =
+      'save-session': @saveSession
+      'cancel-session': @hideSaveDialog
+      'toggle-save': @toggleSaveDialog
+      'print-console': @printToConsole
+      'delete-session': @deleteSession
+    @_actions =
+      'peteshow-hide': @hide
+      'fill-out-forms': @controller.fillOutForms
+      'fill-out-and-submit': @controller.fillOutFormsAndSubmit
+      'clear-sessions': @controller.clearSessions
 
   render: ->
     $('body').append(indexTemplate)
@@ -71,7 +70,7 @@ class PeteshowView
     @$drag = new Draggabilly(
       @$peteshow,
       handle      : @$handle,
-      containment : 'html'
+      containment : 'window'
     )
     @$drag
       .on 'dragEnd', @_handleDragEnd
@@ -80,7 +79,7 @@ class PeteshowView
     $('form').on 'submit', @controller.saveLastSession
 
   _handleKeydown: (e) =>
-    return false if $(@$saveDialog).is(':visible')
+    return true if $(@$saveDialog).is(':visible')
 
     code = String.fromCharCode(e.keyCode)
 

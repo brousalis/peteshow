@@ -123,6 +123,8 @@ class PeteshowController
 
     @view.update()
 
+    return @lastSession
+
   saveSession: (data) =>
     data       = @lastSession unless data?
 

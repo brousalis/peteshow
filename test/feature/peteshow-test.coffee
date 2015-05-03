@@ -6,15 +6,11 @@ describe 'PeteShow', ->
         initPeteshow = "Peteshow.init({
           rules: {
             'input[name*=zip]'              : '60611',
-            'input[name*=middle_name]'      : faker.name.firstName(),
+            'input[name*=middle_name]'      : Peteshow.random.firstName(),
             'input[name*=custom_name]'      : function() { return 'Custom'; },
             'input[name*=boolean_checkbox]' : true
           },
-          ignore : ['input[name=ignore_me]', '#qunit-modulefilter'],
-          saved: {
-            'input[name=saved]' : '/tests',
-            'input[name=saved_2]' : '/tests_2'
-            }
+          ignore : ['input[name=ignore_me]']
         });"
         browser.evaluate("Peteshow.store.clear()")
         browser.evaluate(initPeteshow)
@@ -25,29 +21,36 @@ describe 'PeteShow', ->
     done()
 
   it 'exists in the DOM', (done) ->
-    browser.assert.element('#peteshow')
+    browser.assert.element('.peteshow')
     done()
 
   it 'is accessible in javascript', (done) ->
     browser.assert.global('Peteshow')
     done()
 
-  it 'shows peteshow when #peteshow-toggle is clicked', (done) ->
-    browser.assert.hasNoClass('#peteshow', 'open')
-    browser.fire("#peteshow-toggle", 'click')
-    browser.assert.hasClass('#peteshow', 'open')
+  it 'opens peteshow Peteshow.open(true)', (done) ->
+    browser.evaluate("Peteshow.open(false)")
+    browser.assert.hasNoClass('.peteshow', 'open')
+    browser.evaluate("Peteshow.open(true)")
+    browser.assert.hasClass('.peteshow', 'peteshow', 'open')
     done()
 
-  it 'shows peteshow with Peteshow.show(true)', (done) ->
-    browser.assert.hasNoClass('#peteshow', 'open')
-    browser.evaluate("Peteshow.show(true)")
-    browser.assert.hasClass('#peteshow', 'open')
+  it 'closes peteshow Peteshow.open(false)', (done) ->
+    browser.evaluate("Peteshow.open(true)")
+    browser.assert.hasClass('.peteshow', 'peteshow', 'open')
+    browser.evaluate("Peteshow.open(false)")
+    browser.assert.hasNoClass('.peteshow', 'open')
     done()
 
-  it 'hides peteshow with Peteshow.show(false)', (done) ->
-    browser.evaluate("Peteshow.show(true)")
-    browser.evaluate("Peteshow.show(false)")
-    browser.assert.hasNoClass('#peteshow', 'open')
+  it 'shows peteshow with Peteshow.show()', (done) ->
+    browser.evaluate("Peteshow.hide()")
+    browser.evaluate("Peteshow.show()")
+    browser.assert.style('.peteshow', 'display', '')
+    done()
+
+  it 'hides peteshow with Peteshow.hide()', (done) ->
+    browser.evaluate("Peteshow.hide()")
+    browser.assert.style('.peteshow', 'display', 'none')
     done()
 
   it 'should have valid values', (done) ->
@@ -104,10 +107,4 @@ describe 'PeteShow', ->
     browser.assert.evaluate('Peteshow.fillOutForms()')
     browser.assert.evaluate("$('input[name=boolean_checkbox]').val()", 1)
     browser.assert.evaluate("$('input[name=boolean_checkbox]').prop('checked')", true)
-    done()
-
-  it 'uses fields set to save in the init', (done) ->
-    browser.evaluate("Peteshow.fillOutForms()")
-    browser.assert.input('input[name=saved]', '/tests')
-    browser.assert.input('input[name=saved_2]', '/tests_2')
     done()

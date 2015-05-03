@@ -13,30 +13,23 @@ describe 'Storage', ->
       done()
 
   it 'changes the open state to true', (done) ->
-    browser.evaluate("Peteshow.show(true)")
-    browser.assert.hasClass('#peteshow', 'open')
+    browser.evaluate("Peteshow.open(true)")
+    browser.assert.hasClass('.peteshow', 'peteshow', 'open')
     done()
   checkStorage(true)
 
   it 'changes the open state to true', (done) ->
-    browser.evaluate("Peteshow.show(false)")
-    browser.assert.hasNoClass('#peteshow', 'open')
+    browser.evaluate("Peteshow.open(false)")
+    browser.assert.hasNoClass('.peteshow', 'open')
+    done()
+  checkStorage(false)
+
+  it "creates last session after submitting a form", (done) ->
+    browser.pressButton "submit", (err) ->
+      browser.assert.evaluate("$('#peteshow .peteshow-sessions [data-session=last]').prop('checked')", true)
     done()
 
-  context "Last Session", ->
-    it "switches you to new session when visiting the first form page", (done) ->
-      browser.assert.evaluate("$('#peteshow .peteshow-sessions [data-session=new]').prop('checked')", true)
-      done()
-
-    it "creates last session after submitting a form", (done) ->
-      browser.pressButton "submit", (err) ->
-        browser.assert.evaluate("$('#peteshow .peteshow-sessions [data-session=last]').prop('checked')", true)
-        # browser.assert.success()
-        done()
-      # .then ->
-      #   done()
-
-    it "restores last session", (done) ->
-      expect(false).to.be(true)
-      done()
-  checkStorage(false)
+  it "creates last session after filling out forms", (done) ->
+    browser.evaluate("Peteshow.fillOutForms()")
+    browser.assert.evaluate("Peteshow.store.get('last_session')", {})
+    done()
