@@ -1,27 +1,27 @@
-_     = require('lodash')
+_ = require('lodash')
 store = require('./storage')
 
 class PeteshowController
-  view        : null
-  session     : null
-  sessions    : null
-  lastSession : null
+  view: null
+  session: null
+  sessions: null
+  lastSession: null
 
   init: (view) ->
     @view = view
 
+    @session = store.get('active_session') || 'new'
+    @sessions = store.get('sessions')
     @lastSession = store.get('last_session') || false
-    @session     = store.get('active_session') || 'new'
-    @sessions    = store.get('sessions')
 
     @view.render()
     @view.setSession(@session)
 
   fillOutForms: =>
     checkboxes = @fillCheckboxes()
-    radios     = @fillRadioButtons()
-    selects    = @fillSelectBoxes()
-    inputs     = @fillInputs()
+    radios = @fillRadioButtons()
+    selects = @fillSelectBoxes()
+    inputs = @fillInputs()
 
     if @session is 'last'
       for key, value of @lastSession

@@ -1,33 +1,33 @@
 window._ = _ = require('lodash')
 window.$ = $ = require('jquery')
 
-store    = require('./storage')
-helpers  = require('./helpers')
-rules    = require('./rules')
+store = require('./storage')
+helpers = require('./helpers')
+rules = require('./rules')
 
 Peteshow =
-  controller : null
-  view       : null
-  store      : store
-  random     : helpers.random
+  controller: null
+  view: null
+  store: store
+  random: helpers.random
 
-  options    : {}
-  defaults   :
-    sessionName : null
-    form        : ['form[name*=registration]']
-    filters     : ['other', 'select']
-    rules       : rules
-    blur        : false
-    ignore      : []
-    force       : {}
-    special     : null
-    commands    : []
+  options: {}
+  defaults:
+    sessionName: null
+    form: ['form[name*=registration]']
+    filters: ['other', 'select']
+    rules: rules
+    blur: false
+    ignore: []
+    force: {}
+    special: null
+    commands: {}
 
   init: (options = {}) ->
     @setOptions(options)
 
     @controller = require('./controller')
-    @view       = require('./view')
+    @view = require('./view')
 
     @controller.init(@view)
 

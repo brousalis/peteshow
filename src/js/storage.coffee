@@ -1,12 +1,12 @@
-store   = require('store')
-_       = require('lodash')
+store = require('store')
+_ = require('lodash')
 Session = require('./models/session')
 
 subdomain = new RegExp(/^([a-z]+\:\/{2})?([\w-]+\.[\w-]+\.\w+)$/)
 
-# use cookies for subdomains
+# TODO: use cookies for subdomains
 if (window.location.href).match(subdomain) or !store.enabled
-  store   = require('mmm-cookies')
+  store = require('mmm-cookies')
   cookies = true
 
 unless store.get('peteshow')
@@ -35,24 +35,12 @@ module.exports =
 
     store.set('peteshow', stored)
 
-  _getDomain: ->
-    # http://rossscrivener.co.uk/blog/javascript-get-domain-exclude-subdomain
-    i = 0
-    d = document.domain
-    p = d.split('.')
-    s = '_gd' + (new Date).getTime()
-    while i < p.length - 1 and document.cookie.indexOf(s + '=' + s) == -1
-      d = p.slice(-1 - ++i).join('.')
-      document.cookie = s + '=' + s + ';domain=' + d + ';'
-    document.cookie = s + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=' + d + ';'
-    if d == 'localhost' then '' else d
-
   sessions: ->
     @get('sessions') || []
 
   saveSession: (data) ->
     session = new Session(data)
-    data    = @sessions()
+    data = @sessions()
 
     data.push(session)
     @set('sessions', data)
@@ -70,15 +58,12 @@ module.exports =
 
     @get('last_session')
 
-  getAll: ->
-    store.get('peteshow')
-
   getSession: (id) ->
     sessions = @sessions()
     _.find(sessions, {id: id})
 
   deleteSession: (id) ->
-    stored   = @get()
+    stored = @get()
     sessions = @sessions()
 
     stored['sessions'] = null
@@ -92,11 +77,23 @@ module.exports =
   clearSessions: ->
     stored = @get()
 
-    stored['sessions']       = []
-    stored['last_session']   = null
+    stored['sessions'] = []
+    stored['last_session'] = null
     stored['active_session'] = null
 
     store.set('peteshow', stored)
 
   clear: ->
     store.remove('peteshow')
+
+  _getDomain: ->
+    # http://rossscrivener.co.uk/blog/javascript-get-domain-exclude-subdomain
+    i = 0
+    d = document.domain
+    p = d.split('.')
+    s = '_gd' + (new Date).getTime()
+    while i < p.length - 1 and document.cookie.indexOf(s + '=' + s) == -1
+      d = p.slice(-1 - ++i).join('.')
+      document.cookie = s + '=' + s + ';domain=' + d + ';'
+    document.cookie = s + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=' + d + ';'
+    if d == 'localhost' then '' else d
