@@ -4,7 +4,7 @@
   font-family: $font-family;
   font-size: $font-size;
   font-weight: normal;
-  eft: 0;
+  left: 0;
   padding: 0;
   position: fixed;
   text-align: left;
@@ -47,6 +47,8 @@
     position: relative;
     cursor: pointer;
 
+    &:before { content: 'PS'; }
+
     i {
       border-color: transparent;
       border-left: 6px solid $arrow-color;
@@ -60,11 +62,9 @@
       margin: 0px;
       position: absolute;
       right: 3px;
-      top: 8px;
+      top: 10px;
       vertical-align: middle;
       width: 0;
     }
-
-    &:before { content: 'PS'; }
   }
 }

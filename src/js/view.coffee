@@ -140,7 +140,6 @@ class PeteshowView
   # position the view
   _positionWindow: (position) ->
     position = @_position unless position?
-
     @_position = position
     $(@$peteshow).css(left: position.x, top: position.y)
 
