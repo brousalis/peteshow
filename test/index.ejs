@@ -91,7 +91,13 @@
             'input[name=hidden]' : 'hidden'
           },
           ignore: ['[name*=ignore]','[name*=name]'],
-          resets: ['form[name=random]']
+          resets: ['form[name=random]'],
+          commands: [
+            {
+              label: 'Login as',
+              action: function() { alert(0) }
+            }
+          ]
         });
       }
     </script>

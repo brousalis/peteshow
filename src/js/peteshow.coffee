@@ -21,16 +21,7 @@ Peteshow =
     ignore: []
     force: {}
     special: null
-    commands: [
-      {
-        label: 'Login as'
-        action: -> alert 0
-      }
-      {
-        label: 'Calculate shit'
-        action: -> alert 0
-      }
-    ]
+    commands: []
 
   init: (options = {}) ->
     @setOptions(options)
