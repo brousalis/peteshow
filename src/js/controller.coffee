@@ -159,8 +159,8 @@ class PeteshowController
   clearSessions: =>
     store.clearSessions()
 
-    @session     = 'new'
-    @sessions    = store.get('sessions')
+    @session = 'new'
+    @sessions = store.get('sessions')
     @lastSession = store.get('last_session')
 
     @view.update()
@@ -178,6 +178,7 @@ class PeteshowController
 
     console.groupEnd()
 
+  # filters out fields that are listed in ignore
   $.fn.filterFields = ->
     @filter ->
       element = this

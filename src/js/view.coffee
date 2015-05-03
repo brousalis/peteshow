@@ -1,8 +1,10 @@
 store = require('./storage')
 Draggabilly = require('draggabilly')
+_ = require('lodash')
 
 indexTemplate = require('../templates/index.hbs')
 sessionsTemplate = require('../templates/sessions.hbs')
+commandTemplate = require('../templates/command.hbs')
 
 class PeteshowView
   controller: Peteshow.controller
@@ -16,6 +18,7 @@ class PeteshowView
   constructor: ->
     @_position = store.get('position') || {x:0, y:0}
     @_open = store.get('open')
+    @_commands = Peteshow.options.commands
 
     # @_events get redrawn when peteshow updates, have to handle
     # them differently than actions in @_createEvents
@@ -33,11 +36,21 @@ class PeteshowView
       'fill-out-and-submit': @controller.fillOutFormsAndSubmit
       'clear-sessions': @controller.clearSessions
 
+    # merge custom command actions
+    if @_commands
+      list = {}
+      for command in @_commands
+        label = _.kebabCase(command['label'])
+        _.assign(list, { "#{label}": command['action'] })
+      _.assign(@_actions, list)
+
   # adds the view to the dom, creates events
   render: ->
-    $('body').append(indexTemplate)
+    $('body').append(indexTemplate(commands: @_renderCommands))
+
     @_positionWindow(store.get('position'))
     @_createEvents()
+
     @update()
     @open(@_open)
 
@@ -59,14 +72,14 @@ class PeteshowView
   # binds events when peteshow is rendered
   _createEvents: () =>
     # handles events that get redrawn in update
-    for key, value of @_events
-      $('body').on 'click', "[data-action='#{key}']", (e) =>
+    for k, v of @_events
+      $('body').on 'click', "[data-action='#{k}']", (e) =>
         @_events["#{e.currentTarget.dataset.action}"](e)
         return false
 
     # handles events in the menu
-    for key, value of @_actions
-      $("[data-action='#{key}']").on 'click', (e) =>
+    for k, v of @_actions
+      $("[data-action='#{k}']").on 'click', (e) =>
         @_actions["#{e.currentTarget.dataset.action}"]()
         return false
 
@@ -90,6 +103,21 @@ class PeteshowView
 
     # save last session when any form is submit
     $('form').on 'submit', @controller.saveLastSession
+
+  # renders custom commands
+  _renderCommands: =>
+    html = ""
+
+    for cmd in @_commands
+      command = commandTemplate(
+        label: cmd['label']
+        action: _.kebabCase(cmd['label'])
+        hotkey: cmd['hotkey'] if cmd['hotkey']
+      )
+
+      html = html + command
+
+    return html
 
   # handles hotkeys
   _handleKeydown: (e) =>

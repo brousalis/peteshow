@@ -64,7 +64,7 @@
     "gulp-watch": "^4.2.1",
     "handlebars": "^2.0.0",
     "hbsfy": "^2.2.1",
-    "lodash": "^2.4.1",
+    "lodash": "^3.8.0",
     "mmm-cookies": "^1.0.1",
     "mocha": "^2.1.0",
     "moment": "^2.9.0",

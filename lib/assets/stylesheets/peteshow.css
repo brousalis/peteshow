@@ -258,9 +258,9 @@
     clear: both; }
   .peteshow-wrapper .peteshow-last-session [data-action=toggle-save] {
     margin-top: -11px;
-    opacity: 0.2; }
+    opacity: 0.5; }
     .peteshow-wrapper .peteshow-last-session [data-action=toggle-save]:hover {
-      opacity: 0.5; }
+      opacity: 0.8; }
   .peteshow-wrapper .peteshow-last-session span {
     float: left;
     text-transform: none;

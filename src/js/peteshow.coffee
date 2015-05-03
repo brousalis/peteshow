@@ -1,4 +1,4 @@
-window._ = _ = require('lodash')
+_ = require('lodash')
 window.$ = $ = require('jquery')
 
 store = require('./storage')
@@ -21,7 +21,16 @@ Peteshow =
     ignore: []
     force: {}
     special: null
-    commands: {}
+    commands: [
+      {
+        label: 'Login as'
+        action: -> alert 0
+      }
+      {
+        label: 'Calculate shit'
+        action: -> alert 0
+      }
+    ]
 
   init: (options = {}) ->
     @setOptions(options)
