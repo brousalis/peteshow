@@ -21,7 +21,7 @@ class PeteshowView
     # them differently than actions in @_createEvents
 
     @_events =
-      'save-session': @controller.saveSession
+      'save-session': @saveSession
       'cancel-session': @hideSaveDialog
       'delete-session': @deleteSession
       'print-console': @printToConsole
@@ -154,6 +154,9 @@ class PeteshowView
       .find("[data-session=#{id}]")
       .prop('checked', true)
       .change()
+
+  saveSession: (e) =>
+    @controller.saveSession()
 
   printToConsole: (e) =>
     id = e.currentTarget.dataset.session
