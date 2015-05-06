@@ -1,5 +1,5 @@
-store = require('store')
 _ = require('lodash')
+store = require('store')
 Session = require('./models/session')
 
 subdomain = new RegExp(/^([a-z]+\:\/{2})?([\w-]+\.[\w-]+\.\w+)$/)

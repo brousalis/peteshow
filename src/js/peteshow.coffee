@@ -1,5 +1,5 @@
-window.$ = require('jquery')
-window._ = require('lodash')
+$ = require('jquery')
+_ = require('lodash')
 
 store = require('./storage')
 helpers = require('./helpers')
@@ -21,6 +21,7 @@ Peteshow =
     ignore: []
     force: {}
     special: null
+    draggable: false
     commands: []
 
   init: (options = {}) ->

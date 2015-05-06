@@ -1,7 +1,8 @@
-store = require('./storage')
-Draggabilly = require('draggabilly')
 _ = require('lodash')
 $ = require('jquery')
+
+store = require('./storage')
+Draggabilly = require('draggabilly')
 
 indexTemplate = require('../templates/index.hbs')
 sessionsTemplate = require('../templates/sessions.hbs')
@@ -32,10 +33,14 @@ class PeteshowView
       'toggle-save': @toggleSaveDialog
 
     @_actions =
-      'peteshow-hide': @hide
+      'hide': @hide
       'fill-out-forms': @controller.fillOutForms
       'fill-out-and-submit': @controller.fillOutFormsAndSubmit
       'clear-sessions': @controller.clearSessions
+
+    # if not draggable add toggle to actions
+    unless Peteshow.options.draggable
+      @_actions['toggle'] = @open
 
     # merge custom command actions
     if @_commands
@@ -93,14 +98,15 @@ class PeteshowView
     $(document).keydown @_handleKeydown
 
     # dragging
-    @$drag = new Draggabilly(
-      @$peteshow,
-      handle      : @$handle,
-      containment : 'window'
-    )
-    @$drag
-      .on 'dragEnd', @_handleDragEnd
-      .on 'staticClick', @open
+    if Peteshow.options.draggable
+      @$drag = new Draggabilly(
+        @$peteshow,
+        handle: @$handle,
+        containment: 'window'
+      )
+      @$drag
+        .on 'dragEnd', @_handleDragEnd
+        .on 'staticClick', @open
 
     # save last session when any form is submit
     $('form').on 'submit', @controller.saveLastSession
@@ -141,6 +147,7 @@ class PeteshowView
   # position the view
   _positionWindow: (position) ->
     position = @_position unless position?
+    position = {x:0, y:0} unless Peteshow.options.draggable
     @_position = position
     $(@$peteshow).css(left: position.x, top: position.y)
 
