@@ -18,4 +18,19 @@ gulp.task('css', function() {
       .on('error', gutil.beep))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(config.output.css))
+
+  // minified css
+  return gulp.src(config.input.css)
+    .pipe(plumber())
+    .pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(sass()
+      .on('error', gutil.log)
+      .on('error', gutil.beep))
+    .pipe(rename({suffix: '.min'}))
+    .pipe(minifycss()
+      .on('error', gutil.log)
+      .on('error', gutil.beep))
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest(config.output.css))
+    .pipe(reload({stream: true}));
 });

@@ -70,7 +70,7 @@
   font-family: 'Helvetica', 'Tahoma';
   font-size: 13px;
   font-weight: normal;
-  eft: 0;
+  left: 0;
   padding: 0;
   position: fixed;
   text-align: left;
@@ -101,6 +101,8 @@
     padding: 8px 10px;
     position: relative;
     cursor: pointer; }
+    .peteshow .peteshow-toggle:before {
+      content: 'PS'; }
     .peteshow .peteshow-toggle i {
       border-color: transparent;
       border-left: 6px solid #fff;
@@ -114,11 +116,9 @@
       margin: 0px;
       position: absolute;
       right: 3px;
-      top: 8px;
+      top: 10px;
       vertical-align: middle;
       width: 0; }
-    .peteshow .peteshow-toggle:before {
-      content: 'PS'; }
 
 .peteshow-save-session {
   position: absolute;

@@ -1,5 +1,6 @@
-_ = require('lodash')
 store = require('./storage')
+_ = require('lodash')
+$ = require('jquery')
 
 class PeteshowController
   view: null

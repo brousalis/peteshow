@@ -1,6 +1,7 @@
 store = require('./storage')
 Draggabilly = require('draggabilly')
 _ = require('lodash')
+$ = require('jquery')
 
 indexTemplate = require('../templates/index.hbs')
 sessionsTemplate = require('../templates/sessions.hbs')

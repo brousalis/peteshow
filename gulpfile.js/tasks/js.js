@@ -30,5 +30,18 @@ gulp.task('js', function() {
     .pipe(rename('peteshow.js'))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(config.output.js));
+
+  // minified code
+  jsStream
+    .pipe(plumber())
+    .pipe(source(config.input.js))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(uglify({ compress: { negate_iife: false }})
+      .on('error', gutil.log)
+      .on('error', gutil.beep))
+    .pipe(rename('peteshow.min.js'))
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest(config.output.js));
 });
 

@@ -1,5 +1,5 @@
-_ = require('lodash')
-window.$ = $ = require('jquery')
+window.$ = require('jquery')
+window._ = require('lodash')
 
 store = require('./storage')
 helpers = require('./helpers')
