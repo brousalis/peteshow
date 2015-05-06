@@ -6,7 +6,7 @@
   display: none;
 
   .peteshow-dialog {
-    background: rgba(0,0,0,0.85);
+    background: $primary-background-color;
     padding: 8px 15px;
     text-transform: uppercase;
     font-weight: bold;
@@ -15,7 +15,7 @@
 
   .peteshow-title,
   .peteshow-notes {
-    background: rgba(0,0,0,0.895);
+    background: $primary-background-color;
     padding: 5px 15px;
   }
   
@@ -51,7 +51,7 @@
   .peteshow-actions {
     @include clearfix;
     border-top: 1px solid $border-color;
-    background: rgba(0,0,0,0.85);
+    background: $primary-background-color;
 
     a {
       width: 50%;
