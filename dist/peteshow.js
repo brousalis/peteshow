@@ -1332,7 +1332,7 @@ window.Peteshow = Peteshow;
   Peteshow.fillOutForms = function() {
     var rules  = $.extend(true, getDefaultRules(), _options.rules || {})
 
-    $('input:checkbox').filterFields().prop('checked', true)
+    $('input:checkbox').filterFields().each(checkCheckbox);
 
     $('input:radio').each(randomRadioValue)
 
@@ -1420,6 +1420,10 @@ window.Peteshow = Peteshow;
       .filterFields()
       .val(filtered[random])
       .change()
+
+    if (_options.blur) {
+      $(select).blur();
+    }
   }
 
   randomRadioValue = function(i, radios) {
@@ -1436,7 +1440,19 @@ window.Peteshow = Peteshow;
         .filterFields()
         .prop('checked', true)
         .change()
+
+      if (_options.blur) {
+        $(radios[0]).blur();
+      }
     })
+  }
+
+  checkCheckbox = function(i, checkbox) {
+    $(checkbox).prop('checked', true);
+
+    if (_options.blur) {
+      $(checkbox).blur();
+    }
   }
 
   $.fn.filterFields = function() {
