@@ -129,10 +129,12 @@
     })
 
     // special rules
-    _options.special()
+    var specialResult = _options.special()
 
     // localstorage functionality
     reuseLocalStorage()
+
+    return specialResult;
   }
 
   reuseLocalStorage = function() {
@@ -245,8 +247,15 @@
   }
 
   Peteshow.fillOutFormsAndSubmit = function() {
-    Peteshow.fillOutForms()
-    Peteshow.submitForm()
+    var fillOutFormsResult = Peteshow.fillOutForms()
+
+    if (fillOutFormsResult && typeof fillOutFormsResult.then === 'function') {
+      fillOutFormsResult.then(function() {
+        Peteshow.submitForm()
+      });
+    } else {
+      Peteshow.submitForm()
+    }
   }
 
   Peteshow.destroy = function() {
