@@ -2,7 +2,8 @@
 
 > a customizable javascript framework for filling out forms with fake data
 
-![Imgur](https://i.imgur.com/v9eDfED.png)
+
+![Imgur](http://i.imgur.com/JcT5eMS.png)
 
 ## Getting Started
 See the [Wiki on GitHub](https://github.com/brousalis/peteshow/wiki) for documentation.
@@ -90,7 +91,7 @@ Name                  |  Description
 `cookies`      | Store saved fields (from [reuse](https://github.com/brousalis/peteshow/wiki/Custom-plugins#reuse)) in cookies rather than localStorage
 [rules](https://github.com/brousalis/peteshow/wiki/Custom-plugins#rules)       | A hash of selectors to values that you want to be used when filling out forms. It ignores hidden inputs
 [special](https://github.com/brousalis/peteshow/wiki/Custom-plugins#special)   | Called after the rules are applied and can include custom javascript
-[ignore](https://github.com/brousalis/peteshow/wiki/Custom-plugins#ignore)     | An array of selectors you wish to have fill out forms ignore
+[ignore](https://github.com/brousalis/peteshow/wiki/Custom-plugins#ignore)     | An array of input IDs you wish to have fill out forms ignore
 [force](https://github.com/brousalis/peteshow/wiki/Custom-plugins#force)       | Similar to rules, but can be used for hidden inputs
 [filters](https://github.com/brousalis/peteshow/wiki/Custom-plugins#filter)    | Filters out options from select boxes
 [reuse](https://github.com/brousalis/peteshow/wiki/Custom-plugins#reuse)       | Define input selectors to be saved and reused on certain URLs

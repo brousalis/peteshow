@@ -14,11 +14,4 @@ Gem::Specification.new do |s|
 
   s.files           = `git ls-files`.split($\)
   s.require_paths   = ['lib']
-
-  s.add_development_dependency 'rails', '>= 4.0'
-  s.add_development_dependency 'rspec-rails'
-  s.add_development_dependency 'capybara'
-  s.add_development_dependency 'rake'
-  s.add_development_dependency 'pry'
-  s.add_development_dependency 'jquery-rails'
 end
