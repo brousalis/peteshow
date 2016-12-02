@@ -22,9 +22,9 @@ test('should set email options', function() {
 });
 
 test('should blur after filling out if true', function() {
-  expect(1);
+  expect(4);
 
-  $('input[name*=first_name]').on('blur', function() {
+  $('input[name*=first_name],input[name*=is_checked],input[name*=pick_one],select[name*=select_one]').on('blur', function() {
     ok(true, 'blur functionality works');
   });
 
