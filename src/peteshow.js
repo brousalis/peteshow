@@ -14,6 +14,9 @@ Peteshow.defaults = {
   commands    : '',
   special     : function(){},
   events      : function(){},
+  setValue    : function(selector, value) {
+    selector.val(value);
+  },
 }
 
 Peteshow.storage = {};

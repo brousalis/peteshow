@@ -111,19 +111,21 @@
 
     // force rules (for hidden fields)
     $.each(_options.force, function(element,v) {
-      $(element)
-        .filterFields()
-        .val($.isFunction(v) ? v() : v)
+      var selector = $(element)
+        .filterFields();
+
+      _options.setValue(selector, $.isFunction(v) ? v() : v);
 
       if(_options.blur) $(element).blur()
     })
 
     // fill out fields with rules
     $.each(rules, function(element,v) {
-      $(element)
+      var selector = $(element)
         .filter(':visible')
-        .filterFields()
-        .val($.isFunction(v) ? v() : v)
+        .filterFields();
+
+      _options.setValue(selector, $.isFunction(v) ? v() : v);
 
       if(_options.blur) $(element).blur()
     })
